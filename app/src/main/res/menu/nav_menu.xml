@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigationMenu">
+
+    <item
+        android:id="@+id/my_groups_toolbar_item"
+        android:title="@string/my_group_toolbar_text"/>
+
+    <item
+        android:id="@+id/find_groups_toolbar_item"
+        android:title="@string/find_group_toolbar_text"/>
+
+    <item
+        android:id="@+id/create_groups_toolbar_item"
+        android:title="@string/create_group_toolbar_text"/>
+
+</menu>

@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">StudyGroups</string>
+    <string name="date_text">Wähle ein Datum</string>
+    <string name="time_text">Wähle eine Uhrzeit</string>
+    <string name="location_text">Gib einen Treffpunkt an</string>
+    <string name="notes_text">Hier ist Platz für Anmerkungen</string>
+
+    <string-array name="modul_list">
+        <item> Wähle ein Modul </item>
+        <item> Einführung in die Medieninformatik </item>
+        <item> Einführung in die objektorientierte Programmierung </item>
+        <item> Mathematik für Medieninformatiker 1 </item>
+        <item> Grundlagen der Human-Computer-Interaction </item>
+        <item> Mathematik für Medieninformatiker 2 </item>
+        <item> Propädeutikum Medieninformatik </item>
+        <item> Einführung in die Anwendungsprogrammierung mit Android </item>
+        <item> Daten effizient speichern und verarbeiten </item>
+        <item> Multimedia Technology </item>
+        <item> Algorithmen und Datenstrukturen </item>
+        <item> Multimedia Engineering </item>
+        <item> Angewandte Medieninformatik 1 </item>
+        <item> Usability Engineering </item>
+        <item> Angewandte Medieninformatik 2 </item>
+    </string-array>
+
+    <string name="profile_toolbar_text">Mein Profil</string>
+    <string name="my_group_toolbar_text">Meine Lerngruppen</string>
+    <string name="find_group_toolbar_text">Finde Lerngruppe</string>
+    <string name="create_group_toolbar_text">Erstelle Lerngruppe</string>
+    <string name="settings_toolbar_text">Einstellungen</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+
 </resources>
