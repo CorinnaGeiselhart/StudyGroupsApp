@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
+                    case R.id.home_toolbar_item:
+                        addMainFragment();
+                        break;
                     case R.id.my_groups_toolbar_item:
                         addMyGroupsFragment();
                         break;
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MainFragment mainFragment = new MainFragment();
-        fragmentTransaction.add(R.id.nav_host, mainFragment);
+        fragmentTransaction.replace(R.id.nav_host, mainFragment);
         fragmentTransaction.commit();
     }
 

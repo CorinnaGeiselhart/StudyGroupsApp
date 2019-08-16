@@ -5,6 +5,10 @@
     android:id="@+id/navigationMenu">
 
     <item
+        android:id="@+id/home_toolbar_item"
+        android:title="@string/home_toolbar_text"/>
+
+    <item
         android:id="@+id/my_groups_toolbar_item"
         android:title="@string/my_group_toolbar_text"/>
 

@@ -33,6 +33,7 @@
     </string-array>
 
     <string name="profile_toolbar_text">Mein Profil</string>
+    <string name="home_toolbar_text">Home</string>
     <string name="my_group_toolbar_text">Meine Lerngruppen</string>
     <string name="find_group_toolbar_text">Finde Lerngruppe</string>
     <string name="create_group_toolbar_text">Erstelle Lerngruppe</string>
