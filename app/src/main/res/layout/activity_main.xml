@@ -1,34 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true">
 
-    <RelativeLayout
+    <!-- <fragment
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/main_fragment"
+        android:layout_weight="1"
+        android:name="com.example.studygroups.MainFragment"
+        ></fragment> -->
+
+
+    <FrameLayout
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/nav_host"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:orientation="vertical" >
 
-        <fragment
-            android:id="@+id/fragment_MyStudyGroups"
-            android:name="com.example.studygroups.FragmentMyStudyGroups"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"/>
 
-    </RelativeLayout>
+    </FrameLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.NavigationView
+
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/nav_menu"
+        app:headerLayout="@layout/toolbar_header">
 
-        <fragment
-            android:id="@+id/fragment_NewStudyGroups"
-            android:name="com.example.studygroups.FragmentNewStudyGroups"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/settings_toolbar_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="start"
+                app:srcCompat="@android:drawable/ic_menu_manage" />
+        </LinearLayout>
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>
