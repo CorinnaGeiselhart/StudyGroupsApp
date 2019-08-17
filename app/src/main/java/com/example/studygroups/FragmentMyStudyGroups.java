@@ -67,7 +67,7 @@ public class FragmentMyStudyGroups extends Fragment {
 
     private void fillListMyStudyGroups() {
         //Beispiel, da Datenbank noch nicht erstellt
-        listMyStudyGroups.add(new StudyGroup("EIMI", "Montag, 12.08.2019", "19:00", "Universität Regensburg"));
+        listMyStudyGroups.add(new StudyGroup("EIMI", "Montag, 12.08.2019", "19:00", "Universität Regensburg", null));
     }
 
 

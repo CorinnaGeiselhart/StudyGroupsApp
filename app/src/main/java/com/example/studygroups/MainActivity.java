@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity{
     private void addMyGroupsFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MyGroupsFragment myGroupsFragment = new MyGroupsFragment();
+        FragmentMyStudyGroups fragmentMyStudyGroups = new FragmentMyStudyGroups();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, myGroupsFragment);
+        fragmentTransaction.replace(R.id.nav_host, fragmentMyStudyGroups);
         fragmentTransaction.commit();
     }
 

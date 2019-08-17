@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class FragmentNewStudyGroups extends Fragment {
+public class NewStudyGroups extends Fragment {
 
     private TextView header, textIfListIsEmpty;
     private View view;
@@ -26,7 +26,7 @@ public class FragmentNewStudyGroups extends Fragment {
 
 
 
-    public FragmentNewStudyGroups(){
+    public NewStudyGroups(){
     }
 
 
