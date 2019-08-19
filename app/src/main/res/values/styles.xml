@@ -3,9 +3,34 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">@color/windowBackground</item>
+        <item name="textcolor">@color/textColorPrimary</item>
+        <item name="tintcolor">@color/textColorPrimary</item>
+        <item name="buttoncolor">@color/colorPrimary</item>
+        <item name="navigationbarcolor">@color/navigationBarColor</item>
+        <item name="headerOneColor">@color/colorHeaderOne</item>
+        <item name="headerTwoColor">@color/colorHeaderTwo</item>
+    </style>
+
+    <!-- Dark application theme. -->
+    <style name="DarkModeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/textColorPrimaryDarkmode</item>
+        <item name="android:buttonBarStyle">@color/textColorPrimaryDarkmode</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">@color/windowBackgroundDarkmode</item>
+        <item name="textcolor">@color/textColorPrimaryDarkmode</item>
+        <item name="tintcolor">@color/textColorPrimaryDarkmode</item>
+        <item name="buttoncolor">@color/colorAccent</item>
+        <item name="navigationbarcolor">@color/navigationBarColorDarkmode</item>
+        <item name="headerOneColor">@color/colorHeaderOneDarkmode</item>
+        <item name="headerTwoColor">@color/colorHeaderTwoDarkmode</item>
     </style>
 
 </resources>

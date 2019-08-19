@@ -76,7 +76,7 @@ public class FragmentMyStudyGroups extends Fragment {
     private void initViews() {
         header = (TextView) view.findViewById(R.id.textView_Fragment);
         header.setText(R.string.text_my_study_groups);
-        header.setTextColor(getResources().getColor(R.color.colorGreenLight));
+        header.setTextColor(getResources().getColor(R.color.colorPrimary));
 
         textIfListIsEmpty = (TextView) view.findViewById(R.id.textView_ListEmpty);
         textIfListIsEmpty.setText(R.string.text_empty_my_study_groups_list);

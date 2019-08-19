@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,13 +30,19 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+            setTheme(R.style.DarkModeTheme);
+        }
+        else{
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("on create");
-
         createNavDrawer();
         addMainFragment();
+
     }
 
    private void createNavDrawer(){
@@ -163,4 +170,5 @@ public class MainActivity extends AppCompatActivity{
         fragmentTransaction.replace(R.id.nav_host, settingsFragment);
         fragmentTransaction.commit();
     }
+
 }

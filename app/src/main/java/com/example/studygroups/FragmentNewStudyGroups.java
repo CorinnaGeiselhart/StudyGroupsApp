@@ -79,7 +79,7 @@ public class FragmentNewStudyGroups extends Fragment {
 
     private void initViews() {
         header = (TextView) view.findViewById(R.id.textView_Fragment);
-        header.setTextColor(getResources().getColor(R.color.colorGreenDark));
+        header.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         header.setText(R.string.text_new_study_groups);
 
         textIfListIsEmpty = (TextView) view.findViewById(R.id.textView_ListEmpty);
