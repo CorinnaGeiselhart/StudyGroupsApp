@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CreateGroupFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class CreateGroupFragment extends Fragment {
 
     LinearLayout linearLayout;
     Calendar calendar;
@@ -155,7 +155,7 @@ public class CreateGroupFragment extends Fragment implements DatePickerDialog.On
         return datePickerDialog;
     }
 
-    private void setListener(){
+    /**private void setListener(){
         dateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
