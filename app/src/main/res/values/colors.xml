@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorGreenLight">#30AF24</color>
-    <color name="colorGreenDark">#307A44</color>
+    <color name="colorPrimary">#8A084B</color>
+    <color name="colorAccent">#8A084B</color>
+    <color name="colorPrimaryDark">#3B0B24</color>
+
+
+    <color name="colorHeaderOne">#3B0B24</color>
+    <color name="colorHeaderTwo">#8A084B</color>
+    <color name="textColorPrimary">#2E2E2E</color>
+    <color name="windowBackground">#FAFAFA</color>
+    <color name="navigationBarColor">#FAFAFA</color>
+
+
+    <color name="colorHeaderOneDarkmode">#D358F7</color>
+    <color name="colorHeaderTwoDarkmode">#F5A9E1</color>
+    <color name="textColorPrimaryDarkmode">#BDBDBD</color>
+    <color name="windowBackgroundDarkmode">#424242</color>
+    <color name="navigationBarColorDarkmode">#424242</color>
+
 </resources>

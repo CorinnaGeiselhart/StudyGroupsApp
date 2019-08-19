@@ -12,15 +12,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CreateGroupFragment extends Fragment {
+public class CreateGroupFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    LinearLayout linearLayout;
+    Calendar calendar;
 
     View view;
 
@@ -144,4 +154,67 @@ public class CreateGroupFragment extends Fragment {
 
         return datePickerDialog;
     }
+
+    private void setListener(){
+        dateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("date view clicked");
+                handleDateClick();
+            }
+        });
+
+        timeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleTimeClick();
+            }
+        });
+    }
+
+    private void handleDateClick(){
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void handleTimeClick(){
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),this,hour,minute,true);
+        timePickerDialog.show();
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        dateView.setText(currentDateString);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+    }
+
+    /**@Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.date_view:
+                handleDateClick();
+                break;
+            case R.id.time_view:
+                handleTimeClick();
+                break;
+        }
+    }*/
 }
