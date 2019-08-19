@@ -1,5 +1,7 @@
 package com.example.studygroups;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -76,7 +78,7 @@ public class FragmentMyStudyGroups extends Fragment {
     private void initViews() {
         header = (TextView) view.findViewById(R.id.textView_Fragment);
         header.setText(R.string.text_my_study_groups);
-        header.setTextColor(getResources().getColor(R.color.colorPrimary));
+        //header.setTextColor(getResources().getColor(R.color.colorPrimary));
 
         textIfListIsEmpty = (TextView) view.findViewById(R.id.textView_ListEmpty);
         textIfListIsEmpty.setText(R.string.text_empty_my_study_groups_list);

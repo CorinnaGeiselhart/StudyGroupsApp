@@ -13,7 +13,6 @@
     <string name="time_text">Uhrzeit</string>
     <string name="location_text">Gib einen Treffpunkt an</string>
     <string name="notes_text">Hier ist Platz für Anmerkungen</string>
-    <string name="hint_module_list">Hier ist Platz für Anmerkungen</string>
 
     <string name="checkbox_monday">Mo</string>
     <string name="checkbox_tuesday">Di</string>
@@ -56,7 +55,7 @@
     <string name="close">Close</string>
 
     <string name="color_switch_text">Darkmode</string>
-    <string name="color_switch_explanation_text">Setzt den Hintergrund der App auf schwarz</string>
+    <string name="color_switch_explanation_text">Achtung! Es erfolgt ein automatischer Neustart der App.</string>
 
 
 </resources>

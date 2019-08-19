@@ -5,16 +5,18 @@
     <color name="colorPrimaryDark">#3B0B24</color>
 
 
-    <color name="colorHeaderOne">#3B0B24</color>
-    <color name="colorHeaderTwo">#8A084B</color>
+    <color name="colorHeader">#8A084B</color>
     <color name="textColorPrimary">#2E2E2E</color>
+    <color name="textColorHint">#A4A4A4</color>
+    <color name="buttonColor">#D8D8D8</color>
     <color name="windowBackground">#FAFAFA</color>
     <color name="navigationBarColor">#FAFAFA</color>
 
 
-    <color name="colorHeaderOneDarkmode">#D358F7</color>
-    <color name="colorHeaderTwoDarkmode">#F5A9E1</color>
-    <color name="textColorPrimaryDarkmode">#BDBDBD</color>
+    <color name="colorHeaderDarkmode">#F6CEEC</color>
+    <color name="textColorPrimaryDarkmode">#D8D8D8</color>
+    <color name="textColorHintDarkmode">#6E6E6E</color>
+    <color name="buttonColorDarkmode">#2E2E2E</color>
     <color name="windowBackgroundDarkmode">#424242</color>
     <color name="navigationBarColorDarkmode">#424242</color>
 

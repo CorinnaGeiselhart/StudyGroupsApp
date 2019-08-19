@@ -26,13 +26,16 @@
             android:id="@+id/color_switch_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Switch" />
+            android:textColorLink="@color/colorPrimary"
+            android:text="@string/color_switch_text"
+            android:textColor="?attr/textcolor"/>
 
         <TextView
             android:id="@+id/color_switch_explanation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/color_switch_explanation_text" />
+            android:text="@string/color_switch_explanation_text"
+            android:textColor="?attr/hintcolor"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

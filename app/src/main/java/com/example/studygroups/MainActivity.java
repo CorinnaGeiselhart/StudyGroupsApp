@@ -30,11 +30,14 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //App in Darkmode or Lightmode?
         if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
             setTheme(R.style.DarkModeTheme);
         }
         else{
             setTheme(R.style.AppTheme);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
         super.onCreate(savedInstanceState);
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity{
 
         createNavDrawer();
         addMainFragment();
-
     }
 
    private void createNavDrawer(){
@@ -55,7 +57,6 @@ public class MainActivity extends AppCompatActivity{
 
         createDrawerListener();
     }
-
 
     private void createDrawerListener() {
         createMenuItemListener();
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity{
                         addCreateGroupFragment();
                         break;
                 }
+                drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 addSettingsFragment();
+                drawerLayout.closeDrawers();
             }
         });
     }
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 addMyProfileFragment();
+                drawerLayout.closeDrawers();
             }
         });
     }
@@ -114,7 +118,6 @@ public class MainActivity extends AppCompatActivity{
         if (actionBarDrawerToggle.onOptionsItemSelected(item)){
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -135,7 +138,7 @@ public class MainActivity extends AppCompatActivity{
         fragmentTransaction.commit();
     }
 
-    private void addMyGroupsFragment(){
+    public void addMyGroupsFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         FragmentMyStudyGroups fragmentMyStudyGroups = new FragmentMyStudyGroups();

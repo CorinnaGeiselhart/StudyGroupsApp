@@ -9,11 +9,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">@color/windowBackground</item>
         <item name="textcolor">@color/textColorPrimary</item>
+        <item name="hintcolor">@color/textColorHint</item>
         <item name="tintcolor">@color/textColorPrimary</item>
-        <item name="buttoncolor">@color/colorPrimary</item>
+        <item name="buttoncolor">@color/buttonColor</item>
         <item name="navigationbarcolor">@color/navigationBarColor</item>
-        <item name="headerOneColor">@color/colorHeaderOne</item>
-        <item name="headerTwoColor">@color/colorHeaderTwo</item>
+        <item name="headercolor">@color/colorHeader</item>
     </style>
 
     <!-- Dark application theme. -->
@@ -26,11 +26,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">@color/windowBackgroundDarkmode</item>
         <item name="textcolor">@color/textColorPrimaryDarkmode</item>
+        <item name="hintcolor">@color/textColorHintDarkmode</item>
         <item name="tintcolor">@color/textColorPrimaryDarkmode</item>
-        <item name="buttoncolor">@color/colorAccent</item>
+        <item name="buttoncolor">@color/buttonColorDarkmode</item>
         <item name="navigationbarcolor">@color/navigationBarColorDarkmode</item>
-        <item name="headerOneColor">@color/colorHeaderOneDarkmode</item>
-        <item name="headerTwoColor">@color/colorHeaderTwoDarkmode</item>
+        <item name="headercolor">@color/colorHeaderDarkmode</item>
     </style>
 
 </resources>

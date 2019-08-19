@@ -31,28 +31,27 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // TODO: 20.08.2019 ListView für Einstellungen
         initViews();
     }
 
     private void initViews() {
         colorSwitchView = getView().findViewById(R.id.color_switch_view);
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
+            colorSwitchView.setChecked(true);
+        }
         colorSwitchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(colorSwitchView.isChecked()) startDarkmode();
-                else startLightMode();
+                changeColorMode(colorSwitchView.isChecked());
+                restartApp();
             }
         });
     }
 
-    private void startLightMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        restartApp();
-    }
-
-    private void startDarkmode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        restartApp();
+    private void changeColorMode(boolean checked) {
+        if(checked)AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private void restartApp() {

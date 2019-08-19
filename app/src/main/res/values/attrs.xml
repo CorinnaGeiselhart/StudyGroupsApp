@@ -6,7 +6,7 @@
         <attr name="tintcolor" format="color"/>
         <attr name="buttoncolor" format="color"/>
         <attr name="navigationbarcolor" format="color"/>
-        <attr name="headerOneColor" format="color"/>
-        <attr name="headerTwoColor" format="color"/>
+        <attr name="headercolor" format="color"/>
+        <attr name="hintcolor" format="color"/>
     </declare-styleable>
 </resources>
