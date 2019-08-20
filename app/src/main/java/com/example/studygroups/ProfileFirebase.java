@@ -1,6 +1,11 @@
 package com.example.studygroups;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,14 +16,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,18 +46,21 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
     private String newPassword;
 
     private Button login;
+    Dialog myDialog;
+    TextView txtclose;
     private static final String TAG = "ProfileFirebaseLogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-        checkLogin();
+        //checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         findViews();
         login.setOnClickListener(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        myDialog = new Dialog(this);
 
     }
 
@@ -131,9 +142,6 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
         }
 
     }
-    private void proofEmailExistence(){
-        mAuth.fetchSignInMethodsForEmail(email);
-    }
 
     private void signIn(){
         mAuth.signInWithEmailAndPassword(email, newPassword)
@@ -147,13 +155,13 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
                             checkLogin();
                             Toast.makeText(ProfileFirebase.this, "login",
                                     Toast.LENGTH_SHORT).show();
-                            finish();
+                            Intent goToStart = new Intent(ProfileFirebase.this, MainActivity.class);
+                            startActivity(goToStart);
                         } else {
-
+                            createPopup();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(ProfileFirebase.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+
 
                         }
 
@@ -162,6 +170,21 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
                 });
 
     }
+    private void createPopup(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setTitle("E-mail existiert nicht")
+                .setMessage("Diese E-mail kennen wir nicht. Überprüfen Sie Ihre Eingabe oder legen Sie einen neuen Account an")
+                .setPositiveButton("Registrieren", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        createNewUser();
+                    }
+                })
+                .setNegativeButton("Zurück",null);
+
+        builder.create().show();
+    }
 
     @Override
     public void onClick(View v) {
@@ -169,7 +192,12 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
             case R.id.button_Login:
                 email = name.getText().toString().trim();
                 newPassword = password.getText().toString().trim();
-                signIn();
+                if(email.isEmpty() || newPassword.isEmpty()){
+                    Toast.makeText(ProfileFirebase.this, "Please enter E-mail and Password",
+                            Toast.LENGTH_SHORT).show();
+                } else{
+                    signIn();
+                }
                 break;
         }
     }
