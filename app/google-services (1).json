@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "32504739589",
+    "firebase_url": "https://studygroupsapp-master.firebaseio.com",
+    "project_id": "studygroupsapp-master",
+    "storage_bucket": "studygroupsapp-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32504739589:android:55f60ac443bb1c07",
+        "android_client_info": {
+          "package_name": "com.example.studygroups"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32504739589-h56h74m1v4188hmpjb4egsgicgdnm96t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studygroups",
+            "certificate_hash": "899133ae60d7f8eea87d30f05801d7c813794a01"
+          }
+        },
+        {
+          "client_id": "32504739589-fcs5m5hq5sitj9luqtod7smbn8mud5k5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoMNu21ea0FLFZJHd2YQs8EjJ9as5B3so"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32504739589-fcs5m5hq5sitj9luqtod7smbn8mud5k5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
