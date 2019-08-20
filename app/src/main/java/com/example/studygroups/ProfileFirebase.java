@@ -19,6 +19,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.List;
 public class ProfileFirebase extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     private EditText name;
     private String email;
@@ -39,12 +42,23 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(this);
+        mAuth = FirebaseAuth.getInstance();
+        checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         findViews();
         login.setOnClickListener(this);
-        FirebaseApp.initializeApp(this);
-        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    }
+
+    private void checkLogin(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void findViews() {
@@ -52,22 +66,6 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
         password = findViewById(R.id.editText_Password);
         login = findViewById(R.id.button_Login);
 
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-
-    private void updateUI(FirebaseUser currentUser) {
-        if(currentUser != null){
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-        } else {
-
-        }
     }
     private boolean validateForm() {
         boolean valid = true;
@@ -98,17 +96,17 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            mDatabase.push();
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(ProfileFirebase.this, "Signed in",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(ProfileFirebase.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+
                         }
 
                         // ...
@@ -133,6 +131,9 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
         }
 
     }
+    private void proofEmailExistence(){
+        mAuth.fetchSignInMethodsForEmail(email);
+    }
 
     private void signIn(){
         mAuth.signInWithEmailAndPassword(email, newPassword)
@@ -143,11 +144,12 @@ public class ProfileFirebase extends AppCompatActivity implements View.OnClickLi
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            checkLogin();
                             Toast.makeText(ProfileFirebase.this, "login",
                                     Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(ProfileFirebase.this, "Authentication failed.",
