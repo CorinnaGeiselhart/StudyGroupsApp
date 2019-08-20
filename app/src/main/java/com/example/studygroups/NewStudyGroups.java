@@ -1,9 +1,9 @@
 package com.example.studygroups;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,67 +19,68 @@ public class NewStudyGroups extends Fragment {
     private TextView header, textIfListIsEmpty;
     private View view;
 
-
     private ListView listView;
     private ArrayAdapter<StudyGroup> adapter;
     private ArrayList<StudyGroup> list = new ArrayList<>();
 
 
-
-    public NewStudyGroups(){
-    }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragments_main_activity,container,false);
-        initViews();
 
         initViews();
-        initList();
-        initListView();
+        fillList();
+        setupView();
 
         return view;
     }
 
-    private void initList() {
-        list = new ArrayList<>();
-        fillListMyStudyGroups();
-    }
-
-    private void fillListMyStudyGroups() {
-        //Beispiel, da Datenbank noch nicht erstellt
-        //listNewStudyGroups.add(new StudyGroup("EIMI", "Montag, 12.08.2019", "19:00", "Universität Regensburg"));
-    }
-
-    private void initListView() {
-
+    private void setupView() {
         if(list.isEmpty()){
             textIfListIsEmpty.setVisibility(View.VISIBLE);
             listView.setVisibility(View.INVISIBLE);
-        }else{
+        }else {
             textIfListIsEmpty.setVisibility(View.INVISIBLE);
             listView.setVisibility(View.VISIBLE);
-            //adapter
-            adapter = new StudyGroupsListAdapter(view.getContext(), list);
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-            //draufklicken auf einzelne Items -> Detail anzeige öffnen
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    //Intent einfügen: Activity Anzeige Details LernGruppe (Ort, Teilnehmer, Beitretten Knopf...)
-                    return false;
-                }
-            });
+            setListView();
         }
+    }
+
+    private void setListView() {
+        //adapter
+        adapter = new StudyGroupsListAdapter(view.getContext(), list);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        //draufklicken auf einzelne Items -> Detail anzeige öffnen
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                Fragment details = new StudyGroupDetailsActivity();
+
+                //StudyGroup übergeben
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(getResources().getString(R.string.key_fragment_transaction), list.get(position));
+                details.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.mainActivityFragments, details);
+
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    private void fillList() {
+        list = new ArrayList<>();
+        //Beispiel, da Datenbank noch nicht erstellt
+        list.add(new StudyGroup("EIMI", "Montag, 12.08.2019", "19:00", "Universität Regensburg",""));
     }
 
     private void initViews() {
         header = (TextView) view.findViewById(R.id.textView_Fragment);
-        //header.setTextColor(getResources().getColor(R.color.colorHeaderTwo));
         header.setText(R.string.text_new_study_groups);
 
         textIfListIsEmpty = (TextView) view.findViewById(R.id.textView_ListEmpty);
