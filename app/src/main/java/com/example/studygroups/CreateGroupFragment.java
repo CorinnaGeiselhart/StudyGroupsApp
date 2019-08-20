@@ -14,8 +14,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextSwitcher;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.sql.Time;

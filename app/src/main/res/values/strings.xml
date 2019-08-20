@@ -6,6 +6,7 @@
     <string name="text_empty_new_study_groups_list">Erstelle eine Lerngruppe</string>
 
 
+    <string name="subject">Fach</string>
     <string name="place">Ort</string>
     <string name="time">Uhrzeit</string>
     <string name="date">Datum</string>
@@ -13,6 +14,13 @@
     <string name="time_text">Uhrzeit</string>
     <string name="location_text">Gib einen Treffpunkt an</string>
     <string name="notes_text">Hier ist Platz für Anmerkungen</string>
+    <string name="notes">Anmerkungen</string>
+    <string name="sign_in">Eintretten</string>
+    <string name="sign_on">Austretten</string>
+    <string name="participants">Teilnehmer</string>
+
+    <string name="key_fragment_transaction">StudyGroup</string>
+
 
     <string name="checkbox_monday">Mo</string>
     <string name="checkbox_tuesday">Di</string>

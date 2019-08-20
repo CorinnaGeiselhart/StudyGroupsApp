@@ -12,12 +12,13 @@ public class FilterFindGroups extends AppCompatActivity {
 
     CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
     Spinner modulePicker;
-    Button searchButton;
+    Button searchButton, cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter_find_group);
+
 
         findViews();
         initButton();
@@ -34,6 +35,9 @@ public class FilterFindGroups extends AppCompatActivity {
                 finish();
             }
         });
+
+        //cancelBitton on Click Listener
+        //ist es geschickter implement onClickListener?
     }
 
     private void findViews() {
@@ -47,6 +51,7 @@ public class FilterFindGroups extends AppCompatActivity {
 
         modulePicker = findViewById(R.id.spinner_Module);
         searchButton = findViewById(R.id.button_Search);
+        cancelButton = findViewById(R.id.button_Cancel);
     }
 
 
