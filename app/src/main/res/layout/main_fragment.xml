@@ -9,7 +9,21 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< Updated upstream
         android:text="Main"
         tools:layout_editor_absoluteX="171dp"
         tools:layout_editor_absoluteY="329dp" />
 </android.support.constraint.ConstraintLayout>
+=======
+        android:id="@+id/myGroups_host"
+        android:layout_weight="1">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/newGroups_host"
+        android:layout_weight="1">
+    </RelativeLayout>
+</LinearLayout>
+>>>>>>> Stashed changes
