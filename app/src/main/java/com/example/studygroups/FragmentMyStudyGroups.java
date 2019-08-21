@@ -67,12 +67,15 @@ public class FragmentMyStudyGroups extends Fragment {
                     bundle.putSerializable(getResources().getString(R.string.key_fragment_transaction), listMyStudyGroups.get(position));
                     details.setArguments(bundle);
 
+
                     //in Meine Lerngruppen Details aufrufen
                     if(tag.equals(String.valueOf(R.id.mainFragment))){
+                        //fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.replace(R.id.nav_host, details);
                     }
                     //in MainActivit/Home Details aufrufen
                     else{
+                        //fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.replace(R.id.mainActivityFragments, details);
                     }
                     fragmentTransaction.addToBackStack(null);

@@ -45,6 +45,7 @@ public class CreateGroupFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.create_group_fragment, container, false);
         initViews();
+        
         return view;
     }
 
@@ -128,7 +129,6 @@ public class CreateGroupFragment extends Fragment {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-
                 createDatePickerDialog().show();
             }
         });
