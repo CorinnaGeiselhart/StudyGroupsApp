@@ -46,6 +46,7 @@ public class StudyGroupDetailsActivity extends Fragment {
     }
 
     private void setupButton() {
+        //fehlt: in darkmode Text auf dem Button nicht lesbar
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
