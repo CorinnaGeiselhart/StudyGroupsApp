@@ -65,8 +65,8 @@ public class NewStudyGroups extends Fragment {
                 bundle.putSerializable(getResources().getString(R.string.key_fragment_transaction), list.get(position));
                 details.setArguments(bundle);
 
+                //fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.mainActivityFragments, details);
-
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

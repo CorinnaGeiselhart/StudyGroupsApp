@@ -82,15 +82,6 @@ public class ProfileFirebase extends AppCompatActivity {
         login = findViewById(R.id.button_Login);
     }
 
-    private void updateUI(FirebaseUser currentUser) {
-        if(currentUser != null){
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-        } else {
-
-        }
-    }
-
     private void createNewUser() {
         mAuth.createUserWithEmailAndPassword(email, newPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
