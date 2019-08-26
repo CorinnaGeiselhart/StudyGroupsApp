@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class NewStudyGroups extends Fragment {
+public class FragmentNewStudyGroups extends Fragment {
 
     private TextView header, textIfListIsEmpty;
     private View view;
@@ -26,7 +26,7 @@ public class NewStudyGroups extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragments_main_activity,container,false);
+        view = inflater.inflate(R.layout.activity_main_fragments,container,false);
 
         initViews();
         fillList();
@@ -66,7 +66,7 @@ public class NewStudyGroups extends Fragment {
                 details.setArguments(bundle);
 
                 //fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.mainActivityFragments, details);
+                fragmentTransaction.replace(R.id.layout_MainActivityFragments, details);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
