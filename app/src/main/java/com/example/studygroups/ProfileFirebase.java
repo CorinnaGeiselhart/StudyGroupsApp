@@ -120,6 +120,11 @@ public class ProfileFirebase extends AppCompatActivity {
 
     }
 
+    public void signOut(){
+        mAuth.signOut();
+    }
+
+
     //User wird gefragt ob er einen neuen Account erstellen will oder sich beim Passwort/Email verschrieben hat
     private void createPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
