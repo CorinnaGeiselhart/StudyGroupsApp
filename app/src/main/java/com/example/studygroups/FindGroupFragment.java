@@ -1,5 +1,6 @@
 package com.example.studygroups;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class FindGroupFragment extends Fragment {
@@ -18,6 +20,8 @@ public class FindGroupFragment extends Fragment {
 
     FloatingActionButton filter;
     ListView results;
+
+    public static final int REQUEST_CODE = 1;
 
 
     @Nullable
@@ -35,24 +39,47 @@ public class FindGroupFragment extends Fragment {
     private void initViews() {
         results = view.findViewById(R.id.listView_StudyGroups);
         filter = view.findViewById(R.id.floatingActionButton_Filter);
-        System.out.println("hier1");
         filter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(getActivity(), FilterFindGroups.class);
 
-                startActivity(intent); //austauschen mit startActivityForResult
-                //Extras auslesen
+                startActivityForResult(intent, REQUEST_CODE);
+
             }
         });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("onActivityResult");
+        try{
+            super.onActivityResult(requestCode, resultCode, data);
 
-        //Datenbank filtern
-        //Listview updaten
+            if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+                getFilterData(data);
+            }
+
+        }catch (Exception ex){
+            Toast.makeText(view.getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getFilterData(Intent data) {
+        String monday = data.getExtras().getString(view.getResources().getString(R.string.key_monday));
+        System.out.println(monday);
+        String tuesday = data.getExtras().getString(view.getResources().getString(R.string.key_tuesday));
+        System.out.println(tuesday);
+        String wednesday = data.getExtras().getString(view.getResources().getString(R.string.key_wednesday));
+        System.out.println(wednesday);
+        String thursday = data.getExtras().getString(view.getResources().getString(R.string.key_thursday));
+        System.out.println(thursday);
+        String friday = data.getExtras().getString(view.getResources().getString(R.string.key_friday));
+        System.out.println(friday);
+        String saturday = data.getExtras().getString(view.getResources().getString(R.string.key_saturday));
+        System.out.println(saturday);
+        String sunday = data.getExtras().getString(view.getResources().getString(R.string.key_sunday));
+        System.out.println(sunday);
     }
 }

@@ -19,7 +19,6 @@ public class FilterFindGroups extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter_find_group);
 
-
         findViews();
         initButton();
     }
@@ -28,16 +27,67 @@ public class FilterFindGroups extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //get, which checkbox is selected
-                //Intent Daten mitgeben
 
-                Intent intent = new Intent();
+                final Intent data = new Intent();
+                //check which checkbox was selected
+                checkBox(data);
+
+                setResult(RESULT_OK, data);
                 finish();
             }
         });
 
-        //cancelBitton on Click Listener
-        //ist es geschickter implement onClickListener?
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void checkBox(Intent i) {
+        //Montag
+        if(monday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_monday), getResources().getString(R.string.key_monday));
+        }else if(!monday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_monday), "");
+        }
+        //Dienstag
+        if(tuesday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_tuesday), getResources().getString(R.string.key_tuesday));
+        }else if(!tuesday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_tuesday), "");
+        }
+        //Mittwoch
+        if(wednesday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_wednesday), getResources().getString(R.string.key_wednesday));
+        }else if(!wednesday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_wednesday), "");
+        }
+        //Donnerstag
+        if(thursday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_thursday), getResources().getString(R.string.key_thursday));
+        }else if(!thursday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_thursday), "");
+        }
+        //Freitag
+        if(friday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_friday), getResources().getString(R.string.key_friday));
+        }else if(!friday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_friday), "");
+        }
+        //Samstag
+        if(saturday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_saturday), getResources().getString(R.string.key_saturday));
+        }else if(!saturday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_saturday), "");
+        }
+        //Sonntag
+        if(sunday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_sunday), getResources().getString(R.string.key_sunday));
+        }else if(!sunday.isChecked()){
+            i.putExtra(getResources().getString(R.string.key_sunday), "");
+        }
     }
 
     private void findViews() {

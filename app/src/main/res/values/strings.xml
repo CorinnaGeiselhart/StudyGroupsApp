@@ -4,6 +4,7 @@
     <string name="text_new_study_groups">Neue Lerngruppen</string>
     <string name="text_empty_my_study_groups_list">Suche dir eine Lerngruppe aus</string>
     <string name="text_empty_new_study_groups_list">Erstelle eine Lerngruppe</string>
+    <string name="text_warning_empty_field">Bitte füllen sie alle Felder (außer Anmerkungen) aus!</string>
 
 
     <string name="subject">Fach</string>
@@ -23,12 +24,19 @@
 
 
     <string name="checkbox_monday">Mo</string>
+    <string name="key_monday">Montag</string>
     <string name="checkbox_tuesday">Di</string>
+    <string name="key_tuesday">Dienstag</string>
     <string name="checkbox_wednesday">Mi</string>
+    <string name="key_wednesday">Mittwoch</string>
     <string name="checkbox_thursday">Do</string>
+    <string name="key_thursday">Donnerstag</string>
     <string name="checkbox_friday">Fr</string>
+    <string name="key_friday">Freitag</string>
     <string name="checkbox_saturday">Sa</string>
+    <string name="key_saturday">Samstag</string>
     <string name="checkbox_sunday">So</string>
+    <string name="key_sunday">Sonntag</string>
 
     <string name="button_filter">Filter anwenden</string>
 

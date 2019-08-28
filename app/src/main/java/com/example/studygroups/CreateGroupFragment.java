@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
@@ -33,6 +34,7 @@ public class CreateGroupFragment extends Fragment {
     EditText locationView;
     EditText notesView;
     FloatingActionButton createGroup;
+    TextView warning;
 
 
 
@@ -64,7 +66,8 @@ public class CreateGroupFragment extends Fragment {
 
                 if(location.isEmpty() || subject.equals(modulePicker.getItemAtPosition(1)) || date.isEmpty()
                 || time.isEmpty()){
-                    //keine Lerngruppe erstellen lassen. Nutzer auffordern Ort/Tag/Zeit/Modul anzugeben
+                    //Nutzer auffordern alle Felder auszufüllen (nur Notizen darf frei bleiben)
+                    warning.setVisibility(View.VISIBLE);
 
                 }else{
                     StudyGroup studyGroup = new StudyGroup(subject, date, time, location, comment);
@@ -72,6 +75,7 @@ public class CreateGroupFragment extends Fragment {
                     //zur Datenbank hinzufügen
                     //Activity mit allen Lerngruppen aufrufen??
 
+                    warning.setVisibility(View.INVISIBLE);
                     resetView();
                 }
 
@@ -93,6 +97,8 @@ public class CreateGroupFragment extends Fragment {
         locationView = view.findViewById (R.id.location_view);
         notesView = view.findViewById (R.id.notes_view);
         createGroup = view.findViewById(R.id.button_create_group);
+        warning = view.findViewById(R.id.textView_WarningCreateGroup);
+        warning.setVisibility(View.INVISIBLE);
     }
 
     private void initTimeView() {
