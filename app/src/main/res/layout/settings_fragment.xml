@@ -37,5 +37,11 @@
             android:text="@string/color_switch_explanation_text"
             android:textColor="?attr/hintcolor"/>
 
+        <Button
+            android:id="@+id/button_Logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
