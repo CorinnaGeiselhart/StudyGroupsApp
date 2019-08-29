@@ -66,7 +66,7 @@ public class FragmentNewStudyGroups extends Fragment {
                 details.setArguments(bundle);
 
                 //fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.layout_MainActivityFragments, details);
+                fragmentTransaction.replace(R.id.layout_MainActivityFrame, details);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

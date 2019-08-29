@@ -73,6 +73,8 @@ public class ProfileFirebase extends AppCompatActivity {
 
     private void startScreen() {
         Intent startScreen = new Intent(ProfileFirebase.this, MainActivity.class);
+        //überspringt Login-activity beim Back_button drücken am Handy
+        startScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(startScreen);
     }
 

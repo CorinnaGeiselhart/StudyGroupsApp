@@ -5,8 +5,18 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +30,11 @@ import android.widget.TimePicker;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class CreateGroupFragment extends Fragment {
 
@@ -35,6 +49,7 @@ public class CreateGroupFragment extends Fragment {
     EditText notesView;
     FloatingActionButton createGroup;
     TextView warning;
+    private FirebaseFirestore db;
 
 
 
@@ -64,16 +79,26 @@ public class CreateGroupFragment extends Fragment {
                 String location = locationView.getText().toString().trim();
                 String comment = notesView.getText().toString().trim();
 
-                if(location.isEmpty() || subject.equals(modulePicker.getItemAtPosition(1)) || date.isEmpty()
+                if(location.isEmpty() || subject.equals(modulePicker.getItemAtPosition(0)) || date.isEmpty()
                 || time.isEmpty()){
                     //Nutzer auffordern alle Felder auszufüllen (nur Notizen darf frei bleiben)
                     warning.setVisibility(View.VISIBLE);
 
                 }else{
+                    //Lerngruppeneintrag hinzufügen
                     StudyGroup studyGroup = new StudyGroup(subject, date, time, location, comment);
+                    addToDatabase(studyGroup);
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
 
-                    //zur Datenbank hinzufügen
-                    //Activity mit allen Lerngruppen aufrufen??
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(getResources().getString(R.string.key_fragment_transaction),studyGroup);
+                    Fragment detailsActivity = new StudyGroupDetailsActivity();
+                    detailsActivity.setArguments(bundle);
+                    ft.addToBackStack(MainActivity.class.getName());
+                    fm.popBackStack(CreateGroupFragment.class.getName(),FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    ft.replace(R.id.nav_host,detailsActivity);
+                    ft.commit();
 
                     warning.setVisibility(View.INVISIBLE);
                     resetView();
@@ -83,6 +108,26 @@ public class CreateGroupFragment extends Fragment {
         });
     }
 
+    public void addToDatabase(StudyGroup studyGroup){
+        db = FirebaseFirestore.getInstance();
+        //Admin wird durch Nutzername des Admins ausgetauscht
+        Map<String,StudyGroup> lerngroup = new HashMap<>();
+        lerngroup.put("Admin", studyGroup);
+
+        db.collection(studyGroup.getSubject()).add(lerngroup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error adding document", e);
+            }
+        });
+
+    }
     private void resetView() {
         datePicker.setText("");
         timePicker.setText("");
@@ -154,6 +199,8 @@ public class CreateGroupFragment extends Fragment {
 
         return datePickerDialog;
     }
+
+
 
     /**private void setListener(){
         dateView.setOnClickListener(new View.OnClickListener() {

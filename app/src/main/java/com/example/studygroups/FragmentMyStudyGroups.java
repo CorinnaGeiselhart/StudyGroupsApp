@@ -76,7 +76,7 @@ public class FragmentMyStudyGroups extends Fragment {
                     //in MainActivit/Home Details aufrufen
                     else{
                         //fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.replace(R.id.layout_MainActivityFragments, details);
+                        fragmentTransaction.replace(R.id.layout_MainActivityFrame, details);
                     }
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
