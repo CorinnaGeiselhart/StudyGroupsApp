@@ -121,7 +121,7 @@ public class ProfileFirebase extends AppCompatActivity {
     }
 
     public void signOut(){
-        mAuth.signOut();
+        FirebaseAuth.getInstance().signOut();
     }
 
 

@@ -9,15 +9,18 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Switch;
 
 
 public class SettingsFragment extends Fragment {
 
     Switch colorSwitchView;
+    Button Logout;
 
     @Nullable
     @Override
@@ -32,6 +35,17 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initViews() {
+        Logout = getView().findViewById(R.id.button_Logout);
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFirebase firebase = new ProfileFirebase();
+                firebase.signOut();
+                Intent signout = new Intent(getActivity(),ProfileFirebase.class);
+                startActivity(signout);
+            }
+        });
+
         colorSwitchView = getView().findViewById(R.id.color_switch_view);
         if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
             colorSwitchView.setChecked(true);
