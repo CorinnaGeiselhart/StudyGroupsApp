@@ -2,6 +2,8 @@ package com.example.studygroups;
 
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -41,11 +43,12 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragmentManager = getSupportFragmentManager();
         createNavDrawer();
         addMainFragment();
     }
 
-   private void createNavDrawer(){
+    private void createNavDrawer(){
         drawerLayout = (DrawerLayout) findViewById(R.id.main_id);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
@@ -72,13 +75,13 @@ public class MainActivity extends AppCompatActivity{
                         addMainFragment();
                         break;
                     case R.id.my_groups_toolbar_item:
-                        addMyGroupsFragment();
+                        addFragment(new MyStudyGroups());
                         break;
                     case R.id.find_groups_toolbar_item:
-                        addFindGroupFragment();
+                        addFragment(new FindGroupFragment());
                         break;
                     case R.id.create_groups_toolbar_item:
-                        addCreateGroupFragment();
+                        addFragment(new CreateGroupFragment());
                         break;
                 }
                 drawerLayout.closeDrawers();
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addSettingsFragment();
+                addFragment(new SettingsFragment());
                 drawerLayout.closeDrawers();
             }
         });
@@ -100,16 +103,15 @@ public class MainActivity extends AppCompatActivity{
 
     private void createProfileListener() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerview = navigationView.getHeaderView(0);
-        headerview.setOnClickListener(new View.OnClickListener() {
+        View headerView = navigationView.getHeaderView(0);
+        headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addMyProfileFragment();
+                addFragment(new MyProfileFragment());
                 drawerLayout.closeDrawers();
             }
         });
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,56 +122,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void addMainFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MainActivityFrame mainFrame = new MainActivityFrame();
         fragmentTransaction.replace(R.id.nav_host, mainFrame);
         fragmentTransaction.commit();
     }
 
-    private void addMyProfileFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
+    private void addFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MyProfileFragment myProfileFragment = new MyProfileFragment();
+        fragmentTransaction.replace(R.id.nav_host, fragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, myProfileFragment);
         fragmentTransaction.commit();
     }
-
-    public void addMyGroupsFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FragmentMyStudyGroups fragmentMyStudyGroups = new FragmentMyStudyGroups();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, fragmentMyStudyGroups);
-        fragmentTransaction.commit();
-    }
-
-    private void addFindGroupFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FindGroupFragment findGroupFragment = new FindGroupFragment();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, findGroupFragment);
-        fragmentTransaction.commit();
-    }
-
-    private void addCreateGroupFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CreateGroupFragment createGroupFragment = new CreateGroupFragment();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, createGroupFragment);
-        fragmentTransaction.commit();
-    }
-
-    private void addSettingsFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SettingsFragment settingsFragment = new SettingsFragment();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, settingsFragment);
-        fragmentTransaction.commit();
-    }
-
 }
