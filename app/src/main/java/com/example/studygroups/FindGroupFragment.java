@@ -68,18 +68,11 @@ public class FindGroupFragment extends Fragment {
 
     private void getFilterData(Intent data) {
         String monday = data.getExtras().getString(view.getResources().getString(R.string.key_monday));
-        System.out.println(monday);
         String tuesday = data.getExtras().getString(view.getResources().getString(R.string.key_tuesday));
-        System.out.println(tuesday);
         String wednesday = data.getExtras().getString(view.getResources().getString(R.string.key_wednesday));
-        System.out.println(wednesday);
         String thursday = data.getExtras().getString(view.getResources().getString(R.string.key_thursday));
-        System.out.println(thursday);
         String friday = data.getExtras().getString(view.getResources().getString(R.string.key_friday));
-        System.out.println(friday);
         String saturday = data.getExtras().getString(view.getResources().getString(R.string.key_saturday));
-        System.out.println(saturday);
         String sunday = data.getExtras().getString(view.getResources().getString(R.string.key_sunday));
-        System.out.println(sunday);
     }
 }

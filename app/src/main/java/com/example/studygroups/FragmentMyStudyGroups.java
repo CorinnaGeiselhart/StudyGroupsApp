@@ -23,8 +23,6 @@ public class FragmentMyStudyGroups extends Fragment {
     private StudyGroupsListAdapter adapter;
     private ArrayList<StudyGroup> listMyStudyGroups = new ArrayList<>();
 
-    public FragmentMyStudyGroups(){}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_main_fragments,container,false);
@@ -70,12 +68,10 @@ public class FragmentMyStudyGroups extends Fragment {
 
                     //in Meine Lerngruppen Details aufrufen
                     if(tag.equals(String.valueOf(R.id.layout_ActivityMainFragments))){
-                        //fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.replace(R.id.nav_host, details);
                     }
                     //in MainActivit/Home Details aufrufen
                     else{
-                        //fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.replace(R.id.layout_MainActivityFrame, details);
                     }
                     fragmentTransaction.addToBackStack(null);

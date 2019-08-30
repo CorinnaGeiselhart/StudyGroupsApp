@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity{
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private NavigationView navigationView;
+    private FragmentManager fragmentManager;
 
 
     @Override
@@ -121,8 +122,8 @@ public class MainActivity extends AppCompatActivity{
     private void addMainFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MainFragment mainFragment = new MainFragment();
-        fragmentTransaction.replace(R.id.nav_host, mainFragment);
+        MainActivityFrame mainFrame = new MainActivityFrame();
+        fragmentTransaction.replace(R.id.nav_host, mainFrame);
         fragmentTransaction.commit();
     }
 
