@@ -62,6 +62,7 @@ public class ProfileFirebase extends AppCompatActivity {
         });
         mDatabase = FirebaseDatabase.getInstance().getReference();
         myDialog = new Dialog (this);
+
     }
 
     private void checkLogin() {
@@ -90,9 +91,9 @@ public class ProfileFirebase extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             mDatabase.push();
-                            Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startScreen();
+                            Intent createAcc = new Intent(ProfileFirebase.this, StartView.class);
+                            startActivity(createAcc);
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "createUserWithEmail:failure", task.getException());
