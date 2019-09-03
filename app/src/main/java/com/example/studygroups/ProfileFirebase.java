@@ -96,7 +96,6 @@ public class ProfileFirebase extends AppCompatActivity {
                             startActivity(createAcc);
                         } else {
                             // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(ProfileFirebase.this, "Überprüfe deine E-mail und dein Password(mindestens 6 Zeichen)",
                                     Toast.LENGTH_LONG).show();
                         }
