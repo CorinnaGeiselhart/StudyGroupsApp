@@ -35,7 +35,7 @@ import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class CreateGroupFragment extends Fragment {
+public class StudyGroupCreateNew extends Fragment {
 
     private View view;
 
@@ -104,7 +104,7 @@ public class CreateGroupFragment extends Fragment {
         Fragment detailsActivity = new StudyGroupDetailsActivity();
         detailsActivity.setArguments(bundle);
         ft.addToBackStack(MainActivity.class.getName());
-        fm.popBackStack(CreateGroupFragment.class.getName(),FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fm.popBackStack(StudyGroupCreateNew.class.getName(),FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.replace(R.id.nav_host,detailsActivity);
         ft.commit();
     }

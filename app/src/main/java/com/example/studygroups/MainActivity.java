@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity{
                         addFragment(new FindGroupFragment());
                         break;
                     case R.id.create_groups_toolbar_item:
-                        addFragment(new CreateGroupFragment());
+                        addFragment(new StudyGroupCreateNew());
                         break;
                 }
                 drawerLayout.closeDrawers();
