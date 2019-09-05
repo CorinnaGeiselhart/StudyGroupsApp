@@ -26,7 +26,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/date_text"
+        android:text="@string/date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Subject" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/time_text"
+        android:text="@string/time"
         app:layout_constraintStart_toEndOf="@+id/textView_Date"
         app:layout_constraintTop_toTopOf="@+id/textView_Date" />
 

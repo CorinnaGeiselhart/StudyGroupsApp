@@ -4,17 +4,17 @@
     <string name="text_new_study_groups">Neue Lerngruppen</string>
     <string name="text_empty_my_study_groups_list">Suche dir eine Lerngruppe aus</string>
     <string name="text_empty_new_study_groups_list">Erstelle eine Lerngruppe</string>
-    <string name="text_warning_empty_field">Bitte füllen sie alle Felder (außer Anmerkungen) aus!</string>
+    <string name="text_warning_empty_field">Bitte fülle alle mit * markierten Felder aus!</string>
 
 
     <string name="subject">Fach</string>
     <string name="place">Ort</string>
-    <string name="time">Uhrzeit</string>
     <string name="date">Datum</string>
-    <string name="date_text">Datum</string>
-    <string name="time_text">Uhrzeit</string>
-    <string name="location_text">Gib einen Treffpunkt an</string>
-    <string name="notes_text">Hier ist Platz für Anmerkungen</string>
+    <string name="time">Uhrzeit</string>
+    <string name="date_create_text">* Datum</string>
+    <string name="time_create_text">* Uhrzeit</string>
+    <string name="location_create_text">* Gib einen Treffpunkt an</string>
+    <string name="comment_create_text">Hier ist Platz für Anmerkungen</string>
     <string name="notes">Anmerkungen</string>
     <string name="sign_in">Eintretten</string>
     <string name="sign_on">Austretten</string>
@@ -43,7 +43,7 @@
 
 
     <string-array name="modul_list">
-        <item> Wähle ein Modul </item>
+        <item> * Wähle ein Modul </item>
         <item> Einführung in die Medieninformatik </item>
         <item> Einführung in die objektorientierte Programmierung </item>
         <item> Mathematik für Medieninformatiker 1 </item>
