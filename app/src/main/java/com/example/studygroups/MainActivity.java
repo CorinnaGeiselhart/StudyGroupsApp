@@ -16,9 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-//import static com.example.studygroups.R.id.toolbar_fragment;
-
-
 public class MainActivity extends AppCompatActivity{
 
     private DrawerLayout drawerLayout;
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void createNavDrawer(){
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_id);
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_Id);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void createMenuItemListener() {
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_View);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity{
                         addFragment(new MyStudyGroups(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.find_groups_toolbar_item:
-                        addFragment(new FindGroupFragment(), ADD_TO_BACKSTACK);
+                        addFragment(new FindGroups(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.create_groups_toolbar_item:
                         addFragment(new StudyGroupCreateNew(), ADD_TO_BACKSTACK);
@@ -93,23 +90,23 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void createSettingsListener() {
-        View view = findViewById(R.id.settings_toolbar_button);
+        View view = findViewById(R.id.button_SettingsToolbar);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new SettingsFragment(), ADD_TO_BACKSTACK);
+                addFragment(new Settings(), ADD_TO_BACKSTACK);
                 drawerLayout.closeDrawers();
             }
         });
     }
 
     private void createProfileListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_View);
         View headerView = navigationView.getHeaderView(0);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new MyProfileFragment(), ADD_TO_BACKSTACK);
+                addFragment(new MyProfile(), ADD_TO_BACKSTACK);
                 drawerLayout.closeDrawers();
             }
         });
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void addFragment(Fragment fragment, int backStack){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host, fragment);
+        fragmentTransaction.replace(R.id.nav_Host, fragment);
         if(backStack == ADD_TO_BACKSTACK){
             fragmentTransaction.addToBackStack(null);
         }

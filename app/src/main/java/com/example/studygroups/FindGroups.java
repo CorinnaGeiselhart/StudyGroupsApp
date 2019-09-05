@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class FindGroupFragment extends Fragment {
+public class FindGroups extends Fragment {
 
     View view;
 
@@ -43,7 +43,7 @@ public class FindGroupFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), FilterFindGroups.class);
+                Intent intent = new Intent(getActivity(), FindGroupsFilter.class);
 
                 startActivityForResult(intent, REQUEST_CODE);
 

@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <Spinner
-        android:id="@+id/modul_view"
+        android:id="@+id/spinner_Modul"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/date_view"
+        android:id="@+id/editText_Date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,15 +39,15 @@
         android:inputType="date"
         android:textColor="?attr/textcolor"
         android:textColorHint="?attr/hintcolor"
-        app:layout_constraintBottom_toBottomOf="@+id/time_view"
-        app:layout_constraintEnd_toStartOf="@+id/time_view"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_Time"
+        app:layout_constraintEnd_toStartOf="@+id/editText_Time"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/time_view"
+        app:layout_constraintTop_toTopOf="@+id/editText_Time"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/time_view"
+        android:id="@+id/editText_Time"
         android:layout_width="133dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
@@ -60,10 +60,10 @@
         android:textColor="?attr/textcolor"
         android:textColorHint="?attr/hintcolor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modul_view" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Modul" />
 
     <EditText
-        android:id="@+id/notes_view"
+        android:id="@+id/editText_Notes"
         android:layout_width="0dp"
         android:layout_height="89dp"
         android:layout_marginStart="8dp"
@@ -81,10 +81,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_view" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_Location" />
 
     <EditText
-        android:id="@+id/location_view"
+        android:id="@+id/editText_Location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -100,10 +100,10 @@
         android:textColorHint="?attr/hintcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_view" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_Time" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_create_group"
+        android:id="@+id/button_CreateGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

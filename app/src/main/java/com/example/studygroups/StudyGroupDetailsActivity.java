@@ -95,7 +95,7 @@ public class StudyGroupDetailsActivity extends Fragment {
         subject = view.findViewById(R.id.textView_Subject);
         notes = view.findViewById(R.id.textView_Notes);
 
-        sign = view.findViewById(R.id.button_sign);
+        sign = view.findViewById(R.id.button_Sign);
         participants = view.findViewById(R.id.listView_Participants);
     }
 }

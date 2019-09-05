@@ -9,13 +9,13 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:id="@+id/myGroups_host"
+        android:id="@+id/myGroups_Host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <RelativeLayout
-        android:id="@+id/newGroups_host"
+        android:id="@+id/newGroups_Host"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

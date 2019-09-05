@@ -110,7 +110,7 @@ public class StudyGroupCreateNew extends Fragment {
         detailsActivity.setArguments(bundle);
         ft.addToBackStack(MainActivity.class.getName());
         fm.popBackStack(StudyGroupCreateNew.class.getName(),FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        ft.replace(R.id.nav_host,detailsActivity);
+        ft.replace(R.id.nav_Host,detailsActivity);
         ft.commit();
     }
 
@@ -144,12 +144,12 @@ public class StudyGroupCreateNew extends Fragment {
     }
 
     private void findViews(){
-        modulePicker = view.findViewById (R.id.modul_view);
-        datePicker = view.findViewById (R.id.date_view);
-        timePicker = view.findViewById (R.id.time_view);
-        locationView = view.findViewById (R.id.location_view);
-        commentView = view.findViewById (R.id.notes_view);
-        createGroup = view.findViewById(R.id.button_create_group);
+        modulePicker = view.findViewById (R.id.spinner_Modul);
+        datePicker = view.findViewById (R.id.editText_Date);
+        timePicker = view.findViewById (R.id.editText_Time);
+        locationView = view.findViewById (R.id.editText_Location);
+        commentView = view.findViewById (R.id.editText_Notes);
+        createGroup = view.findViewById(R.id.button_CreateGroup);
     }
 
     private void initTimeView() {

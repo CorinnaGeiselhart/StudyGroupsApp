@@ -27,8 +27,8 @@ public class MainActivityFrame extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MyStudyGroups myStudyGroups = new MyStudyGroups();
         NewStudyGroups newStudyGroups = new NewStudyGroups();
-        fragmentTransaction.add(R.id.myGroups_host, myStudyGroups);
-        fragmentTransaction.add(R.id.newGroups_host, newStudyGroups);
+        fragmentTransaction.add(R.id.myGroups_Host, myStudyGroups);
+        fragmentTransaction.add(R.id.newGroups_Host, newStudyGroups);
         fragmentTransaction.commit();
     }
 

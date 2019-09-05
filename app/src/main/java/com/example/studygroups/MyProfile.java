@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyProfileFragment extends Fragment {
+public class MyProfile extends Fragment {
 
     @Nullable
     @Override

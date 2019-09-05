@@ -8,11 +8,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
-public class FilterFindGroups extends AppCompatActivity {
+public class FindGroupsFilter extends AppCompatActivity {
 
     CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
     Spinner modulePicker;
-    Button searchButton, cancelButton;
+    Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,6 @@ public class FilterFindGroups extends AppCompatActivity {
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void checkBox(Intent i) {
@@ -101,7 +95,6 @@ public class FilterFindGroups extends AppCompatActivity {
 
         modulePicker = findViewById(R.id.spinner_Module);
         searchButton = findViewById(R.id.button_Search);
-        cancelButton = findViewById(R.id.button_Cancel);
     }
 
 

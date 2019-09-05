@@ -8,7 +8,7 @@ public class MyStudyGroups extends MainActivityFragment {
         String tag = String.valueOf(view.getId()).trim();
         //in Meine Lerngruppen Details aufrufen
         if (tag.equals(String.valueOf(R.id.layout_ActivityMainFragments))) {
-            fragmentTransaction.replace(R.id.nav_host, details);
+            fragmentTransaction.replace(R.id.nav_Host, details);
         }
         //in MainActivit/Home Details aufrufen
         else {

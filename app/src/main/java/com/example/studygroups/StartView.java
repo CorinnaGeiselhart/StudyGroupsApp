@@ -1,13 +1,11 @@
 package com.example.studygroups;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -17,10 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +26,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class StartView extends AppCompatActivity {
 
-    private Button weiter;
+    private Button next;
     private Button addPicture;
     private EditText username;
     private EditText age;
@@ -44,7 +40,7 @@ public class StartView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_account);
         initViews();
-        weiter.setOnClickListener(new View.OnClickListener() {
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 upDateUser();
@@ -72,10 +68,10 @@ public class StartView extends AppCompatActivity {
     }
 
     private void initViews(){
-        weiter = findViewById(R.id.button_Next);
+        next = findViewById(R.id.button_Next);
         username = findViewById(R.id.editText_Name);
-        age = findViewById(R.id.editText_age);
-        addPicture = findViewById(R.id.button_addImage);
+        age = findViewById(R.id.editText_Age);
+        addPicture = findViewById(R.id.button_AddImage);
         profilePicture = findViewById(R.id.imageView_ProfilePicture);
 
     }
