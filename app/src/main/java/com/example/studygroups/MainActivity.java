@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity{
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
 
+    private static final int ADD_TO_BACKSTACK = 1;
+    private static final int DONT_ADD_TO_BACKSTACK = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +77,13 @@ public class MainActivity extends AppCompatActivity{
                         addMainFragment();
                         break;
                     case R.id.my_groups_toolbar_item:
-                        addFragment(new MyStudyGroups());
+                        addFragment(new MyStudyGroups(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.find_groups_toolbar_item:
-                        addFragment(new FindGroupFragment());
+                        addFragment(new FindGroupFragment(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.create_groups_toolbar_item:
-                        addFragment(new StudyGroupCreateNew());
+                        addFragment(new StudyGroupCreateNew(), ADD_TO_BACKSTACK);
                         break;
                 }
                 drawerLayout.closeDrawers();
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new SettingsFragment());
+                addFragment(new SettingsFragment(), ADD_TO_BACKSTACK);
                 drawerLayout.closeDrawers();
             }
         });
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity{
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new MyProfileFragment());
+                addFragment(new MyProfileFragment(), ADD_TO_BACKSTACK);
                 drawerLayout.closeDrawers();
             }
         });
@@ -122,16 +124,15 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void addMainFragment(){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MainActivityFrame mainFrame = new MainActivityFrame();
-        fragmentTransaction.replace(R.id.nav_host, mainFrame);
-        fragmentTransaction.commit();
+        addFragment(new MainActivityFrame(), DONT_ADD_TO_BACKSTACK);
     }
 
-    private void addFragment(Fragment fragment){
+    private void addFragment(Fragment fragment, int backStack){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host, fragment);
-        fragmentTransaction.addToBackStack(null);
+        if(backStack == ADD_TO_BACKSTACK){
+            fragmentTransaction.addToBackStack(null);
+        }
         fragmentTransaction.commit();
     }
 }
