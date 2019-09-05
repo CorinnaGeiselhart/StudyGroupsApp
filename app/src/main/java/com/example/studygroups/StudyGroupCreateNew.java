@@ -43,7 +43,7 @@ public class StudyGroupCreateNew extends Fragment {
     private Spinner modulePicker;
     private EditText datePicker, timePicker;
     private EditText locationView;
-    private EditText notesView;
+    private EditText commentView;
     private FloatingActionButton createGroup;
     private TextView warning;
     private FirebaseFirestore db;
