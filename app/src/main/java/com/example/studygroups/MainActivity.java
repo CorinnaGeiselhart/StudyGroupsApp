@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity{
     private FragmentManager fragmentManager;
 
     private static final int ADD_TO_BACKSTACK = 1;
-    private static final int DONT_ADD_TO_BACKSTACK = 1;
+    private static final int DONT_ADD_TO_BACKSTACK = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
