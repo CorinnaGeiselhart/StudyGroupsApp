@@ -22,26 +22,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
         <Switch
             android:id="@+id/color_switch_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorLink="@color/colorPrimary"
             android:text="@string/color_switch_text"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor"
+            android:textColorLink="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/color_switch_explanation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/color_switch_explanation_text"
-            android:textColor="?attr/hintcolor"/>
+            android:textColor="?attr/hintcolor" />
 
         <Button
             android:id="@+id/button_Logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/buttoncolor"
             android:text="Logout" />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

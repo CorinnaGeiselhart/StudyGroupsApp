@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public class StudyGroupCreateNew extends Fragment {
     private Spinner modulePicker;
     private EditText datePicker, timePicker;
     private EditText locationView;
-    private EditText notesView;
+    private EditText commentView;
     private FloatingActionButton createGroup;
     private TextView warning;
     private FirebaseFirestore db;
@@ -78,12 +79,12 @@ public class StudyGroupCreateNew extends Fragment {
                 String date = datePicker.getText().toString();
                 String time = timePicker.getText().toString();
                 String location = locationView.getText().toString().trim();
-                String comment = notesView.getText().toString().trim();
+                String comment = commentView.getText().toString().trim();
 
                 if(location.isEmpty() || subject.equals(modulePicker.getItemAtPosition(0)) || date.isEmpty()
                 || time.isEmpty()){
                     //Nutzer auffordern alle Felder auszufüllen (nur Notizen darf frei bleiben)
-                    warning.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(), R.string.text_warning_empty_field, Toast.LENGTH_LONG).show();
 
                 }else{
                     //Lerngruppeneintrag hinzufügen
@@ -91,8 +92,10 @@ public class StudyGroupCreateNew extends Fragment {
                     addToDatabase(studyGroup);
 
                     startDetailsActivity(studyGroup);
+                    //zur Datenbank hinzufügen
+                    //Activity mit allen Lerngruppen aufrufen??
+                    //würde eher die detail-ansicht der  neu erstellten gruppe aufrufen
 
-                    warning.setVisibility(View.INVISIBLE);
                     resetView();
                 }
 
@@ -140,7 +143,7 @@ public class StudyGroupCreateNew extends Fragment {
         datePicker.setText("");
         timePicker.setText("");
         locationView.setText("");
-        notesView.setText("");
+        commentView.setText("");
     }
 
     private void findViews(){
@@ -148,10 +151,8 @@ public class StudyGroupCreateNew extends Fragment {
         datePicker = view.findViewById (R.id.date_view);
         timePicker = view.findViewById (R.id.time_view);
         locationView = view.findViewById (R.id.location_view);
-        notesView = view.findViewById (R.id.notes_view);
+        commentView = view.findViewById (R.id.notes_view);
         createGroup = view.findViewById(R.id.button_create_group);
-        warning = view.findViewById(R.id.textView_WarningCreateGroup);
-        warning.setVisibility(View.INVISIBLE);
     }
 
     private void initTimeView() {
