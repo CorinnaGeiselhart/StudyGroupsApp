@@ -46,7 +46,6 @@ public class StudyGroupCreateNew extends Fragment {
     private EditText locationView;
     private EditText commentView;
     private FloatingActionButton createGroup;
-    private TextView warning;
     private FirebaseFirestore db;
 
     private int min, hour, day, month, year;
@@ -93,7 +92,6 @@ public class StudyGroupCreateNew extends Fragment {
 
                     startDetailsActivity(studyGroup);
                     //zur Datenbank hinzufügen
-                    //Activity mit allen Lerngruppen aufrufen??
                     //würde eher die detail-ansicht der  neu erstellten gruppe aufrufen
 
                     resetView();
