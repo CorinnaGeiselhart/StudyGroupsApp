@@ -11,7 +11,7 @@ public class NewStudyGroups extends MainActivityFragment{
     @Override
     protected void fillList() {
         //Beispiel, da Datenbank noch nicht erstellt
-        list.add(new StudyGroup("EIMI", "Montag, 12.08.2019", "19:00", "Universität Regensburg",""));
+        list.add(new StudyGroup("EIMI", "12.08.2019","Monday" ,"19:00", "Universität Regensburg",""));
     }
 
     @Override

@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -47,6 +48,9 @@ public class StudyGroupCreateNew extends Fragment {
     private TextView warning;
     private FirebaseFirestore db;
 
+    private int min, hour, day, month, year;
+    private String weekday;
+
 
 
     @Nullable
@@ -60,6 +64,7 @@ public class StudyGroupCreateNew extends Fragment {
 
     private void initViews() {
         findViews();
+        initCalender();
         initDateView();
         initTimeView();
         createNewGroup();
@@ -82,7 +87,7 @@ public class StudyGroupCreateNew extends Fragment {
 
                 }else{
                     //Lerngruppeneintrag hinzufügen
-                    StudyGroup studyGroup = new StudyGroup(subject, date, time, location, comment);
+                    StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment);
                     addToDatabase(studyGroup);
 
                     startDetailsActivity(studyGroup);
@@ -111,6 +116,7 @@ public class StudyGroupCreateNew extends Fragment {
 
     public void addToDatabase(StudyGroup studyGroup){
         db = FirebaseFirestore.getInstance();
+
         //Admin wird durch Nutzername des Admins ausgetauscht
         Map<String,StudyGroup> lerngroup = new HashMap<>();
         lerngroup.put("Admin", studyGroup);
@@ -159,10 +165,6 @@ public class StudyGroupCreateNew extends Fragment {
     }
 
     private TimePickerDialog createTimePickerDialog(){
-        GregorianCalendar calender = new GregorianCalendar();
-        int min = calender.get(Calendar.MINUTE);
-        int hour = calender.get(Calendar.HOUR_OF_DAY);
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
@@ -184,21 +186,31 @@ public class StudyGroupCreateNew extends Fragment {
     }
 
     private DatePickerDialog createDatePickerDialog(){
-        GregorianCalendar calender = new GregorianCalendar();
-        int day = calender.get(Calendar.DAY_OF_MONTH);
-        int month = calender.get(Calendar.MONTH);
-        int year = calender.get(Calendar.YEAR);
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 GregorianCalendar date = new GregorianCalendar(year, month, dayOfMonth);
+                //get Date
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY);
                 String dateAsString = dateFormat.format(date.getTime());
-                datePicker.setText(dateAsString);
+                //get name of day
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE", Locale.GERMANY);
+                weekday = simpleDateFormat.format(date.getTime());
+
+                datePicker.setText(weekday + ", " + dateAsString);
             }
         }, year, month, day);
 
+
         return datePickerDialog;
+    }
+
+    private void initCalender() {
+        GregorianCalendar calender = new GregorianCalendar();
+        day = calender.get(Calendar.DAY_OF_MONTH);
+        month = calender.get(Calendar.MONTH);
+        year = calender.get(Calendar.YEAR);
+        min = calender.get(Calendar.MINUTE);
+        hour = calender.get(Calendar.HOUR_OF_DAY);
     }
 }
