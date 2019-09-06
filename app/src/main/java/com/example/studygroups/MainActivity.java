@@ -26,16 +26,18 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int ADD_TO_BACKSTACK = 1;
     private static final int DONT_ADD_TO_BACKSTACK = 0;
+    public static Themes theme = Themes.STANDARD;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //App in Darkmode or Lightmode?
         if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            setTheme(R.style.DarkModeTheme);
+            setColorTheme(true);
         }
-        else{
-            setTheme(R.style.AppTheme);
+        else {
+            setColorTheme(false);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
@@ -47,8 +49,59 @@ public class MainActivity extends AppCompatActivity{
         addMainFragment();
     }
 
-    private void createNavDrawer(){
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_Id);
+    private void setColorTheme(boolean darkmodeOn){
+        if(darkmodeOn){
+            switch(theme) {
+                case STANDARD: {
+                    setTheme(R.style.DarkModeTheme);
+                    break;
+                }
+                case ICE: {
+                    setTheme(R.style.IceDarkTheme);
+                    break;
+                }
+                case SUN: {
+                    setTheme(R.style.SunDarkTheme);
+                    break;
+                }
+                case NATURE: {
+                    setTheme(R.style.NatureDarkTheme);
+                    break;
+                }
+                case FIRE: {
+                    setTheme(R.style.FireDarkTheme);
+                    break;
+                }
+            }
+        }
+        else {
+            switch (theme) {
+                case STANDARD: {
+                    setTheme(R.style.AppTheme);
+                    break;
+                }
+                case ICE: {
+                    setTheme(R.style.IceTheme);
+                    break;
+                }
+                case SUN: {
+                    setTheme(R.style.SunTheme);
+                    break;
+                }
+                case NATURE: {
+                    setTheme(R.style.NatureTheme);
+                    break;
+                }
+                case FIRE: {
+                    setTheme(R.style.FireTheme);
+                    break;
+                }
+            }
+        }
+    }
+
+   private void createNavDrawer(){
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_id);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);

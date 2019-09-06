@@ -51,7 +51,7 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:gravity="start"
-            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="?attr/primarycolor"
             app:srcCompat="@android:drawable/ic_menu_manage" />
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
