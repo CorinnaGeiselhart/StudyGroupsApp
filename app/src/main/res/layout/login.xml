@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundcolor">
 
     <EditText
         android:id="@+id/editText_Name"
@@ -17,6 +18,9 @@
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textPersonName"
+        android:backgroundTint="?attr/primarycolor"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/hintcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="271dp" />
@@ -33,6 +37,9 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPersonName"
+        android:backgroundTint="?attr/primarycolor"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/hintcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Name" />
@@ -47,6 +54,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Login"
+        android:background="?attr/buttoncolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Password" />

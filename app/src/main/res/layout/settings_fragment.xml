@@ -7,47 +7,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/textView_ColorSettings"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/colorsettings_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView_colorsetting_explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/colorsettings_explanation_text"
+        android:textColor="?attr/hintcolor"
+        app:layout_constraintEnd_toEndOf="@+id/textView_ColorSettings"
+        app:layout_constraintStart_toStartOf="@+id/textView_ColorSettings"
+        app:layout_constraintTop_toBottomOf="@+id/textView_ColorSettings" />
 
-        </ListView>
+    <TextView
+        android:id="@+id/textView_notificationpreferences"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/notificationpreferences_text"
+        app:layout_constraintEnd_toEndOf="@+id/textView_ColorSettings"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_ColorSettings"
+        app:layout_constraintTop_toBottomOf="@+id/textView_colorsetting_explanation" />
 
-        <Switch
-            android:id="@+id/color_switch_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/color_switch_text"
-            android:textColor="?attr/textcolor"
-            android:textColorLink="@color/colorPrimary" />
+    <Button
+        android:id="@+id/button_Logout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?attr/buttoncolor"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="@+id/textView_notificationpreferences"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_notificationpreferences"
+        app:layout_constraintTop_toBottomOf="@+id/textView_notificationpreferences_explanation" />
 
-        <TextView
-            android:id="@+id/color_switch_explanation_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/color_switch_explanation_text"
-            android:textColor="?attr/hintcolor" />
+    <TextView
+        android:id="@+id/textView_notificationpreferences_explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/notificationpreferences_explanation_text"
+        android:textColor="?attr/hintcolor"
+        app:layout_constraintEnd_toEndOf="@+id/textView_notificationpreferences"
+        app:layout_constraintStart_toStartOf="@+id/textView_notificationpreferences"
+        app:layout_constraintTop_toBottomOf="@+id/textView_notificationpreferences" />
 
-        <Button
-            android:id="@+id/button_Logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/buttoncolor"
-            android:text="Logout" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

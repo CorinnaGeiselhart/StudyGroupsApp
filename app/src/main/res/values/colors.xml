@@ -4,6 +4,20 @@
     <color name="colorAccent">#8A084B</color>
     <color name="colorPrimaryDark">#3B0B24</color>
 
+    <color name="colorIce">#0B4C5F</color>
+    <color name="colorSun">#FFBF00</color>
+    <color name="colorNature">#0B610B</color>
+    <color name="colorFire">#8A0808</color>
+
+    <color name="colorIceDark">#A9F5F2</color>
+    <color name="colorSunDark">#F2F5A9</color>
+    <color name="colorNatureDark">#9FF781</color>
+    <color name="colorFireDark">#F5A9A9</color>
+
+    <color name="colorIceHeader">#0B243B</color>
+    <color name="colorSunHeader">#5F4C0B</color>
+    <color name="colorNatureHeader">#0B3B0B</color>
+    <color name="colorFireHeader">#3B0B0B</color>
 
     <color name="colorHeader">#8A084B</color>
     <color name="textColorPrimary">#2E2E2E</color>
@@ -11,7 +25,6 @@
     <color name="buttonColor">#D8D8D8</color>
     <color name="windowBackground">#FAFAFA</color>
     <color name="navigationBarColor">#FAFAFA</color>
-
 
     <color name="colorHeaderDarkmode">#F6CEEC</color>
     <color name="textColorPrimaryDarkmode">#D8D8D8</color>

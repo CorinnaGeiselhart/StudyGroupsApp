@@ -8,5 +8,6 @@
         <attr name="navigationbarcolor" format="color"/>
         <attr name="headercolor" format="color"/>
         <attr name="hintcolor" format="color"/>
+        <attr name="primarycolor" format="color"/>
     </declare-styleable>
 </resources>
