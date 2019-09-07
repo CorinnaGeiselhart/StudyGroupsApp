@@ -117,7 +117,7 @@ public class Settings extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ColorSettingsFragment colorSettingsFragment = new ColorSettingsFragment();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, colorSettingsFragment);
+        fragmentTransaction.replace(R.id.nav_Host, colorSettingsFragment);
         fragmentTransaction.commit();
     }
 
