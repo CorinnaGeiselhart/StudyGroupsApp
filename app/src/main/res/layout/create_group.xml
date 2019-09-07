@@ -9,7 +9,6 @@
 
     <Spinner
         android:id="@+id/spinner_Modul"
-        android:id="@+id/modul_view"
         style="@android:style/Widget.Material.Light.Spinner.Underlined"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
