@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,7 +94,7 @@ public class ProfileFirebase extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             mDatabase.push();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent createAcc = new Intent(ProfileFirebase.this, StartView.class);
+                            Intent createAcc = new Intent(ProfileFirebase.this, ProfileNewAccount.class);
                             startActivity(createAcc);
                         } else {
                             // If sign in fails, display a message to the user.

@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,19 +20,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import androidx.appcompat.app.AppCompatDelegate;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class StartView extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+public class ProfileNewAccount extends AppCompatActivity {
 
     private Button next;
     private Button addPicture;
     private EditText username;
     private EditText age;
     private ImageView profilePicture;
+    private FirebaseFirestore db;
 
     public static final int GET_FROM_GALLERY = 1;
 
@@ -47,24 +57,23 @@ public class StartView extends AppCompatActivity {
                 upDateUser();
             }
         });
+        //Permissionabfrage + Bild hinzufügen
         addPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ActivityCompat.checkSelfPermission(StartView.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(StartView.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, GET_FROM_GALLERY);
+                if(ActivityCompat.checkSelfPermission(ProfileNewAccount.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(ProfileNewAccount.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, GET_FROM_GALLERY);
                 } else{
                     choosePicture();
                 }
             }
         });
     }
-
+    //der Intent um auf die Gallerie zuzugreifen und startet die Methode um Bild rauszusuchen
     private void choosePicture(){
         Intent getPicture = new Intent(
                 Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(getPicture, GET_FROM_GALLERY);
-
         startActivityForResult(getPicture, GET_FROM_GALLERY);
     }
 
@@ -79,6 +88,7 @@ public class StartView extends AppCompatActivity {
 
     private void upDateUser(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username.getText().toString().trim())
@@ -90,16 +100,32 @@ public class StartView extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(StartView.this, user.getDisplayName(),
-                                    Toast.LENGTH_SHORT).show();
-                            Intent mainActivity = new Intent(StartView.this,MainActivity.class);
+                            Intent mainActivity = new Intent(ProfileNewAccount.this,MainActivity.class);
                             startActivity(mainActivity);
                         }
                     }
                 });
+        //Hier werden weitere Daten des Nutzers in einer collection gesammelt
+        Map<String, String> userInformation = new HashMap<>();
+        userInformation.put("age", age.getText().toString().trim());
+
+
+        db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ProfileNewAccount.this,
+                        age.getText().toString().trim() , Toast.LENGTH_SHORT).show();
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
 
     }
-
+    //greift auf die Gallerie zu um ein Bild zu bekommen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -117,14 +143,9 @@ public class StartView extends AppCompatActivity {
             cursor.close();
 
             profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
-
-            // String picturePath contains the path of selected Image
         }
     }
-
-
-
+    //Entscheidet was bei den zwei Optionen der Permissionabfrage passiert
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
     {
@@ -134,7 +155,7 @@ public class StartView extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     choosePicture();
                 } else {
-                    Toast.makeText(this, "Permissions not granted", Toast.LENGTH_LONG).show();                }
+                    Toast.makeText(this, "Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden", Toast.LENGTH_LONG).show();                }
                 break;
         }
     }
