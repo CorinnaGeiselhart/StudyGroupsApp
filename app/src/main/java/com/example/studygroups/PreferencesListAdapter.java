@@ -2,6 +2,7 @@ package com.example.studygroups;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,9 @@ public class PreferencesListAdapter extends ArrayAdapter<Preference> {
     private ArrayList<Preference> preferenceList;
     private Preference preference;
 
-    private TextView preferenceName, preferenceExplanation;
-    Switch preferenceSwitch;
+    private Switch preferenceSwitch;
+    private TextView preferenceExplanation;
+
 
 
 
@@ -41,18 +43,18 @@ public class PreferencesListAdapter extends ArrayAdapter<Preference> {
         preference = preferenceList.get(position);
 
         if(preference != null){
-            preferenceName = v.findViewById(R.id.textView_notificationpreferences);
-            preferenceExplanation = v.findViewById(R.id.textView_notificationpreferences_explanation);
             preferenceSwitch = v.findViewById(R.id.switch_Preference);
+            preferenceExplanation = v.findViewById(R.id.textView_PreferenceExplanation);
 
             setViews();
         }
         return v;
     }
 
+
     private void setViews() {
-        preferenceName.setText(preference.getName());
-        preferenceExplanation.setText(preference.getExplanation());
         preferenceSwitch.setChecked(preference.isPrefGiven());
+        preferenceSwitch.setText(preference.getName());
+        preferenceExplanation.setText(preference.getExplanation());
     }
 }

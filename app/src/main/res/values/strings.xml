@@ -78,11 +78,14 @@
     <string name="colorsettings_explanation_text">Schalte in den Darkmode oder ändere das Farbschema</string>
     <string name="notificationpreferences_text">Benachrichtigungseinstellungen</string>
     <string name="notificationpreferences_explanation_text">Wähle, welche Benachrichtigungen du bekommst</string>
+    <string name="notification_group_name">Gruppenbeitritt</string>
+    <string name="notification_reminder_name">Erinnerung</string>
+    <string name="notification_group_explanation">Du wirst benachrichtigt, wenn jemand deiner Lerngruppe beitritt</string>
+    <string name="notification_reminder_explanation">Du wirst 30min vor dem Treffpunkt deiner Lerngruppe benachrichtigt</string>
 
     <!--strings: colors-->
     <string name="darkmode_text">Darkmode</string>
     <string name="change_explanation_text">Achtung! Es erfolgt ein automatischer Neustart der App.</string>
-
     <string-array name="color_list">
         <item>Farbschema ändern </item>
         <item>Faculty </item>
