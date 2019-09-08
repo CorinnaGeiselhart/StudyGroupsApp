@@ -2,25 +2,35 @@ package com.example.studygroups;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
-public class FindGroupsFilter extends AppCompatActivity {
+public class FindGroupsFilter extends Fragment {
 
     CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
     Spinner modulePicker;
     Button searchButton;
+    View view;
+    public static final int REQUEST_CODE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.filter_find_group);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.filter_find_group, container, false);
         findViews();
         initButton();
+        return view;
     }
 
     private void initButton() {
@@ -28,12 +38,15 @@ public class FindGroupsFilter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Intent data = new Intent();
+                Intent data = new Intent();
                 //check which checkbox was selected
                 checkBox(data);
 
-                setResult(RESULT_OK, data);
-                finish();
+                getTargetFragment().onActivityResult(getTargetRequestCode(),REQUEST_CODE, data);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_Host, new FindGroups());
+                fragmentTransaction.commit();
             }
         });
 
@@ -85,16 +98,16 @@ public class FindGroupsFilter extends AppCompatActivity {
     }
 
     private void findViews() {
-        monday = findViewById(R.id.checkBox_Mo);
-        tuesday = findViewById(R.id.checkBox_Tue);
-        wednesday = findViewById(R.id.checkBox_Wed);
-        thursday = findViewById(R.id.checkBox_Thur);
-        friday = findViewById(R.id.checkBox_Fr);
-        saturday = findViewById(R.id.checkBox_Sat);
-        sunday = findViewById(R.id.checkBox_Sun);
+        monday = view.findViewById(R.id.checkBox_Mo);
+        tuesday = view.findViewById(R.id.checkBox_Tue);
+        wednesday = view.findViewById(R.id.checkBox_Wed);
+        thursday = view.findViewById(R.id.checkBox_Thur);
+        friday = view.findViewById(R.id.checkBox_Fr);
+        saturday = view.findViewById(R.id.checkBox_Sat);
+        sunday = view.findViewById(R.id.checkBox_Sun);
 
-        modulePicker = findViewById(R.id.spinner_Module);
-        searchButton = findViewById(R.id.button_Search);
+        modulePicker = view.findViewById(R.id.spinner_Module);
+        searchButton = view.findViewById(R.id.button_Search);
     }
 
 

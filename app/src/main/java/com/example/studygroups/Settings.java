@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -28,7 +27,7 @@ public class Settings extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.settings_fragment, container, false);
+        return inflater.inflate(R.layout.settings, container, false);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class Settings extends Fragment {
         colorView = getView().findViewById(R.id.textView_ColorSettings);
         colorViewX = getView().findViewById(R.id.textView_colorsetting_explanation);
         notificationView = getView().findViewById(R.id.textView_notificationpreferences);
-        notificationViewX = getView().findViewById(R.id.textView_notificationpreferences_explanation);
+        notificationViewX = getView().findViewById(R.id.textView_NotificationsExplanation);
 
 
         /**colorSwitchView = getView().findViewById(R.id.color_switch_view);
@@ -117,7 +116,7 @@ public class Settings extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ColorSettingsFragment colorSettingsFragment = new ColorSettingsFragment();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_host, colorSettingsFragment);
+        fragmentTransaction.replace(R.id.nav_Host, colorSettingsFragment);
         fragmentTransaction.commit();
     }
 

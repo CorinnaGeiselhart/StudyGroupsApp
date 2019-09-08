@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +46,12 @@ public class FindGroups extends Fragment {
         filter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), FindGroupsFilter.class);
-
-                startActivityForResult(intent, REQUEST_CODE);
+                FindGroupsFilter filter = new FindGroupsFilter();
+                filter.setTargetFragment(FindGroups.this, REQUEST_CODE);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.nav_Host,filter);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
@@ -53,17 +59,16 @@ public class FindGroups extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("onActivityResult");
-        try{
-            super.onActivityResult(requestCode, resultCode, data);
+        //try{
+            //super.onActivityResult(requestCode, resultCode, data);
 
-            if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            if(requestCode == REQUEST_CODE /**&& resultCode == Activity.RESULT_OK**/){
                 getFilterData(data);
             }
 
-        }catch (Exception ex){
+        /**}catch (Exception ex){
             Toast.makeText(view.getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
-        }
+        }**/
     }
 
     private void getFilterData(Intent data) {

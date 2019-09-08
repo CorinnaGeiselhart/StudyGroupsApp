@@ -59,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="@+id/textView_notificationpreferences"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView_notificationpreferences"
-        app:layout_constraintTop_toBottomOf="@+id/textView_notificationpreferences_explanation" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_NotificationsExplanation" />
 
     <TextView
-        android:id="@+id/textView_notificationpreferences_explanation"
+        android:id="@+id/textView_NotificationsExplanation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

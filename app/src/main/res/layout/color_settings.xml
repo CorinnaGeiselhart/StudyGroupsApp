@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <Switch
-        android:id="@+id/darkmode_switch"
+        android:id="@+id/switch_SettingsDarkmode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/preference_explanation_view"
+        android:id="@+id/textView_SettingsExplanation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -32,12 +32,12 @@
         android:layout_weight="1"
         android:text="@string/change_explanation_text"
         android:textColor="?attr/hintcolor"
-        app:layout_constraintEnd_toEndOf="@+id/darkmode_switch"
+        app:layout_constraintEnd_toEndOf="@+id/switch_SettingsDarkmode"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/darkmode_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_SettingsDarkmode" />
 
     <Spinner
-        android:id="@+id/color_spinner"
+        android:id="@+id/spinner_SettingsColor"
         style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:popupBackground="?attr/buttoncolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preference_explanation_view" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_SettingsExplanation" />
 
     <TextView
         android:id="@+id/textView4"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:text="@string/change_explanation_text"
         android:textColor="?attr/hintcolor"
-        app:layout_constraintEnd_toEndOf="@+id/color_spinner"
-        app:layout_constraintStart_toStartOf="@+id/preference_explanation_view"
-        app:layout_constraintTop_toBottomOf="@+id/color_spinner" />
+        app:layout_constraintEnd_toEndOf="@+id/spinner_SettingsColor"
+        app:layout_constraintStart_toStartOf="@+id/textView_SettingsExplanation"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_SettingsColor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,12 +38,12 @@ public class ColorSettingsFragment extends Fragment {
     }
 
     private void initViews(){
-        darkSwitch = getActivity().findViewById(R.id.darkmode_switch);
+        darkSwitch = getActivity().findViewById(R.id.switch_SettingsDarkmode);
         if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
             darkSwitch.setChecked(true);
         }
 
-        colorSpinner = getActivity().findViewById(R.id.color_spinner);
+        colorSpinner = getActivity().findViewById(R.id.spinner_SettingsColor);
     }
 
     private void setListeners(){ ;
