@@ -1,6 +1,7 @@
 package com.example.studygroups;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,36 +20,46 @@ abstract class MainActivityFragment extends Fragment {
     private ListView listView;
     protected View view;
 
-    private StudyGroupsListAdapter adapter;
+    protected StudyGroupsListAdapter adapter;
     protected ArrayList<StudyGroup> list = new ArrayList<>();
     protected FragmentTransaction fragmentTransaction;
     protected Fragment details;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_main_fragments,container,false);
+        view = inflater.inflate(R.layout.activity_main_fragments, container, false);
 
+        Log.d("testest", "onCreateView: ");
         initViews();
         setText();
-        fillList();
-        setView();
+
+        setList();
+        fillList(new OnDBComplete() {
+            @Override
+            public void onComplete() {
+                setView();
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }
 
-    private void setView(){
-        if(list.isEmpty()){
+    private void setView() {
+        Log.d("testtest", "setView: " + list.size());
+        if (list.isEmpty()) {
             textIfListIsEmpty.setVisibility(View.VISIBLE);
             listView.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             textIfListIsEmpty.setVisibility(View.INVISIBLE);
             listView.setVisibility(View.VISIBLE);
-            setList();
         }
+
     }
 
     private void setList() {
         //adapter
+        Log.d("adapter", "setList: adapter created");
         adapter = new StudyGroupsListAdapter(view.getContext(), list);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -83,7 +94,9 @@ abstract class MainActivityFragment extends Fragment {
     }
 
     protected abstract void replaceFragment();
-    protected abstract void fillList();
+
+    protected abstract void fillList(OnDBComplete onDBComplete);
+
     protected abstract void setText();
 
 }

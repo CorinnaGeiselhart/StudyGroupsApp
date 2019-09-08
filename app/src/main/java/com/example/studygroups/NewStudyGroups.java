@@ -10,7 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class NewStudyGroups extends MainActivityFragment{
+public class NewStudyGroups extends MainActivityFragment {
 
     private FirebaseFirestore db;
 
@@ -20,36 +20,26 @@ public class NewStudyGroups extends MainActivityFragment{
     }
 
     @Override
-    protected void fillList() {
-        //Beispiel, da Datenbank noch nicht erstellt
-        list.add(new StudyGroup("EIMI", "12.08.2019","Monday" ,"19:00", "Universität Regensburg",""));
+    protected void fillList(final OnDBComplete onDBComplete) {
         db = FirebaseFirestore.getInstance();
-
-
-        //Beispiel, da Datenbank noch nicht erstellt
-        //list.add(new StudyGroup("EIMI", "12.08.2019","Monday" ,"19:00", "Universität Regensburg",""));
-        db.collection("Einführung in die objektorientierte Programmierung").document("APnqssra3daEnDyR7bc7").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("Einführung in die objektorientierte Programmierung").document("5F8Q4lYwZPrkC39Id77q").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d("NewStudygroup", "DocumentSnapshot data: " + document.getData());
                         String subject = document.getString("subject");
-                        Log.d("NewStudygroup", subject );
-                        String date = (String)document.getString("date");
-                        Log.d("NewStudygroup","dat: " +  date);
-                        String weekday = (String)document.getString("weekday");
-                        Log.d("NewStudygroup","sub: " +  weekday);
-                        String time = (String)document.getString("time");
-                        Log.d("NewStudygroup","sub: " +  time);
-                        String place = (String)document.getString("place");
-                        Log.d("NewStudygroup","sub: " +  place);
-                        String details = (String)document.getString("notes");
-                        Log.d("NewStudygroup","sub: " +  details);
-                        list.add(new StudyGroup(subject,date,weekday,time,place,details));
-                        Log.d("NewStudygroup", String.valueOf(new StudyGroup(subject,date,weekday,time,place,details)));
-                    } }}
+                        String date = document.getString("date");
+                        String weekday = document.getString("weekday");
+                        String time = document.getString("time");
+                        String place = document.getString("place");
+                        String details = document.getString("details");
+
+                       list.add(new StudyGroup(subject,date,weekday,time,place,details));
+                        onDBComplete.onComplete();
+                    }
+                }
+            }
         });
     }
 
