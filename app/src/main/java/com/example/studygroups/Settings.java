@@ -124,7 +124,7 @@ public class Settings extends Fragment {
     private void openNotificationFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        NotificationSettings notificationSettingsFragment = new NotificationSettings();
+        NotificationSettingsFragment notificationSettingsFragment = new NotificationSettingsFragment();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.nav_Host, notificationSettingsFragment);
         fragmentTransaction.commit();
