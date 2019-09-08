@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import android.widget.Spinner;
 public class FindGroupsFilter extends Fragment {
 
     CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
+    CheckBox[] weekdays = new CheckBox[7];
+    //String[] keys = new String[7];
     Spinner modulePicker;
     Button searchButton;
     View view;
@@ -28,6 +31,7 @@ public class FindGroupsFilter extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.filter_find_group, container, false);
+        Log.d("Test", "FindView");
         findViews();
         initButton();
         return view;
@@ -40,7 +44,7 @@ public class FindGroupsFilter extends Fragment {
 
                 Intent data = new Intent();
                 //check which checkbox was selected
-                checkBox(data);
+                getData(data);
 
                 getTargetFragment().onActivityResult(getTargetRequestCode(),REQUEST_CODE, data);
                 FragmentManager fragmentManager = getFragmentManager();
@@ -52,59 +56,42 @@ public class FindGroupsFilter extends Fragment {
 
     }
 
-    private void checkBox(Intent i) {
-        //Montag
-        if(monday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_monday), getResources().getString(R.string.key_monday));
-        }else if(!monday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_monday), "");
+    private void getData(Intent i) {
+        String[] keys = {getResources().getString(R.string.key_monday),
+                getResources().getString(R.string.key_tuesday),
+                getResources().getString(R.string.key_wednesday),
+                getResources().getString(R.string.key_thursday),
+                getResources().getString(R.string.key_friday),
+                getResources().getString(R.string.key_saturday),
+                getResources().getString(R.string.key_sunday)};
+        for(int x = 0; x < weekdays.length; x++){
+            checkStatus(weekdays[x], keys[x], i);
         }
-        //Dienstag
-        if(tuesday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_tuesday), getResources().getString(R.string.key_tuesday));
-        }else if(!tuesday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_tuesday), "");
-        }
-        //Mittwoch
-        if(wednesday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_wednesday), getResources().getString(R.string.key_wednesday));
-        }else if(!wednesday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_wednesday), "");
-        }
-        //Donnerstag
-        if(thursday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_thursday), getResources().getString(R.string.key_thursday));
-        }else if(!thursday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_thursday), "");
-        }
-        //Freitag
-        if(friday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_friday), getResources().getString(R.string.key_friday));
-        }else if(!friday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_friday), "");
-        }
-        //Samstag
-        if(saturday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_saturday), getResources().getString(R.string.key_saturday));
-        }else if(!saturday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_saturday), "");
-        }
-        //Sonntag
-        if(sunday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_sunday), getResources().getString(R.string.key_sunday));
-        }else if(!sunday.isChecked()){
-            i.putExtra(getResources().getString(R.string.key_sunday), "");
+    }
+
+    private void checkStatus(CheckBox checkBox,String keyValue, Intent i){
+        if(checkBox.isChecked()){
+            i.putExtra(keyValue, keyValue);
+        }else if(!checkBox.isChecked()){
+            i.putExtra(keyValue, "");
         }
     }
 
     private void findViews() {
         monday = view.findViewById(R.id.checkBox_Mo);
+        weekdays[0] = monday;
         tuesday = view.findViewById(R.id.checkBox_Tue);
+        weekdays[1] = tuesday;
         wednesday = view.findViewById(R.id.checkBox_Wed);
+        weekdays[2] = wednesday;
         thursday = view.findViewById(R.id.checkBox_Thur);
+        weekdays[3] = thursday;
         friday = view.findViewById(R.id.checkBox_Fr);
+        weekdays[4] = friday;
         saturday = view.findViewById(R.id.checkBox_Sat);
+        weekdays[5] = saturday;
         sunday = view.findViewById(R.id.checkBox_Sun);
+        weekdays[6] = sunday;
 
         modulePicker = view.findViewById(R.id.spinner_Module);
         searchButton = view.findViewById(R.id.button_Search);

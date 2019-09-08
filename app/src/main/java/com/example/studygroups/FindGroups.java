@@ -59,16 +59,16 @@ public class FindGroups extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //try{
-            //super.onActivityResult(requestCode, resultCode, data);
+        try{
+            super.onActivityResult(requestCode, resultCode, data);
 
             if(requestCode == REQUEST_CODE /**&& resultCode == Activity.RESULT_OK**/){
                 getFilterData(data);
             }
 
-        /**}catch (Exception ex){
+        }catch (Exception ex){
             Toast.makeText(view.getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
-        }**/
+        }
     }
 
     private void getFilterData(Intent data) {
@@ -79,5 +79,7 @@ public class FindGroups extends Fragment {
         String friday = data.getExtras().getString(view.getResources().getString(R.string.key_friday));
         String saturday = data.getExtras().getString(view.getResources().getString(R.string.key_saturday));
         String sunday = data.getExtras().getString(view.getResources().getString(R.string.key_sunday));
+
+        Log.d("Ergebnis", monday + tuesday + wednesday + thursday + friday + saturday + sunday);
     }
 }
