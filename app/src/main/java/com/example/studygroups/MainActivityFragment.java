@@ -88,9 +88,9 @@ abstract class MainActivityFragment extends Fragment {
 
 
     private void initViews() {
-        header = (TextView) view.findViewById(R.id.textView_Fragment);
-        textIfListIsEmpty = (TextView) view.findViewById(R.id.textView_ListEmpty);
-        listView = (ListView) view.findViewById(R.id.listView_Fragment);
+        header = view.findViewById(R.id.textView_Fragment);
+        textIfListIsEmpty = view.findViewById(R.id.textView_ListEmpty);
+        listView = view.findViewById(R.id.listView_Fragment);
     }
 
     protected abstract void replaceFragment();
