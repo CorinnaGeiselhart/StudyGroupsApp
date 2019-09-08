@@ -1,8 +1,5 @@
 package com.example.studygroups;
 
-
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -11,9 +8,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewStudyGroups extends MainActivityFragment {
 
@@ -27,12 +21,13 @@ public class NewStudyGroups extends MainActivityFragment {
     @Override
     protected void fillList(final OnDBComplete onDBComplete) {
         db = FirebaseFirestore.getInstance();
+        //Hier hol ich alle Documente aus einer Collection raus
         db.collection("Einführung in die objektorientierte Programmierung").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("FindallDocuments", document.getId() + " => " + document.getData());
+                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
                         db.collection("Einführung in die objektorientierte Programmierung").document(document.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -52,7 +47,7 @@ public class NewStudyGroups extends MainActivityFragment {
                                     }}}
                         });
                     }
-                    }
+                }
             }
         });
     }

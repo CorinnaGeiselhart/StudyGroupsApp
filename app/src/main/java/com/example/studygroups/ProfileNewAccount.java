@@ -41,7 +41,7 @@ public class ProfileNewAccount extends AppCompatActivity {
     private EditText username;
     private EditText age;
     private ImageView profilePicture;
-    private FirebaseFirestore db;
+    String picturePath;
 
     public static final int GET_FROM_GALLERY = 1;
 
@@ -88,11 +88,10 @@ public class ProfileNewAccount extends AppCompatActivity {
 
     private void upDateUser(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username.getText().toString().trim())
-                .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                .setPhotoUri(Uri.parse(picturePath))
                 .build();
 
         user.updateProfile(profileUpdates)
@@ -109,21 +108,6 @@ public class ProfileNewAccount extends AppCompatActivity {
         Map<String, String> userInformation = new HashMap<>();
         userInformation.put("age", age.getText().toString().trim());
 
-
-        db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(ProfileNewAccount.this,
-                        age.getText().toString().trim() , Toast.LENGTH_SHORT).show();
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
-
     }
     //greift auf die Gallerie zu um ein Bild zu bekommen
     @Override
@@ -139,7 +123,7 @@ public class ProfileNewAccount extends AppCompatActivity {
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
+            picturePath= cursor.getString(columnIndex);
             cursor.close();
 
             profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
