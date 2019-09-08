@@ -37,6 +37,7 @@
     <string name="key_saturday">Samstag</string>
     <string name="checkbox_sunday">So</string>
     <string name="key_sunday">Sonntag</string>
+    <string name="key_subject">Fach</string>
 
     <string name="button_filter">Filter anwenden</string>
 

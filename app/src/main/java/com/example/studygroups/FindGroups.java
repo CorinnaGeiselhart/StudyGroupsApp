@@ -1,13 +1,11 @@
 package com.example.studygroups;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
@@ -72,6 +70,7 @@ public class FindGroups extends Fragment {
     }
 
     private void getFilterData(Intent data) {
+        String subject = data.getExtras().getString(view.getResources().getString(R.string.key_subject));
         String monday = data.getExtras().getString(view.getResources().getString(R.string.key_monday));
         String tuesday = data.getExtras().getString(view.getResources().getString(R.string.key_tuesday));
         String wednesday = data.getExtras().getString(view.getResources().getString(R.string.key_wednesday));
@@ -80,6 +79,6 @@ public class FindGroups extends Fragment {
         String saturday = data.getExtras().getString(view.getResources().getString(R.string.key_saturday));
         String sunday = data.getExtras().getString(view.getResources().getString(R.string.key_sunday));
 
-        Log.d("Ergebnis", monday + tuesday + wednesday + thursday + friday + saturday + sunday);
+        Log.d("Ergebnis", subject + monday + tuesday + wednesday + thursday + friday + saturday + sunday);
     }
 }

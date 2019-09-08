@@ -57,6 +57,8 @@ public class FindGroupsFilter extends Fragment {
     }
 
     private void getData(Intent i) {
+        getSubject(i);
+
         String[] keys = {getResources().getString(R.string.key_monday),
                 getResources().getString(R.string.key_tuesday),
                 getResources().getString(R.string.key_wednesday),
@@ -67,6 +69,12 @@ public class FindGroupsFilter extends Fragment {
         for(int x = 0; x < weekdays.length; x++){
             checkStatus(weekdays[x], keys[x], i);
         }
+    }
+
+    private void getSubject(Intent i) {
+        String subject = modulePicker.getSelectedItem().toString();
+        i.putExtra(getResources().getString(R.string.key_subject), subject);
+        Log.d("Fach", subject);
     }
 
     private void checkStatus(CheckBox checkBox,String keyValue, Intent i){
