@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -67,13 +68,13 @@ public class Settings extends Fragment {
         notificationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //openNotificationFragment();
+                openNotificationFragment();
             }
         });
         notificationViewX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //openNotificationFragment();
+                openNotificationFragment();
             }
         });
 
@@ -117,6 +118,15 @@ public class Settings extends Fragment {
         ColorSettingsFragment colorSettingsFragment = new ColorSettingsFragment();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.nav_Host, colorSettingsFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void openNotificationFragment(){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        NotificationSettingsFragment notificationSettingsFragment = new NotificationSettingsFragment();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.nav_Host, notificationSettingsFragment);
         fragmentTransaction.commit();
     }
 
