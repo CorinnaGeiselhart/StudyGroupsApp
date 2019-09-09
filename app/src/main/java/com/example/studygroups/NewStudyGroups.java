@@ -1,7 +1,17 @@
 package com.example.studygroups;
 
+import androidx.annotation.NonNull;
 
-public class NewStudyGroups extends MainActivityFragment{
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+public class NewStudyGroups extends MainActivityFragment {
+
+    private FirebaseFirestore db;
 
     @Override
     protected void replaceFragment() {
@@ -9,9 +19,37 @@ public class NewStudyGroups extends MainActivityFragment{
     }
 
     @Override
-    protected void fillList() {
-        //Beispiel, da Datenbank noch nicht erstellt
-        list.add(new StudyGroup("EIMI", "12.08.2019","Monday" ,"19:00", "Universität Regensburg",""));
+    protected void fillList(final OnDBComplete onDBComplete) {
+        db = FirebaseFirestore.getInstance();
+        //Hier hol ich alle Documente aus einer Collection raus
+        db.collection("Einführung in die objektorientierte Programmierung").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
+                        db.collection("Einführung in die objektorientierte Programmierung").document(document.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                            String subject = document.getString("subject");
+                                            String date = document.getString("date");
+                                            String weekday = document.getString("weekday");
+                                            String time = document.getString("time");
+                                            String place = document.getString("place");
+                                            String details = document.getString("details");
+
+                                            list.add(new StudyGroup(subject, date, weekday, time, place, details));
+                                            onDBComplete.onComplete();
+
+                                    }}}
+                        });
+                    }
+                }
+            }
+        });
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.example.studygroups;
 
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,11 +11,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import static android.provider.MediaStore.Images.Media.getBitmap;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -154,8 +163,14 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void createProfileListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_View);
+        NavigationView navigationView = findViewById(R.id.nav_View);
         View headerView = navigationView.getHeaderView(0);
+        ImageView profile = headerView.findViewById(R.id.imageView_NavBarPPicture);
+        TextView username = headerView.findViewById(R.id.textView_NavBarUsername);
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String picturePath = user.getPhotoUrl().toString();
+        profile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        username.setText(user.getDisplayName());
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

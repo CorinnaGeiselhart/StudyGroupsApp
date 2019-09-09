@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/funf"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="300dp"
+    android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center_vertical"
     tools:ignore="InvalidId">
 
-    <TextView
-        android:id="@+id/profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="100dp"
-        android:text="Profil" />
+    <ImageView
+        android:id="@+id/imageView_NavBarPPicture"
+        android:layout_width="190dp"
+        android:layout_height="192dp"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
 
+    <TextView
+        android:id="@+id/textView_NavBarUsername"
+        android:layout_width="362dp"
+        android:layout_height="38dp"
+        android:text="TextView"
+        android:layout_marginBottom="0dp"/>
 </LinearLayout>

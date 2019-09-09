@@ -118,11 +118,7 @@ public class StudyGroupCreateNew extends Fragment {
     public void addToDatabase(StudyGroup studyGroup){
         db = FirebaseFirestore.getInstance();
 
-        //Admin wird durch Nutzername des Admins ausgetauscht
-        Map<String,StudyGroup> lerngroup = new HashMap<>();
-        lerngroup.put("Admin", studyGroup);
-
-        db.collection(studyGroup.getSubject()).add(lerngroup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection(studyGroup.getSubject()).add(studyGroup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
