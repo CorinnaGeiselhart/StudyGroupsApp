@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -168,8 +169,10 @@ public class MainActivity extends AppCompatActivity{
         ImageView profile = headerView.findViewById(R.id.imageView_NavBarPPicture);
         TextView username = headerView.findViewById(R.id.textView_NavBarUsername);
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String picturePath = user.getPhotoUrl().toString();
-        profile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        if(user.getPhotoUrl() != null) {
+            String picturePath = user.getPhotoUrl().toString();
+            profile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        }
         username.setText(user.getDisplayName());
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
