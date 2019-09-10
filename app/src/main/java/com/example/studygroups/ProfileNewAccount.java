@@ -42,6 +42,7 @@ public class ProfileNewAccount extends AppCompatActivity {
     private EditText age;
     private ImageView profilePicture;
     String picturePath;
+    private FirebaseFirestore db;
 
     public static final int GET_FROM_GALLERY = 1;
 
@@ -88,6 +89,7 @@ public class ProfileNewAccount extends AppCompatActivity {
 
     private void upDateUser(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username.getText().toString().trim())
@@ -107,6 +109,8 @@ public class ProfileNewAccount extends AppCompatActivity {
         //Hier werden weitere Daten des Nutzers in einer collection gesammelt
         Map<String, String> userInformation = new HashMap<>();
         userInformation.put("age", age.getText().toString().trim());
+
+        db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation);
 
     }
     //greift auf die Gallerie zu um ein Bild zu bekommen
