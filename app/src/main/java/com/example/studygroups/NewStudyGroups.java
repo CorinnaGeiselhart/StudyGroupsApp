@@ -67,16 +67,17 @@ public class NewStudyGroups extends MainActivityFragment {
                onDBComplete.onComplete();
            }
        });*/
-       db.collection("Einführung in die Medieninformatik").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-           @Override
-           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-               for(DocumentSnapshot d : queryDocumentSnapshots.getDocuments()){
-                   StudyGroup newEntry = d.toObject(StudyGroup.class);
-                   Log.d("SCHEIßOBJEKT", d.getId() + " => " + d.getData());
-                   list.add(newEntry);
-               }
-           }
-       });
+        db.collection("Einführung in die Medieninformatik").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot d : queryDocumentSnapshots.getDocuments()) {
+                    StudyGroup newEntry = d.toObject(StudyGroup.class);
+                    Log.d("SCHEIßOBJEKT", d.getId() + " => " + d.getData());
+                    list.add(newEntry);
+                }
+                onDBComplete.onComplete();
+            }
+        });
         /*db.collection("Vorlesungsfächer").document("Einführung in die Medieninformatik").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
