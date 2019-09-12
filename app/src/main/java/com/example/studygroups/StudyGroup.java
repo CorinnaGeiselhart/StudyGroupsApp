@@ -10,6 +10,8 @@ public class StudyGroup implements Serializable {
     private String subject, date, time, place, notes, weekday;
     private ArrayList<String> participants;
 
+    public StudyGroup(){}
+
     public StudyGroup(String subject, String date, String weekday, String time, String place, String details){
         this.subject = subject;
         this.date = date;

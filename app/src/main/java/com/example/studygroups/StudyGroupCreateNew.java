@@ -45,6 +45,8 @@ public class StudyGroupCreateNew extends Fragment {
     private EditText locationView;
     private EditText commentView;
     private FloatingActionButton createGroup;
+
+    private int counter = 0;
     private FirebaseFirestore db;
 
     private int min, hour, day, month, year;
@@ -88,6 +90,7 @@ public class StudyGroupCreateNew extends Fragment {
                     //Lerngruppeneintrag hinzufügen
                     StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment);
                     addToDatabase(studyGroup);
+                    counter++;
 
                     startDetailsActivity(studyGroup);
                     //zur Datenbank hinzufügen
@@ -116,19 +119,7 @@ public class StudyGroupCreateNew extends Fragment {
 
     public void addToDatabase(StudyGroup studyGroup){
         db = FirebaseFirestore.getInstance();
-
-        db.collection(studyGroup.getSubject()).add(studyGroup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
-            }
-        });
+        db.collection(studyGroup.getSubject()).add(studyGroup);
 
     }
     private void resetView() {

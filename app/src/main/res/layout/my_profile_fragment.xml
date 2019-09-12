@@ -7,18 +7,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView_Profile_settings_picture"
+        android:layout_width="222dp"
+        android:layout_height="221dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="My Profile"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        tools:layout_editor_absoluteY="68dp" />
+
+    <TextView
+        android:id="@+id/textView_ColorSettings"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/colorsettings_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_colorsetting_explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/colorsettings_explanation_text"
+        android:textColor="?attr/hintcolor"
+        app:layout_constraintEnd_toEndOf="@+id/textView_ColorSettings"
+        app:layout_constraintStart_toStartOf="@+id/textView_ColorSettings"
+        app:layout_constraintTop_toBottomOf="@+id/textView_ColorSettings" />
 </androidx.constraintlayout.widget.ConstraintLayout>
