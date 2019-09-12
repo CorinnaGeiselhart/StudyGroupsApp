@@ -9,5 +9,6 @@
         <attr name="headercolor" format="color"/>
         <attr name="hintcolor" format="color"/>
         <attr name="primarycolor" format="color"/>
+        <attr name="colorPrimaryDark" format="color"/>
     </declare-styleable>
 </resources>

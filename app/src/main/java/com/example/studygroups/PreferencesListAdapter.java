@@ -1,8 +1,6 @@
 package com.example.studygroups;
 
 import android.content.Context;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PreferencesListAdapter extends ArrayAdapter<Preference> {
+public class PreferencesListAdapter extends ArrayAdapter<NotificationPermission> {
 
     private Context context;
-    private ArrayList<Preference> preferenceList;
-    private Preference preference;
+    private ArrayList<NotificationPermission> notificationPermissionList;
+    private NotificationPermission notificationPermission;
 
     private Switch preferenceSwitch;
     private TextView preferenceExplanation;
@@ -24,11 +22,11 @@ public class PreferencesListAdapter extends ArrayAdapter<Preference> {
 
 
 
-    public PreferencesListAdapter(Context context, ArrayList<Preference> preferenceList){
-        super(context, R.layout.preferences_item_layout, preferenceList);
+    public PreferencesListAdapter(Context context, ArrayList<NotificationPermission> notificationPermissionList){
+        super(context, R.layout.preferences_item_layout, notificationPermissionList);
 
         this.context = context;
-        this.preferenceList = preferenceList;
+        this.notificationPermissionList = notificationPermissionList;
     }
 
     @Override
@@ -40,9 +38,9 @@ public class PreferencesListAdapter extends ArrayAdapter<Preference> {
             v = layoutInflater.inflate(R.layout.preferences_item_layout, null);
         }
 
-        preference = preferenceList.get(position);
+        notificationPermission = notificationPermissionList.get(position);
 
-        if(preference != null){
+        if(notificationPermission != null){
             preferenceSwitch = v.findViewById(R.id.switch_Preference);
             preferenceExplanation = v.findViewById(R.id.textView_PreferenceExplanation);
 
@@ -53,8 +51,15 @@ public class PreferencesListAdapter extends ArrayAdapter<Preference> {
 
 
     private void setViews() {
-        preferenceSwitch.setChecked(preference.isPrefGiven());
-        preferenceSwitch.setText(preference.getName());
-        preferenceExplanation.setText(preference.getExplanation());
+        preferenceSwitch.setChecked(notificationPermission.isPrefGiven());
+        preferenceSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notificationPermission.setPrefGiven(preferenceSwitch.isChecked());
+                //TODO: save to database
+            }
+        });
+        preferenceSwitch.setText(notificationPermission.getName());
+        preferenceExplanation.setText(notificationPermission.getExplanation());
     }
 }

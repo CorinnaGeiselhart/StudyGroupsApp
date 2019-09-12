@@ -1,9 +1,16 @@
 package com.example.studygroups;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -35,20 +42,27 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int ADD_TO_BACKSTACK = 1;
     private static final int DONT_ADD_TO_BACKSTACK = 0;
-    public static Themes theme = Themes.STANDARD;
+
+    public static String userColor = "";
+    public static String userMode = "";
+
+    private FirebaseFirestore db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        getUserPreferences();
+        setColorTheme();
+
         //App in Darkmode or Lightmode?
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            setColorTheme(true);
+        /**if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+            setColorTheme();
         }
         else {
-            setColorTheme(false);
+            setColorTheme();
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        }*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -58,9 +72,73 @@ public class MainActivity extends AppCompatActivity{
         addMainFragment();
     }
 
-    private void setColorTheme(boolean darkmodeOn){
-        if(darkmodeOn){
-            switch(theme) {
+    private void getUserPreferences(){
+        db = FirebaseFirestore.getInstance();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //Hier hol ich alle Documente aus einer Collection raus
+        db.collection("studygroups-Accounts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
+                        db.collection("studygroups-Accounts").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        userMode = document.getString("mode");
+                                        userColor = document.getString("theme");
+                                    }
+                                }}
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    private void setColorTheme() {
+        //getUserPreferences();
+            if (userMode.equals("darkmodeYes"))
+            {
+                if (userColor.equals("STANDARD")) {
+                    setTheme(R.style.DarkModeTheme);
+                }
+                else if (userColor.equals("ICE")) {
+                    setTheme(R.style.IceDarkTheme);
+                }
+                else if (userColor.equals("SUN")) {
+                    setTheme(R.style.SunDarkTheme);
+                }
+                else if (userColor.equals("FIRE")) {
+                    setTheme(R.style.FireDarkTheme);
+                }
+                else if (userColor.equals("NATURE")) {
+                    setTheme(R.style.NatureDarkTheme);
+                }
+            }
+
+            else if (userMode.equals("darkmodeNo"))
+            {
+                if (userColor.equals("STANDARD")) {
+                    setTheme(R.style.AppTheme);
+                }
+                else if (userColor.equals("ICE")) {
+                    setTheme(R.style.IceTheme);
+                }
+                else if (userColor.equals("SUN")) {
+                    setTheme(R.style.SunTheme);
+                }
+                else if (userColor.equals("FIRE")) {
+                    setTheme(R.style.FireTheme);
+                }
+                else if (userColor.equals("NATURE")) {
+                    setTheme(R.style.NatureTheme);
+                }
+            }
+            /*switch(theme) {
                 case STANDARD: {
                     setTheme(R.style.DarkModeTheme);
                     break;
@@ -82,8 +160,8 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 }
             }
-        }
-        else {
+        //}
+        /*else {
             switch (theme) {
                 case STANDARD: {
                     setTheme(R.style.AppTheme);
@@ -106,7 +184,7 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 }
             }
-        }
+        }*/
     }
 
    private void createNavDrawer(){
@@ -202,4 +280,5 @@ public class MainActivity extends AppCompatActivity{
         }
         fragmentTransaction.commit();
     }
+
 }

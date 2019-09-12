@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudyGroups</string>
+    <string name="app_name">StudyBuddy</string>
     <string name="text_my_study_groups">Meine Lerngruppen</string>
     <string name="text_new_study_groups">Neue Lerngruppen</string>
     <string name="text_empty_my_study_groups_list">Suche dir eine Lerngruppe aus</string>
@@ -83,6 +83,12 @@
     <string name="notification_reminder_name">Erinnerung</string>
     <string name="notification_group_explanation">Du wirst benachrichtigt, wenn jemand deiner Lerngruppe beitritt</string>
     <string name="notification_reminder_explanation">Du wirst 30min vor dem Treffpunkt deiner Lerngruppe benachrichtigt</string>
+
+    <!--strings: preferences-->
+    <string name="notification_title_join">Hey StudyBuddy!</string>
+    <string name="notification_text_join">Jemand neues ist deiner Lerngruppe beigetreten.</string>
+    <string name="notification_title_reminder">Auf geht´s!</string>
+    <string name="notification_text_reminder">Deine Lerngruppe trifft sich in einer halben Stunde.</string>
 
     <!--strings: colors-->
     <string name="darkmode_text">Darkmode</string>
