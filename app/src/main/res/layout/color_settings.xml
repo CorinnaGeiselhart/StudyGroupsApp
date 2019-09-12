@@ -38,10 +38,13 @@
 
     <Spinner
         android:id="@+id/spinner_SettingsColor"
-        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+        style="@style/Platform.Widget.AppCompat.Spinner"
+        android:backgroundTint="?attr/primarycolor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:dropDownWidth="wrap_content"
         android:entries="@array/color_list"
         android:orientation="horizontal"
