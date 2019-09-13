@@ -28,7 +28,7 @@ public class Settings extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.settings_fragment, container, false);
+        return inflater.inflate(R.layout.settings, container, false);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Settings extends Fragment {
         colorView = getView().findViewById(R.id.textView_ColorSettings);
         colorViewX = getView().findViewById(R.id.textView_colorsetting_explanation);
         notificationView = getView().findViewById(R.id.textView_notificationpreferences);
-        notificationViewX = getView().findViewById(R.id.textView_notificationpreferences_explanation);
+        notificationViewX = getView().findViewById(R.id.textView_NotificationsExplanation);
 
 
         /**colorSwitchView = getView().findViewById(R.id.color_switch_view);
@@ -124,7 +124,7 @@ public class Settings extends Fragment {
     private void openNotificationFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        NotificationSettings notificationSettingsFragment = new NotificationSettings();
+        NotificationSettingsFragment notificationSettingsFragment = new NotificationSettingsFragment();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.nav_Host, notificationSettingsFragment);
         fragmentTransaction.commit();

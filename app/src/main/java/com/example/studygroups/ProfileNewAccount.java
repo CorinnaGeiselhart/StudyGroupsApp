@@ -90,6 +90,7 @@ public class ProfileNewAccount extends AppCompatActivity {
 
     private void upDateUser(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(username.getText().toString().trim())

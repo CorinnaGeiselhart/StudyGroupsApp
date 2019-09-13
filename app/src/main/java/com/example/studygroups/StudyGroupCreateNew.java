@@ -76,6 +76,7 @@ public class StudyGroupCreateNew extends Fragment {
            @Override
             public void onClick(View v) {
                 String subject = modulePicker.getSelectedItem().toString();
+                //TODO: date nur Datum, nicht Wochentag
                 String date = datePicker.getText().toString();
                 String time = timePicker.getText().toString();
                 String location = locationView.getText().toString().trim();
