@@ -28,6 +28,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.studygroups.ProfileNewAccount.getUserInformation;
+import static com.example.studygroups.Themes.FIRE;
+import static com.example.studygroups.Themes.ICE;
+import static com.example.studygroups.Themes.NATURE;
+import static com.example.studygroups.Themes.STANDARD;
+import static com.example.studygroups.Themes.SUN;
+
 public class ColorSettingsFragment extends Fragment {
 
     Switch darkSwitch;
