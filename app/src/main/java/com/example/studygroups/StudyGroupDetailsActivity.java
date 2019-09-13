@@ -54,7 +54,8 @@ public class StudyGroupDetailsActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 //Teilnehmen bzw austretten
-                //-> zur Teilnehmerliste hinzufügen/entfernen
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                list.add(user.getDisplayName());
             }
         });
     }
@@ -87,8 +88,7 @@ public class StudyGroupDetailsActivity extends Fragment {
 
     private void getParticipants() {
         //aus Datenbank Teilnehmer bekommen
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        list.add(user.getDisplayName());
+        list.add("Teilnehmer");
     }
 
 
