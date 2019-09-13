@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -51,6 +53,7 @@ public class StudyGroupCreateNew extends Fragment {
 
     private int min, hour, day, month, year;
     private String weekday;
+    private String milliSeconds;
 
 
 
@@ -89,7 +92,9 @@ public class StudyGroupCreateNew extends Fragment {
 
                 }else{
                     //Lerngruppeneintrag hinzufügen
-                    StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment);
+                    milliSeconds = String.valueOf(System.currentTimeMillis());
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment,milliSeconds,user.getUid());
                     addToDatabase(studyGroup);
                     counter++;
 
@@ -120,7 +125,7 @@ public class StudyGroupCreateNew extends Fragment {
 
     public void addToDatabase(StudyGroup studyGroup){
         db = FirebaseFirestore.getInstance();
-        db.collection(studyGroup.getSubject()).add(studyGroup);
+        db.collection(studyGroup.getSubject()).document(milliSeconds).set(studyGroup);
 
     }
     private void resetView() {
