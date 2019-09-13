@@ -170,12 +170,15 @@ public class MainActivity extends AppCompatActivity{
         View headerView = navigationView.getHeaderView(0);
         ImageView profile = headerView.findViewById(R.id.imageView_NavBarPPicture);
         TextView username = headerView.findViewById(R.id.textView_NavBarUsername);
+        TextView email = headerView.findViewById(R.id.textView_NavBarEmail);
+
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user.getPhotoUrl()!= null) {
             String picturePath = user.getPhotoUrl().toString();
             profile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
         username.setText(user.getDisplayName());
+        email.setText(user.getEmail());
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -10,12 +10,13 @@
     android:orientation="vertical"
     tools:ignore="InvalidId">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView_NavBarPPicture"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="100sp"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        android:layout_gravity="left"
+        app:srcCompat="@android:drawable/ic_menu_gallery"/>
 
     <TextView
         android:id="@+id/textView_NavBarUsername"
@@ -24,4 +25,10 @@
         android:layout_marginBottom="10dp"
         android:text="TextView"
         android:textColor="?attr/hintcolor" />
+
+    <TextView
+        android:id="@+id/textView_NavBarEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
