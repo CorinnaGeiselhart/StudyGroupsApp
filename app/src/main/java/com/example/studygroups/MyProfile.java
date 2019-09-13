@@ -20,7 +20,7 @@ public class MyProfile extends Fragment {
 
         initViews();
 
-        return inflater.inflate(R.layout.my_profile_fragment, container, false);
+        return inflater.inflate(R.layout.my_profile, container, false);
     }
 
     private void initViews(){
