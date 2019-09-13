@@ -101,5 +101,7 @@
         <item>Fire </item>
         <item>Nature </item>
     </string-array>
+    <string name="pref_color_key">ColorKey</string>
+    <string name="pref_mode_key">ModeKey</string>
 
 </resources>

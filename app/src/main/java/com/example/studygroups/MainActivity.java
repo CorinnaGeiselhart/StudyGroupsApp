@@ -19,15 +19,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.preference.Preference;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.provider.MediaStore.Images.Media.getBitmap;
 
@@ -43,26 +48,20 @@ public class MainActivity extends AppCompatActivity{
     private static final int ADD_TO_BACKSTACK = 1;
     private static final int DONT_ADD_TO_BACKSTACK = 0;
 
-    public static String userColor = "";
-    public static String userMode = "";
-
-    private FirebaseFirestore db;
+    public String userColor;
+    public static String userMode;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        getUserPreferences();
-        setColorTheme();
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        String defaultValueColor = "STANDARD";
+        String defaultValueMode = "darkmodeNo";
+        userColor = sharedPref.getString(getString(R.string.pref_color_key), defaultValueColor);
+        userMode = sharedPref.getString(getString(R.string.pref_mode_key), defaultValueMode);
 
-        //App in Darkmode or Lightmode?
-        /**if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            setColorTheme();
-        }
-        else {
-            setColorTheme();
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }*/
+        setColorTheme();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -72,119 +71,45 @@ public class MainActivity extends AppCompatActivity{
         addMainFragment();
     }
 
-    private void getUserPreferences(){
-        db = FirebaseFirestore.getInstance();
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Hier hol ich alle Documente aus einer Collection raus
-        db.collection("studygroups-Accounts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
-                        db.collection("studygroups-Accounts").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        userMode = document.getString("mode");
-                                        userColor = document.getString("theme");
-                                    }
-                                }}
-                        });
-                    }
-                }
-            }
-        });
-    }
 
     private void setColorTheme() {
-        //getUserPreferences();
-            if (userMode.equals("darkmodeYes"))
-            {
-                if (userColor.equals("STANDARD")) {
-                    setTheme(R.style.DarkModeTheme);
-                }
-                else if (userColor.equals("ICE")) {
-                    setTheme(R.style.IceDarkTheme);
-                }
-                else if (userColor.equals("SUN")) {
-                    setTheme(R.style.SunDarkTheme);
-                }
-                else if (userColor.equals("FIRE")) {
-                    setTheme(R.style.FireDarkTheme);
-                }
-                else if (userColor.equals("NATURE")) {
-                    setTheme(R.style.NatureDarkTheme);
-                }
+        if (userMode.equals("darkmodeYes"))
+        {
+            if (userColor.equals("STANDARD")) {
+                setTheme(R.style.DarkModeTheme);
             }
+            else if (userColor.equals("ICE")) {
+                setTheme(R.style.IceDarkTheme);
+            }
+            else if (userColor.equals("SUN")) {
+                setTheme(R.style.SunDarkTheme);
+            }
+            else if (userColor.equals("FIRE")) {
+                setTheme(R.style.FireDarkTheme);
+            }
+            else if (userColor.equals("NATURE")) {
+                setTheme(R.style.NatureDarkTheme);
+            }
+        }
 
-            else if (userMode.equals("darkmodeNo"))
-            {
-                if (userColor.equals("STANDARD")) {
-                    setTheme(R.style.AppTheme);
-                }
-                else if (userColor.equals("ICE")) {
-                    setTheme(R.style.IceTheme);
-                }
-                else if (userColor.equals("SUN")) {
-                    setTheme(R.style.SunTheme);
-                }
-                else if (userColor.equals("FIRE")) {
-                    setTheme(R.style.FireTheme);
-                }
-                else if (userColor.equals("NATURE")) {
-                    setTheme(R.style.NatureTheme);
-                }
+        else if (userMode.equals("darkmodeNo"))
+        {
+            if (userColor.equals("STANDARD")) {
+                setTheme(R.style.AppTheme);
             }
-            /*switch(theme) {
-                case STANDARD: {
-                    setTheme(R.style.DarkModeTheme);
-                    break;
-                }
-                case ICE: {
-                    setTheme(R.style.IceDarkTheme);
-                    break;
-                }
-                case SUN: {
-                    setTheme(R.style.SunDarkTheme);
-                    break;
-                }
-                case NATURE: {
-                    setTheme(R.style.NatureDarkTheme);
-                    break;
-                }
-                case FIRE: {
-                    setTheme(R.style.FireDarkTheme);
-                    break;
-                }
+            else if (userColor.equals("ICE")) {
+                setTheme(R.style.IceTheme);
             }
-        //}
-        /*else {
-            switch (theme) {
-                case STANDARD: {
-                    setTheme(R.style.AppTheme);
-                    break;
-                }
-                case ICE: {
-                    setTheme(R.style.IceTheme);
-                    break;
-                }
-                case SUN: {
-                    setTheme(R.style.SunTheme);
-                    break;
-                }
-                case NATURE: {
-                    setTheme(R.style.NatureTheme);
-                    break;
-                }
-                case FIRE: {
-                    setTheme(R.style.FireTheme);
-                    break;
-                }
+            else if (userColor.equals("SUN")) {
+                setTheme(R.style.SunTheme);
             }
-        }*/
+            else if (userColor.equals("FIRE")) {
+                setTheme(R.style.FireTheme);
+            }
+            else if (userColor.equals("NATURE")) {
+                setTheme(R.style.NatureTheme);
+            }
+        }
     }
 
    private void createNavDrawer(){
@@ -280,5 +205,4 @@ public class MainActivity extends AppCompatActivity{
         }
         fragmentTransaction.commit();
     }
-
 }
