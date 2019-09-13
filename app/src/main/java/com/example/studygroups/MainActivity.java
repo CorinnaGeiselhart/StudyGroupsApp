@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.provider.MediaStore.Images.Media.getBitmap;
 
 
 public class MainActivity extends AppCompatActivity{
