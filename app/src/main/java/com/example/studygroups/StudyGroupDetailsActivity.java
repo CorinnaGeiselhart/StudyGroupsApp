@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 
@@ -84,7 +87,8 @@ public class StudyGroupDetailsActivity extends Fragment {
 
     private void getParticipants() {
         //aus Datenbank Teilnehmer bekommen
-        list.add("Teilnehmer");
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        list.add(user.getDisplayName());
     }
 
 
