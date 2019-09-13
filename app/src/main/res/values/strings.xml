@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudyGroups</string>
+    <string name="app_name">StudyBuddy</string>
     <string name="text_my_study_groups">Meine Lerngruppen</string>
     <string name="text_new_study_groups">Neue Lerngruppen</string>
     <string name="text_empty_my_study_groups_list">Suche dir eine Lerngruppe aus</string>
@@ -37,6 +37,7 @@
     <string name="key_saturday">Samstag</string>
     <string name="checkbox_sunday">So</string>
     <string name="key_sunday">Sonntag</string>
+    <string name="key_subject">Fach</string>
 
     <string name="button_filter">Filter anwenden</string>
 
@@ -78,11 +79,20 @@
     <string name="colorsettings_explanation_text">Schalte in den Darkmode oder ändere das Farbschema</string>
     <string name="notificationpreferences_text">Benachrichtigungseinstellungen</string>
     <string name="notificationpreferences_explanation_text">Wähle, welche Benachrichtigungen du bekommst</string>
+    <string name="notification_group_name">Gruppenbeitritt</string>
+    <string name="notification_reminder_name">Erinnerung</string>
+    <string name="notification_group_explanation">Du wirst benachrichtigt, wenn jemand deiner Lerngruppe beitritt</string>
+    <string name="notification_reminder_explanation">Du wirst 30min vor dem Treffpunkt deiner Lerngruppe benachrichtigt</string>
+
+    <!--strings: preferences-->
+    <string name="notification_title_join">Hey StudyBuddy!</string>
+    <string name="notification_text_join">Jemand neues ist deiner Lerngruppe beigetreten.</string>
+    <string name="notification_title_reminder">Auf geht´s!</string>
+    <string name="notification_text_reminder">Deine Lerngruppe trifft sich in einer halben Stunde.</string>
 
     <!--strings: colors-->
     <string name="darkmode_text">Darkmode</string>
     <string name="change_explanation_text">Achtung! Es erfolgt ein automatischer Neustart der App.</string>
-
     <string-array name="color_list">
         <item>Farbschema ändern </item>
         <item>Faculty </item>
@@ -91,5 +101,7 @@
         <item>Fire </item>
         <item>Nature </item>
     </string-array>
+    <string name="pref_color_key">ColorKey</string>
+    <string name="pref_mode_key">ModeKey</string>
 
 </resources>

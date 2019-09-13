@@ -1,12 +1,14 @@
 package com.example.studygroups;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +44,12 @@ public class FindGroups extends Fragment {
         filter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), FindGroupsFilter.class);
-
-                startActivityForResult(intent, REQUEST_CODE);
+                FindGroupsFilter filter = new FindGroupsFilter();
+                filter.setTargetFragment(FindGroups.this, REQUEST_CODE);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.nav_Host,filter);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
@@ -53,11 +57,10 @@ public class FindGroups extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("onActivityResult");
         try{
             super.onActivityResult(requestCode, resultCode, data);
 
-            if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            if(requestCode == REQUEST_CODE /**&& resultCode == Activity.RESULT_OK**/){
                 getFilterData(data);
             }
 
@@ -67,6 +70,7 @@ public class FindGroups extends Fragment {
     }
 
     private void getFilterData(Intent data) {
+        String subject = data.getExtras().getString(view.getResources().getString(R.string.key_subject));
         String monday = data.getExtras().getString(view.getResources().getString(R.string.key_monday));
         String tuesday = data.getExtras().getString(view.getResources().getString(R.string.key_tuesday));
         String wednesday = data.getExtras().getString(view.getResources().getString(R.string.key_wednesday));
@@ -74,5 +78,7 @@ public class FindGroups extends Fragment {
         String friday = data.getExtras().getString(view.getResources().getString(R.string.key_friday));
         String saturday = data.getExtras().getString(view.getResources().getString(R.string.key_saturday));
         String sunday = data.getExtras().getString(view.getResources().getString(R.string.key_sunday));
+
+        Log.d("Ergebnis", subject + monday + tuesday + wednesday + thursday + friday + saturday + sunday);
     }
 }
