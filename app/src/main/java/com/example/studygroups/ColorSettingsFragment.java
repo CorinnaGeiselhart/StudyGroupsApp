@@ -17,35 +17,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.example.studygroups.ProfileNewAccount.getUserInformation;
-import static com.example.studygroups.Themes.FIRE;
-import static com.example.studygroups.Themes.ICE;
-import static com.example.studygroups.Themes.NATURE;
-import static com.example.studygroups.Themes.STANDARD;
-import static com.example.studygroups.Themes.SUN;
 
 public class ColorSettingsFragment extends Fragment {
 
     Switch darkSwitch;
     Spinner colorSpinner;
-    FirebaseFirestore db;
-    ProfileNewAccount profileNewAccount;
+
     static String darkmode = "darkmodeNo";
     static String colorTheme = "STANDARD";
-    public static String userAge;
-    public static Map<String, String> map;
+
 
     @Nullable
     @Override
