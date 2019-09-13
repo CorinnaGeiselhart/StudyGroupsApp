@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,81 +30,23 @@ public class NewStudyGroups extends MainActivityFragment {
     @Override
     protected void fillList(final OnDBComplete onDBComplete) {
         db = FirebaseFirestore.getInstance();
-        //Hier hol ich alle Documente aus einer Collection raus
-       /* db.collection("Einführung in die objektorientierte Programmierung").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
-                        db.collection("Einführung in die objektorientierte Programmierung").document(document.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                            String subject = document.getString("subject");
-                                            String date = document.getString("date");
-                                            String weekday = document.getString("weekday");
-                                            String time = document.getString("time");
-                                            String place = document.getString("place");
-                                            String details = document.getString("details");
-
-                                            list.add(new StudyGroup(subject, date, weekday, time, place, details));
-                                            onDBComplete.onComplete();
-
-                                    }}}
-                        });
-                    }
-                }
-            }
-        });
-       db.collection("Vorlesungsfächer").document("Einführung in die Medieninformatik").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+        String[] subjects = getResources().getStringArray(R.array.modul_list);
+        for(String subject : subjects){
+            tasks.add(db.collection(subject).get());
+        }
+       Task combindeTask = Tasks.whenAllComplete(tasks).addOnSuccessListener(new OnSuccessListener<List<Task<?>>>() {
            @Override
-           public void onSuccess(DocumentSnapshot documentSnapshot) {
-                StudyGroup newEntry = documentSnapshot.toObject(StudyGroup.class);
-               Log.d("Eintrag", "Cached document data: " + newEntry);
-               list.add(newEntry);
+           public void onSuccess(List<Task<?>> tasks) {
+               for (Task t : tasks){
+                   QuerySnapshot qs = (QuerySnapshot) t.getResult();
+                   for (DocumentSnapshot doc : qs.getDocuments()){
+                       list.add(doc.toObject(StudyGroup.class));
+                   }
+               }
                onDBComplete.onComplete();
            }
-       });*/
-        db.collection("Einführung in die Medieninformatik").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot d : queryDocumentSnapshots.getDocuments()) {
-                    StudyGroup newEntry = d.toObject(StudyGroup.class);
-                    Log.d("SCHEIßOBJEKT", d.getId() + " => " + d.getData());
-                    list.add(newEntry);
-                }
-                onDBComplete.onComplete();
-            }
-        });
-        /*db.collection("Vorlesungsfächer").document("Einführung in die Medieninformatik").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                documentSnapshot.
-                StudyGroup newEntry = documentSnapshot.toObject(StudyGroup.class);
-                Log.d("Eintrag", "Cached document data: " + newEntry);
-                list.add(newEntry);
-                onDBComplete.onComplete();
-            }
-        });
-        db.collection("Vorlesungsfächer").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot subject : task.getResult()) {
-                       HashMap<String, Object> groups = new HashMap<>(subject.getData());
-                       for(Map.Entry<String, Object> entry : groups.entrySet()){
-
-                           list.add();
-                       }
-                    }
-                } else {
-
-                }
-            }
-        });*/
+       });
     }
 
     @Override
