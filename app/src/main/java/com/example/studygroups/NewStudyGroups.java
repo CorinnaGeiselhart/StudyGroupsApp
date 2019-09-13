@@ -1,13 +1,15 @@
 package com.example.studygroups;
 
-import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewStudyGroups extends MainActivityFragment {
 
@@ -21,35 +23,23 @@ public class NewStudyGroups extends MainActivityFragment {
     @Override
     protected void fillList(final OnDBComplete onDBComplete) {
         db = FirebaseFirestore.getInstance();
-        //Hier hol ich alle Documente aus einer Collection raus
-        db.collection("Einführung in die objektorientierte Programmierung").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
-                        db.collection("Einführung in die objektorientierte Programmierung").document(document.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                            String subject = document.getString("subject");
-                                            String date = document.getString("date");
-                                            String weekday = document.getString("weekday");
-                                            String time = document.getString("time");
-                                            String place = document.getString("place");
-                                            String details = document.getString("details");
-
-                                            list.add(new StudyGroup(subject, date, weekday, time, place, details));
-                                            onDBComplete.onComplete();
-
-                                    }}}
-                        });
-                    }
-                }
-            }
-        });
+        List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+        String[] subjects = getResources().getStringArray(R.array.modul_list);
+        for(String subject : subjects){
+            tasks.add(db.collection(subject).get());
+        }
+       Task combindeTask = Tasks.whenAllComplete(tasks).addOnSuccessListener(new OnSuccessListener<List<Task<?>>>() {
+           @Override
+           public void onSuccess(List<Task<?>> tasks) {
+               for (Task t : tasks){
+                   QuerySnapshot qs = (QuerySnapshot) t.getResult();
+                   for (DocumentSnapshot doc : qs.getDocuments()){
+                       list.add(doc.toObject(StudyGroup.class));
+                   }
+               }
+               onDBComplete.onComplete();
+           }
+       });
     }
 
     @Override

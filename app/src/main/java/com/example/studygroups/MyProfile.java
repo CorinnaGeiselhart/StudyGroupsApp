@@ -8,13 +8,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 public class MyProfile extends Fragment {
+
+    private ImageView profilePicture;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        initViews();
+
         return inflater.inflate(R.layout.my_profile_fragment, container, false);
+    }
+
+    private void initViews(){
+        profilePicture = getActivity().findViewById(R.id.imageView_Profile_settings_picture);
+
     }
 
 
