@@ -27,23 +27,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/colorsettings_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_Profile_settings_picture" />
 
     <TextView
         android:id="@+id/textView_colorsetting_explanation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/colorsettings_explanation_text"
         android:textColor="?attr/hintcolor"
         app:layout_constraintEnd_toEndOf="@+id/textView_ColorSettings"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView_ColorSettings"
         app:layout_constraintTop_toBottomOf="@+id/textView_ColorSettings" />
 </androidx.constraintlayout.widget.ConstraintLayout>
