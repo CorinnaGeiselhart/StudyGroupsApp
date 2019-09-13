@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 
+
+
 public class ColorSettingsFragment extends Fragment {
 
     Switch darkSwitch;
