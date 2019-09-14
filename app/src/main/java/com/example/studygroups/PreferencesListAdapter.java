@@ -20,8 +20,6 @@ public class PreferencesListAdapter extends ArrayAdapter<NotificationPermission>
     private TextView preferenceExplanation;
 
 
-
-
     public PreferencesListAdapter(Context context, ArrayList<NotificationPermission> notificationPermissionList){
         super(context, R.layout.preferences_item_layout, notificationPermissionList);
 
