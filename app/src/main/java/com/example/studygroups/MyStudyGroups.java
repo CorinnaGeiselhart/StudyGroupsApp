@@ -1,7 +1,18 @@
 package com.example.studygroups;
 
 
-public class MyStudyGroups extends MainActivityFragment {
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+
+
+public class MyStudyGroups extends ListViewFragment {
+
+
+    private ArrayList<StudyGroup> myStudyGroups = new ArrayList<>();
 
     @Override
     protected void replaceFragment() {
@@ -17,9 +28,22 @@ public class MyStudyGroups extends MainActivityFragment {
     }
 
     @Override
-    public void fillList(OnDBComplete onDBComplete) {
-        //Beispiel, da Datenbank noch nicht erstellt
-        //list.add(new StudyGroup("EIMI", "12.08.2019", "Monday", "19:00", "Universität Regensburg", "Ich freu mich auf euch!"));
+    protected void specifyList(){
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUser = user.getDisplayName();
+
+        for(StudyGroup studyGroup: allStudyGroups){
+            ArrayList<String> participants = studyGroup.getParticipants();
+            if(!participants.equals(null)){
+                for(String participant: participants){
+
+                    if(currentUser.equals(participant)){
+                        listStudyGroups.add(studyGroup);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -27,4 +51,5 @@ public class MyStudyGroups extends MainActivityFragment {
         textIfListIsEmpty.setText(R.string.text_empty_my_study_groups_list);
         header.setText(R.string.text_my_study_groups);
     }
+
 }

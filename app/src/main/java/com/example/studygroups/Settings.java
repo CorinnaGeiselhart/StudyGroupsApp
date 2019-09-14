@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -107,7 +106,7 @@ public class Settings extends Fragment {
     }
 
     private void restartApp() {
-        Intent i = new Intent (getActivity(), MainActivity.class);
+        Intent i = new Intent (getActivity(), NavigationDrawer.class);
         startActivity(i);
         getActivity().finish();
     }

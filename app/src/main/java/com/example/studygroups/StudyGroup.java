@@ -7,18 +7,20 @@ import java.util.ArrayList;
 public class StudyGroup implements Serializable {
 
 
-    private String subject, date, time, place, notes, weekday;
-    private ArrayList<String> participants;
+    private String subject, date, time, place, notes, weekday, id;
+    private ArrayList<String> participants = new ArrayList<>();
 
     public StudyGroup(){}
 
-    public StudyGroup(String subject, String date, String weekday, String time, String place, String details){
+    public StudyGroup(String subject, String date, String weekday, String time, String place, String details, String id,String participant){
         this.subject = subject;
         this.date = date;
         this.weekday = weekday;
         this.time = time;
         this.place = place;
         this.notes = details;
+        this.id = id;
+        participants.add(participant);
     }
 
     public String getNotes() { return notes; }
@@ -38,6 +40,8 @@ public class StudyGroup implements Serializable {
     public String getSubject(){
         return subject;
     }
+
+    public String getId() {return id;}
 
     public ArrayList<String> getParticipants() {
         return participants;

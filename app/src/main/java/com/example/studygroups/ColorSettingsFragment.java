@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
+;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -156,7 +155,7 @@ public class ColorSettingsFragment extends Fragment {
     }
 
     private void restartApp() {
-        Intent i = new Intent (getActivity(), MainActivity.class);
+        Intent i = new Intent (getActivity(), NavigationDrawer.class);
         startActivity(i);
         getActivity().finish();
     }
