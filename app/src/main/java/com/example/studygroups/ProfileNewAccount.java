@@ -78,8 +78,7 @@ public class ProfileNewAccount extends AppCompatActivity {
         username = findViewById(R.id.editText_Name);
         age = findViewById(R.id.editText_Age);
         addPicture = findViewById(R.id.button_AddImage);
-        profilePicture = findViewById(R.id.imageView_ProfilePicture);
-
+        profilePicture = findViewById(R.id.imageView_img);
     }
 
     private void upDateUser(){

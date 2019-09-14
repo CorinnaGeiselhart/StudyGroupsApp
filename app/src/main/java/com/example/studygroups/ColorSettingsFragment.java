@@ -16,19 +16,6 @@ import androidx.annotation.Nullable;
 ;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.example.studygroups.ProfileNewAccount.getUserInformation;
 import static com.example.studygroups.Themes.FIRE;
 import static com.example.studygroups.Themes.ICE;
 import static com.example.studygroups.Themes.NATURE;
@@ -39,12 +26,10 @@ public class ColorSettingsFragment extends Fragment {
 
     Switch darkSwitch;
     Spinner colorSpinner;
-    FirebaseFirestore db;
-    ProfileNewAccount profileNewAccount;
-    static String darkmode = "darkmodeNo";
-    static String colorTheme = "STANDARD";
-    public static String userAge;
-    public static Map<String, String> map;
+
+    private boolean isDarkmodeOn;
+    private Themes theme;
+
 
     @Nullable
     @Override
@@ -60,7 +45,7 @@ public class ColorSettingsFragment extends Fragment {
 
     private void initViews(){
         darkSwitch = getActivity().findViewById(R.id.switch_SettingsDarkmode);
-        if(darkmode.equals("darkmodeYes")) {
+        if(MainActivity.isDarkmodeOn) {
             darkSwitch.setChecked(true);
         }
 
@@ -92,11 +77,11 @@ public class ColorSettingsFragment extends Fragment {
 
     private void changeColorMode(boolean checked) {
         if(checked){
-            darkmode="darkmodeYes";
+            isDarkmodeOn=true;
             //saveModeForRestart();
         }
         else {
-            darkmode="darkmodeNo";
+            isDarkmodeOn=false;
             //saveModeForRestart();
         }
         saveModeForRestart();
@@ -107,31 +92,31 @@ public class ColorSettingsFragment extends Fragment {
     private void changeColorScheme(){
         switch (colorSpinner.getSelectedItem().toString()){
             case "Faculty": {
-                colorTheme = "STANDARD";
+                theme=STANDARD;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Ice": {
-                colorTheme = "ICE";
+                theme=ICE;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Fire": {
-                colorTheme = "FIRE";
+                theme=FIRE;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Sun": {
-                colorTheme = "SUN";
+                theme=SUN;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Nature": {
-                colorTheme = "NATURE";
+                theme=NATURE;
                 saveColorForRestart();
                 restartApp();
                 break;
@@ -143,14 +128,14 @@ public class ColorSettingsFragment extends Fragment {
     private void saveModeForRestart(){
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getString(R.string.pref_mode_key), darkmode);
+        editor.putBoolean(getString(R.string.pref_mode_key), isDarkmodeOn);
         editor.commit();
     }
 
     private void saveColorForRestart(){
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getString(R.string.pref_color_key), colorTheme);
+        editor.putString(getString(R.string.pref_color_key), theme.toString());
         editor.commit();
     }
 

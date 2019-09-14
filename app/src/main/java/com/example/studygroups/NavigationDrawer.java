@@ -12,6 +12,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import static android.provider.MediaStore.Images.Media.getBitmap;
+import static com.example.studygroups.Themes.STANDARD;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -36,20 +40,20 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int ADD_TO_BACKSTACK = 1;
     private static final int DONT_ADD_TO_BACKSTACK = 0;
-    public static Themes theme = Themes.STANDARD;
+    private Themes theme;
+    public static boolean isDarkmodeOn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //App in Darkmode or Lightmode?
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            setColorTheme(true);
-        }
-        else {
-            setColorTheme(false);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        String defaultValueColor = "STANDARD";
+        boolean defaultValueMode = false;
+        theme = Themes.parseStringToTheme(sharedPref.getString(getString(R.string.pref_color_key), defaultValueColor));
+        isDarkmodeOn = sharedPref.getBoolean(getString(R.string.pref_mode_key), defaultValueMode);
+
+        setColorTheme();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -59,8 +63,8 @@ public class MainActivity extends AppCompatActivity{
         addMainFragment();
     }
 
-    private void setColorTheme(boolean darkmodeOn){
-        if(darkmodeOn){
+    private void setColorTheme(){
+        if(isDarkmodeOn){
             switch(theme) {
                 case STANDARD: {
                     setTheme(R.style.DarkModeTheme);
@@ -168,12 +172,16 @@ public class MainActivity extends AppCompatActivity{
         View headerView = navigationView.getHeaderView(0);
         ImageView profile = headerView.findViewById(R.id.imageView_NavBarPPicture);
         TextView username = headerView.findViewById(R.id.textView_NavBarUsername);
+        TextView email = headerView.findViewById(R.id.textView_NavBarEmail);
+
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user.getPhotoUrl() != null) {
             String picturePath = user.getPhotoUrl().toString();
             profile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
         username.setText(user.getDisplayName());
+        email.setText(user.getEmail());
+
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

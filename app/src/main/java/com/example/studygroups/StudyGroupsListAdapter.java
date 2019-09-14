@@ -54,10 +54,10 @@ public class StudyGroupsListAdapter extends ArrayAdapter<StudyGroup> {
     private void setTextViews() {
         studyGroupSubject.setText(studyGroup.getSubject());
 
-        String date = "<b>" + context.getString(R.string.date) + "</b>" + ": " + studyGroup.getDate();
+        String date = "<b>" + context.getString(R.string.date) + "</b>" + " " + studyGroup.getDate();
         studyGroupDate.setText(Html.fromHtml(date));
 
-        String time = "<b>" + context.getString(R.string.time) + "</b>" + ": " + studyGroup.getTime();
+        String time = "<b>" + context.getString(R.string.time) + "</b>" + " " + studyGroup.getTime();
         studyGroupTime.setText(Html.fromHtml(time));
     }
 }

@@ -7,18 +7,18 @@
     <string name="text_warning_empty_field">Bitte fülle alle mit * markierten Felder aus!</string>
 
 
-    <string name="subject">Fach</string>
-    <string name="place">Ort</string>
-    <string name="date">Datum</string>
-    <string name="time">Uhrzeit</string>
+    <string name="subject">Fach:</string>
+    <string name="place">Ort:</string>
+    <string name="date">Datum:</string>
+    <string name="time">Uhrzeit:</string>
     <string name="date_create_text">* Datum</string>
     <string name="time_create_text">* Uhrzeit</string>
     <string name="location_create_text">* Gib einen Treffpunkt an</string>
     <string name="comment_create_text">Hier ist Platz für Anmerkungen</string>
-    <string name="notes">Anmerkungen</string>
-    <string name="sign_in">Eintretten</string>
-    <string name="sign_out">Austretten</string>
-    <string name="participants">Teilnehmer</string>
+    <string name="notes">Anmerkungen:</string>
+    <string name="sign_in">Gruppe beitreten</string>
+    <string name="sign_on">Gruppe verlassen</string>
+    <string name="participants">Teilnehmer:</string>
 
     <string name="key_fragment_transaction">StudyGroup</string>
 
@@ -103,5 +103,10 @@
     </string-array>
     <string name="pref_color_key">ColorKey</string>
     <string name="pref_mode_key">ModeKey</string>
+
+
+    <string name="update_button_text">Änderungen speichern</string>
+    <string name="name_hint">Name: </string>
+    <string name="age_hint">Alter: </string>
 
 </resources>
