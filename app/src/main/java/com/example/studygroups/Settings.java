@@ -85,30 +85,6 @@ public class Settings extends Fragment {
         colorViewX = getView().findViewById(R.id.textView_colorsetting_explanation);
         notificationView = getView().findViewById(R.id.textView_notificationpreferences);
         notificationViewX = getView().findViewById(R.id.textView_NotificationsExplanation);
-
-
-        /**colorSwitchView = getView().findViewById(R.id.color_switch_view);
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
-            colorSwitchView.setChecked(true);
-        }
-        colorSwitchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeColorMode(colorSwitchView.isChecked());
-                restartApp();
-            }
-        });*/
-    }
-
-    private void changeColorMode(boolean checked) {
-        if(checked)AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    }
-
-    private void restartApp() {
-        Intent i = new Intent (getActivity(), NavigationDrawer.class);
-        startActivity(i);
-        getActivity().finish();
     }
 
     private void openColorFragment(){

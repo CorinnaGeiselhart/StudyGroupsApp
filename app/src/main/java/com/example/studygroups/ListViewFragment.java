@@ -45,17 +45,14 @@ abstract class ListViewFragment extends Fragment {
         setText();
 
         loadDatabaseStudyGroups(new OnDBComplete() {
-                                    @Override
-                                    public void onComplete() {
-                                        Log.d("Listeinträge", String.valueOf(allStudyGroups.size()));
-                                        setList();
-                                        setView();
-                                        adapter.notifyDataSetChanged();
-
-                                    }
+            @Override
+            public void onComplete() {
+                Log.d("Listeinträge", String.valueOf(allStudyGroups.size()));
+                setList();
+                setView();
+                adapter.notifyDataSetChanged();
+            }
         });
-
-
         return view;
     }
 
@@ -71,8 +68,6 @@ abstract class ListViewFragment extends Fragment {
 
     private void setList() {
         //adapter
-
-
         specifyList();
         adapter = new StudyGroupsListAdapter(view.getContext(), listStudyGroups);
 
@@ -113,15 +108,15 @@ abstract class ListViewFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         List<Task<QuerySnapshot>> tasks = new ArrayList<>();
         String[] subjects = getResources().getStringArray(R.array.modul_list);
-        for(String subject : subjects){
+        for (String subject : subjects) {
             tasks.add(db.collection(subject).get());
         }
         Task combindeTask = Tasks.whenAllComplete(tasks).addOnSuccessListener(new OnSuccessListener<List<Task<?>>>() {
             @Override
             public void onSuccess(List<Task<?>> tasks) {
-                for (Task t : tasks){
+                for (Task t : tasks) {
                     QuerySnapshot qs = (QuerySnapshot) t.getResult();
-                    for (DocumentSnapshot doc : qs.getDocuments()){
+                    for (DocumentSnapshot doc : qs.getDocuments()) {
                         allStudyGroups.add(doc.toObject(StudyGroup.class));
                     }
                 }
@@ -132,8 +127,11 @@ abstract class ListViewFragment extends Fragment {
 
 
     }
+
     protected abstract void replaceFragment();
+
     protected abstract void setText();
+
     protected abstract void specifyList();
 
 }

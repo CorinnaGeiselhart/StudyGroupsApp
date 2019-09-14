@@ -35,9 +35,9 @@ public class ProfileNewAccount extends AppCompatActivity {
     private EditText username;
     private EditText age;
     private ImageView profilePicture;
-    String picturePath;
+    private String picturePath;
     private FirebaseFirestore db;
-    Map<String, String> userInformation = new HashMap<>();
+    private Map<String, String> userInformation = new HashMap<>();
 
     public static final int GET_FROM_GALLERY = 1;
 
@@ -57,31 +57,32 @@ public class ProfileNewAccount extends AppCompatActivity {
         addPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ActivityCompat.checkSelfPermission(ProfileNewAccount.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                if (ActivityCompat.checkSelfPermission(ProfileNewAccount.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ProfileNewAccount.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, GET_FROM_GALLERY);
-                } else{
+                } else {
                     choosePicture();
                 }
             }
         });
     }
+
     //der Intent um auf die Gallerie zuzugreifen und startet die Methode um Bild rauszusuchen
-    private void choosePicture(){
+    private void choosePicture() {
         Intent getPicture = new Intent(
                 Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(getPicture, GET_FROM_GALLERY);
     }
 
-    private void initViews(){
+    private void initViews() {
         next = findViewById(R.id.button_Next);
         username = findViewById(R.id.editText_Name);
         age = findViewById(R.id.editText_Age);
         addPicture = findViewById(R.id.button_AddImage);
-        profilePicture = findViewById(R.id.imageView_img);
+        profilePicture = findViewById(R.id.imageView_ProfilePicture);
     }
 
-    private void upDateUser(){
+    private void upDateUser() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -102,16 +103,10 @@ public class ProfileNewAccount extends AppCompatActivity {
         //Hier werden weitere Daten des Nutzers in einer collection gesammelt
         db = FirebaseFirestore.getInstance();
         userInformation.put("age", age.getText().toString().trim());
-
-        Toast.makeText(ProfileNewAccount.this, age.getText().toString().trim(),
-                Toast.LENGTH_LONG).show();
         db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation);
 
     }
 
-    public Map<String, String> getUserInformation(){
-        return userInformation;
-    }
     //greift auf die Gallerie zu um ein Bild zu bekommen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -126,23 +121,24 @@ public class ProfileNewAccount extends AppCompatActivity {
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            picturePath= cursor.getString(columnIndex);
+            picturePath = cursor.getString(columnIndex);
             cursor.close();
 
             profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
+
     //Entscheidet was bei den zwei Optionen der Permissionabfrage passiert
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case GET_FROM_GALLERY:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     choosePicture();
                 } else {
-                    Toast.makeText(this, "Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden", Toast.LENGTH_LONG).show();                }
+                    Toast.makeText(this, "Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }

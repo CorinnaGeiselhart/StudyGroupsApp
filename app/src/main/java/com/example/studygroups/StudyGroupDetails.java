@@ -2,9 +2,11 @@ package com.example.studygroups;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 public class StudyGroupDetails extends Fragment {
 
     private View view;
-    private TextView date, time,place, subject, notes;
+    private TextView date, time, place, subject, notes;
     private ListView participants;
     private Button signIn;
     private Button signOut;
@@ -38,7 +40,6 @@ public class StudyGroupDetails extends Fragment {
 
     private StudyGroup studyGroup;
     private FirebaseFirestore db;
-    private ArrayList<String> participantsInDatabase;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private boolean isUserParticipating = false;
@@ -73,15 +74,16 @@ public class StudyGroupDetails extends Fragment {
             @Override
             public void onClick(View v) {
                 //Teilnehmen
-
-                list.add(user.getDisplayName());
-                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participants", list);
-                onDBComplete.onComplete();
+                if (!list.contains(user.getDisplayName())) {
+                    list.add(user.getDisplayName());
+                    db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participants", list);
+                    onDBComplete.onComplete();
+                }
             }
         });
     }
 
-    private void setupSignOutButton(final OnDBComplete onDBComplete){
+    private void setupSignOutButton(final OnDBComplete onDBComplete) {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,16 +98,16 @@ public class StudyGroupDetails extends Fragment {
         subject.setText(studyGroup.getSubject());
 
         Context context = view.getContext();
-        String d = "<b>" + context.getString(R.string.date) + "</b>" + ": " + studyGroup.getDate();
+        String d = "<b>" + context.getString(R.string.date) + " " + "</b>" + studyGroup.getDate();
         date.setText(Html.fromHtml(d));
 
-        String t = "<b>" + context.getString(R.string.time) + "</b>" + ": " + studyGroup.getTime();
+        String t = "<b>" + context.getString(R.string.time) + " " + "</b>" + studyGroup.getTime();
         time.setText(Html.fromHtml(t));
 
-        String p = "<b>" + context.getString(R.string.place) + "</b>" + ": " + studyGroup.getPlace();
+        String p = "<b>" + context.getString(R.string.place) + " " + "</b>" + studyGroup.getPlace();
         place.setText(Html.fromHtml(p));
 
-        String n = "<b>" + context.getString(R.string.notes) + "</b>" + ": <br>" + studyGroup.getNotes() + "</br>";
+        String n = "<b>" + context.getString(R.string.notes) + " " + "</b>" + "<br>" + studyGroup.getNotes() + "</br>";
         notes.setText(Html.fromHtml(n));
 
         getParticipants(new OnDBComplete() {
@@ -126,23 +128,19 @@ public class StudyGroupDetails extends Fragment {
     private void getParticipants(final OnDBComplete onDBComplete) {
         //aus Datenbank Teilnehmer bekommen
         db = FirebaseFirestore.getInstance();
-        Log.d("DOCUMENT_ID", studyGroup.getId());
         db.collection(studyGroup.getSubject()).document(studyGroup.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        list = (ArrayList<String>)document.get("participants");
-                        Log.d("List geholt", studyGroup.getId());
+                        list = (ArrayList<String>) document.get("participants");
                     }
-                    onDBComplete.onComplete();}
+                    onDBComplete.onComplete();
+                }
             }
         });
-        Log.d("Runter laden finished", String.valueOf(list));
-        list.add("Teilnehmer: ");
-
-}
+    }
 
 
     private void initViews() {

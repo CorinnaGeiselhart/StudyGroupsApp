@@ -115,7 +115,7 @@ public class NavigationDrawer extends AppCompatActivity{
     }
 
     private void createNavDrawer(){
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_Id);
+        drawerLayout = findViewById(R.id.main_Id);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -132,7 +132,7 @@ public class NavigationDrawer extends AppCompatActivity{
     }
 
     private void createMenuItemListener() {
-        navigationView = (NavigationView) findViewById(R.id.nav_View);
+        navigationView = findViewById(R.id.nav_View);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

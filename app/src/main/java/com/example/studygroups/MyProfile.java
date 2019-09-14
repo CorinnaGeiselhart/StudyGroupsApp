@@ -33,25 +33,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Map;
-
 import static android.app.Activity.RESULT_OK;
-import static com.example.studygroups.NotificationSettingsFragment.userAge;
 
 
 public class MyProfile extends Fragment {
 
-    ImageView imgView;
-    EditText name;
-    EditText age;
-    TextView mail;
-    Button updateButton;
+    private ImageView imgView;
+    private EditText name;
+    private EditText age;
+    private TextView mail;
+    private Button updateButton;
 
-    FirebaseFirestore db;
-    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String ageString;
+    private FirebaseFirestore db;
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String ageString;
     public static final int GET_FROM_GALLERY = 1;
-    String picturePath;
+    private String picturePath;
 
     View v;
 
@@ -120,13 +117,21 @@ public class MyProfile extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Deine Änderungen wurden gespeichert.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.update_profile_successfull), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-        db.collection("studygroups-Accounts").document(user.getUid()).update("age", age.getText());
+        db.collection("studygroups-Accounts").document(user.getUid()).update("age", age.getText().toString().trim());
+        updateNavigationDrawerHeader();
+    }
 
+    private void updateNavigationDrawerHeader(){
+        TextView username = getActivity().findViewById(R.id.textView_NavBarUsername);
+        username.setText(name.getText().toString().trim());
+
+        ImageView profilePicture = getActivity().findViewById(R.id.imageView_NavBarPPicture);
+        profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
 
     //greift auf die Gallerie zu um ein Bild zu bekommen

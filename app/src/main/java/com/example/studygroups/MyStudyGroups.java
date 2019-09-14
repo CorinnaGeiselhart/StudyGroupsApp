@@ -1,8 +1,5 @@
 package com.example.studygroups;
 
-
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

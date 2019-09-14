@@ -56,7 +56,6 @@ public class PreferencesListAdapter extends ArrayAdapter<NotificationPermission>
             @Override
             public void onClick(View view) {
                 notificationPermission.setPrefGiven(preferenceSwitch.isChecked());
-                //TODO: save to database
             }
         });
         preferenceSwitch.setText(notificationPermission.getName());

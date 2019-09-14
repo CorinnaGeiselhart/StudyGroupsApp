@@ -1,8 +1,5 @@
 package com.example.studygroups;
 
-
-import android.util.Log;
-
 public class NewStudyGroups extends ListViewFragment {
 
 

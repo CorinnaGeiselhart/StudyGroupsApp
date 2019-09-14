@@ -1,7 +1,5 @@
 package com.example.studygroups;
 
-import android.widget.Toast;
-
 public enum Themes {
     STANDARD, ICE, SUN, NATURE, FIRE;
 

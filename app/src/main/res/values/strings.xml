@@ -17,7 +17,7 @@
     <string name="comment_create_text">Hier ist Platz für Anmerkungen</string>
     <string name="notes">Anmerkungen:</string>
     <string name="sign_in">Gruppe beitreten</string>
-    <string name="sign_on">Gruppe verlassen</string>
+    <string name="sign_out">Gruppe verlassen</string>
     <string name="participants">Teilnehmer:</string>
 
     <string name="key_fragment_transaction">StudyGroup</string>
@@ -67,6 +67,8 @@
     <string name="find_group_toolbar_text">Finde Lerngruppe</string>
     <string name="create_group_toolbar_text">Erstelle Lerngruppe</string>
     <string name="settings_toolbar_text">Einstellungen</string>
+    <string name="update_profile_successfull">Deine Änderungen wurden gespeichert.</string>
+
 
     <string name="open">Open</string>
     <string name="close">Close</string>

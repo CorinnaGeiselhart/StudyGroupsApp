@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +87,7 @@ public class ProfileFirebase extends AppCompatActivity {
     }
 
     private void createNewUser() {
+        Log.d(TAG, "createNewUser: creating user");
         mAuth.createUserWithEmailAndPassword(email, newPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
