@@ -60,16 +60,16 @@ public class StudyGroupDetailsActivity extends Fragment {
         subject.setText(studyGroup.getSubject());
 
         Context context = view.getContext();
-        String d = "<b>" + context.getString(R.string.date) + "</b>" + ": " + studyGroup.getDate();
+        String d = "<b>" + context.getString(R.string.date) + " " + "</b>" + studyGroup.getDate();
         date.setText(Html.fromHtml(d));
 
-        String t = "<b>" + context.getString(R.string.time) + "</b>" + ": " + studyGroup.getTime();
+        String t = "<b>" + context.getString(R.string.time) + " " + "</b>" + studyGroup.getTime();
         time.setText(Html.fromHtml(t));
 
-        String p = "<b>" + context.getString(R.string.place) + "</b>" + ": " + studyGroup.getPlace();
+        String p = "<b>" + context.getString(R.string.place) + " " + "</b>" + studyGroup.getPlace();
         place.setText(Html.fromHtml(p));
 
-        String n = "<b>" + context.getString(R.string.notes) + "</b>" + ": <br>" + studyGroup.getNotes() + "</br>";
+        String n = "<b>" + context.getString(R.string.notes) + " " + "</b>" + "<br>" + studyGroup.getNotes() + "</br>";
         notes.setText(Html.fromHtml(n));
 
         getParticipants();

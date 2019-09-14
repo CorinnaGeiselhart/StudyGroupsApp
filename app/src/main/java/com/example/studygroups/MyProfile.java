@@ -35,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.studygroups.NotificationSettingsFragment.userAge;
 
 public class MyProfile extends Fragment {
@@ -42,7 +43,7 @@ public class MyProfile extends Fragment {
     ImageView imgView;
     EditText name;
     EditText age;
-    EditText mail;
+    TextView mail;
     Button updateButton;
 
     FirebaseFirestore db;
@@ -51,10 +52,12 @@ public class MyProfile extends Fragment {
     public static final int GET_FROM_GALLERY = 1;
     String picturePath;
 
+    View v;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.my_profile, container, false);
+        v = inflater.inflate(R.layout.my_profile, container, false);
 
         initViews();
         setListeners();
@@ -63,19 +66,24 @@ public class MyProfile extends Fragment {
     }
 
     private void initViews() {
-        imgView = getView().findViewById(R.id.imageView_myProfile_img);
-        name = getView().findViewById(R.id.editText_myProfile_name);
-        age = getView().findViewById(R.id.editText_myProfile_age);
-        mail = getView().findViewById(R.id.editText_myProfile_age);
-        updateButton = getView().findViewById(R.id.button_updateProfile);
+        imgView = v.findViewById(R.id.imageView_img);
+        name = v.findViewById(R.id.editText_myProfile_name);
+        age = v.findViewById(R.id.editText_myProfile_age);
+        mail = v.findViewById(R.id.textView_myProfile_mail);
+        updateButton = v.findViewById(R.id.button_updateProfile);
 
         if(user.getPhotoUrl()!= null) {
             String picturePath = user.getPhotoUrl().toString();
             imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
         name.setText(user.getDisplayName());
-        age.setText(getUserAge());
         mail.setText(user.getEmail());
+        getUserAge(new OnDBComplete() {
+            @Override
+            public void onComplete() {
+                age.setText(ageString);
+            }
+        });
     }
 
     private void setListeners(){
@@ -116,22 +124,20 @@ public class MyProfile extends Fragment {
                     }
                 });
 
-        //Hier werden weitere Daten des Nutzers in einer collection gesammelt
-        userInformation.put("age", age.getText().toString().trim());
+        db.collection("studygroups-Accounts").document(user.getUid()).update("age", age.getText());
 
-        db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation);
     }
-    
+
     //greift auf die Gallerie zu um ein Bild zu bekommen
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-            Cursor cursor = getContentResolver().query(selectedImage,
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
 
@@ -139,7 +145,7 @@ public class MyProfile extends Fragment {
             picturePath= cursor.getString(columnIndex);
             cursor.close();
 
-            profilePicture.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
     //Entscheidet was bei den zwei Optionen der Permissionabfrage passiert
@@ -165,29 +171,29 @@ public class MyProfile extends Fragment {
         startActivityForResult(getPicture, GET_FROM_GALLERY);
     }
 
-    private String getUserAge(){
+    private void getUserAge(final OnDBComplete onDBComplete){
         db = FirebaseFirestore.getInstance();
         //Hier hol ich alle Documente aus einer Collection raus
-        db.collection("studygroupAccunts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("studygroups-Accounts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
-                        db.collection("studygroupsAccounts").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        db.collection("studygroups-Accounts").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
                                         ageString = document.getString("age");
+                                        onDBComplete.onComplete();
                                     }}}
                         });
                     }
                 }
             }
         });
-        return ageString;
     }
 
 

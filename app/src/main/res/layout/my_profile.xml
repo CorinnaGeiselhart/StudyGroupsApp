@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView_newAccount_imd"
+        android:id="@+id/imageView_img"
         android:layout_width="169dp"
         android:layout_height="182dp"
         android:layout_gravity="left"
@@ -17,51 +17,99 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText_myProfile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
-    <EditText
-        android:id="@+id/textView_myProfile_name"
+    <TextView
+        android:id="@+id/textView_hint_name"
         android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:gravity="center_vertical"
+        android:text="@string/name_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_myProfile_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_myProfile_name"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editText_myProfile_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:backgroundTint="?attr/primarycolor"
+        android:gravity="center_horizontal"
         android:text="TextView"
+        android:textColor="?attr/textcolor"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_hint_name"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_img" />
+
+    <TextView
+        android:id="@+id/textView_hint_age"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+
+        android:gravity="center_vertical"
+        android:text="@string/age_hint"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_myProfile_age"
+        app:layout_constraintEnd_toEndOf="@+id/textView_hint_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_newAccount_imd" />
+        app:layout_constraintTop_toTopOf="@+id/editText_myProfile_age" />
 
     <EditText
-        android:id="@+id/textView_myProfile_age"
-        android:layout_width="wrap_content"
+        android:id="@+id/editText_myProfile_age"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:backgroundTint="?attr/primarycolor"
+        android:gravity="center_horizontal"
         android:text="TextView"
+        android:textColor="?attr/textcolor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_myProfile_name" />
+        app:layout_constraintStart_toEndOf="@+id/textView_hint_age"
+        app:layout_constraintTop_toBottomOf="@+id/editText_myProfile_name" />
 
-    <EditText
-        android:id="@+id/textView_maProfile_mail"
+    <TextView
+        android:id="@+id/textView_myProfile_mail"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textColor="?attr/hintcolor"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_img"
+        app:layout_constraintStart_toStartOf="@+id/imageView_img"
+        app:layout_constraintTop_toBottomOf="@+id/editText_myProfile_age" />
+
+    <Button
+        android:id="@+id/button_updateProfile"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
+        android:background="?attr/buttoncolor"
+        android:text="@string/update_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_myProfile_age" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

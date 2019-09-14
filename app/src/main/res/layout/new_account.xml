@@ -52,6 +52,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="169dp"
         android:layout_height="182dp"
         android:layout_marginStart="8dp"
@@ -65,7 +66,7 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView_newAccount_imd"
+        android:id="@+id/imageView_img"
         android:layout_width="169dp"
         android:layout_height="182dp"
         android:layout_gravity="left"
@@ -92,6 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_newAccount_imd" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
