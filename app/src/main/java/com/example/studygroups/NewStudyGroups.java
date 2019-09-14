@@ -1,19 +1,11 @@
 package com.example.studygroups;
 
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+public class NewStudyGroups extends ListViewFragment {
 
-public class NewStudyGroups extends MainActivityFragment {
 
-    private FirebaseFirestore db;
 
     @Override
     protected void replaceFragment() {
@@ -21,25 +13,10 @@ public class NewStudyGroups extends MainActivityFragment {
     }
 
     @Override
-    protected void fillList(final OnDBComplete onDBComplete) {
-        db = FirebaseFirestore.getInstance();
-        List<Task<QuerySnapshot>> tasks = new ArrayList<>();
-        String[] subjects = getResources().getStringArray(R.array.modul_list);
-        for(String subject : subjects){
-            tasks.add(db.collection(subject).get());
-        }
-       Task combindeTask = Tasks.whenAllComplete(tasks).addOnSuccessListener(new OnSuccessListener<List<Task<?>>>() {
-           @Override
-           public void onSuccess(List<Task<?>> tasks) {
-               for (Task t : tasks){
-                   QuerySnapshot qs = (QuerySnapshot) t.getResult();
-                   for (DocumentSnapshot doc : qs.getDocuments()){
-                       list.add(doc.toObject(StudyGroup.class));
-                   }
-               }
-               onDBComplete.onComplete();
-           }
-       });
+    protected void specifyList(){
+
+        listStudyGroups = allStudyGroups;
+
     }
 
     @Override

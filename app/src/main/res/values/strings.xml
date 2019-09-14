@@ -17,7 +17,7 @@
     <string name="comment_create_text">Hier ist Platz für Anmerkungen</string>
     <string name="notes">Anmerkungen</string>
     <string name="sign_in">Eintretten</string>
-    <string name="sign_on">Austretten</string>
+    <string name="sign_out">Austretten</string>
     <string name="participants">Teilnehmer</string>
 
     <string name="key_fragment_transaction">StudyGroup</string>

@@ -25,12 +25,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 
-public class StudyGroupDetailsActivity extends Fragment {
+public class StudyGroupDetails extends Fragment {
 
     private View view;
     private TextView date, time,place, subject, notes;
     private ListView participants;
-    private Button sign;
+    private Button signIn;
+    private Button signOut;
 
     private ArrayList<String> list = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
@@ -38,9 +39,9 @@ public class StudyGroupDetailsActivity extends Fragment {
     private StudyGroup studyGroup;
     private FirebaseFirestore db;
     private ArrayList<String> participantsInDatabase;
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    public StudyGroupDetailsActivity(){}
-
+    private boolean isUserParticipating = false;
 
 
     @Nullable
@@ -50,10 +51,16 @@ public class StudyGroupDetailsActivity extends Fragment {
         studyGroup = (StudyGroup) getArguments().getSerializable(getResources().getString(R.string.key_fragment_transaction));
         initViews();
         setViews();
-        setupButton(new OnDBComplete() {
+        setupSignInButton(new OnDBComplete() {
             @Override
             public void onComplete() {
                 Log.d("initView", "sollte Id's anzeigen");
+                adapter.notifyDataSetChanged();
+            }
+        });
+        setupSignOutButton(new OnDBComplete() {
+            @Override
+            public void onComplete() {
                 adapter.notifyDataSetChanged();
             }
         });
@@ -61,17 +68,25 @@ public class StudyGroupDetailsActivity extends Fragment {
         return view;
     }
 
-    private void setupButton(final OnDBComplete onDBComplete) {
-        //fehlt: in darkmode Text auf dem Button nicht lesbar
-        sign.setOnClickListener(new View.OnClickListener() {
+    private void setupSignInButton(final OnDBComplete onDBComplete) {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Teilnehmen bzw austretten
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                list.add(user.getUid());
-                Log.d("userId in list", user.getUid());
+                //Teilnehmen
+
+                list.add(user.getDisplayName());
                 db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participants", list);
-                Log.d("collection geupdatet", user.getUid());
+                onDBComplete.onComplete();
+            }
+        });
+    }
+
+    private void setupSignOutButton(final OnDBComplete onDBComplete){
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.remove(user.getDisplayName());
+                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participants", list);
                 onDBComplete.onComplete();
             }
         });
@@ -137,7 +152,8 @@ public class StudyGroupDetailsActivity extends Fragment {
         subject = view.findViewById(R.id.textView_Subject);
         notes = view.findViewById(R.id.textView_Notes);
 
-        sign = view.findViewById(R.id.button_Sign);
+        signIn = view.findViewById(R.id.button_SignIn);
+        signOut = view.findViewById(R.id.button_SignOut);
         participants = view.findViewById(R.id.listView_Participants);
     }
 }

@@ -6,19 +6,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class StudyGroupCreateNew extends Fragment {
 
@@ -115,9 +107,9 @@ public class StudyGroupCreateNew extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(getResources().getString(R.string.key_fragment_transaction),studyGroup);
-        Fragment detailsActivity = new StudyGroupDetailsActivity();
+        Fragment detailsActivity = new StudyGroupDetails();
         detailsActivity.setArguments(bundle);
-        ft.addToBackStack(MainActivity.class.getName());
+        ft.addToBackStack(NavigationDrawer.class.getName());
         fm.popBackStack(StudyGroupCreateNew.class.getName(),FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ft.replace(R.id.nav_Host,detailsActivity);
         ft.commit();

@@ -11,14 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainActivityFrame extends Fragment {
+
+public class HomeScreen extends Fragment {
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main_frame, container, false);
         addFragments();
-
         return view;
     }
 
@@ -31,5 +32,4 @@ public class MainActivityFrame extends Fragment {
         fragmentTransaction.add(R.id.newGroups_Host, newStudyGroups);
         fragmentTransaction.commit();
     }
-
 }

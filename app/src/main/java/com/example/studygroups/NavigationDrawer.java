@@ -2,15 +2,10 @@ package com.example.studygroups;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,21 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatDelegate;
 
-import android.preference.Preference;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-
-public class MainActivity extends AppCompatActivity{
+public class NavigationDrawer extends AppCompatActivity{
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -67,7 +56,7 @@ public class MainActivity extends AppCompatActivity{
 
         fragmentManager = getSupportFragmentManager();
         createNavDrawer();
-        addMainFragment();
+        addHomeScreen();
     }
 
 
@@ -112,7 +101,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
    private void createNavDrawer(){
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_Id);
+        drawerLayout = findViewById(R.id.main_Id);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -129,13 +118,13 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void createMenuItemListener() {
-        navigationView = (NavigationView) findViewById(R.id.nav_View);
+        navigationView = findViewById(R.id.nav_View);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.home_toolbar_item:
-                        addMainFragment();
+                        addHomeScreen();
                         break;
                     case R.id.my_groups_toolbar_item:
                         addFragment(new MyStudyGroups(), ADD_TO_BACKSTACK);
@@ -192,8 +181,8 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void addMainFragment(){
-        addFragment(new MainActivityFrame(), DONT_ADD_TO_BACKSTACK);
+    private void addHomeScreen(){
+        addFragment(new HomeScreen(), DONT_ADD_TO_BACKSTACK);
     }
 
     private void addFragment(Fragment fragment, int backStack){
