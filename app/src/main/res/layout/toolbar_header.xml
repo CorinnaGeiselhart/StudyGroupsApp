@@ -15,6 +15,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="100sp"
+        android:layout_marginLeft="10sp"
         android:layout_gravity="left"
         app:srcCompat="@android:drawable/ic_menu_gallery"/>
 
@@ -22,13 +23,17 @@
         android:id="@+id/textView_NavBarUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10sp"
         android:text="TextView"
-        android:textColor="?attr/hintcolor" />
+        android:textColor="?attr/hintcolor"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/textView_NavBarEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginLeft="10sp"
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        android:textColor="?attr/hintcolor" />
 </LinearLayout>

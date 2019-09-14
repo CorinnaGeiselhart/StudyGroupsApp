@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity{
         }
         username.setText(user.getDisplayName());
         email.setText(user.getEmail());
+
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

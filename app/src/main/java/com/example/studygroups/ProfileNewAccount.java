@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,19 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class ProfileNewAccount extends AppCompatActivity {
 
@@ -84,8 +78,7 @@ public class ProfileNewAccount extends AppCompatActivity {
         username = findViewById(R.id.editText_Name);
         age = findViewById(R.id.editText_Age);
         addPicture = findViewById(R.id.button_AddImage);
-        profilePicture = findViewById(R.id.imageView_ProfilePicture);
-
+        profilePicture = findViewById(R.id.imageView_newAccount_imd);
     }
 
     private void upDateUser(){
