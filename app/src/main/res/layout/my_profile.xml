@@ -100,9 +100,27 @@
     <Button
         android:id="@+id/button_updateProfile"
         android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/imageView_Profile_settings_picture"
+        android:layout_width="222dp"
+        android:layout_height="221dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        tools:layout_editor_absoluteY="68dp" />
+
+    <TextView
+        android:id="@+id/textView_ColorSettings"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"

@@ -199,5 +199,10 @@ public class MyProfile extends Fragment {
 
 
 
+    private void initViews(){
+        profilePicture = getActivity().findViewById(R.id.imageView_Profile_settings_picture);
+
+    }
+
 
 }
