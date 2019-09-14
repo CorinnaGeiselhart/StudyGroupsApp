@@ -30,7 +30,7 @@ import static android.provider.MediaStore.Images.Media.getBitmap;
 import static com.example.studygroups.Themes.STANDARD;
 
 
-public class MainActivity extends AppCompatActivity{
+public class NavigationDrawer extends AppCompatActivity{
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-   private void createNavDrawer(){
+    private void createNavDrawer(){
         drawerLayout = (DrawerLayout) findViewById(R.id.main_Id);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void addMainFragment(){
-        addFragment(new MainActivityFrame(), DONT_ADD_TO_BACKSTACK);
+        addFragment(new HomeScreen(), DONT_ADD_TO_BACKSTACK);
     }
 
     private void addFragment(Fragment fragment, int backStack){

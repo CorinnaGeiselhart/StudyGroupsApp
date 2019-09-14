@@ -45,7 +45,7 @@ public class ColorSettingsFragment extends Fragment {
 
     private void initViews(){
         darkSwitch = getActivity().findViewById(R.id.switch_SettingsDarkmode);
-        if(MainActivity.isDarkmodeOn) {
+        if(NavigationDrawer.isDarkmodeOn) {
             darkSwitch.setChecked(true);
         }
 
