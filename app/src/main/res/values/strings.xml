@@ -135,5 +135,6 @@
     <!--strings: Database-->
     <string name="database_age">age</string>
     <string name="database_accounts">studygroups-Accounts</string>
+    <string name="user_already_participant">Du nimmst bereit an der Lerngruppe teil</string>
 
 </resources>

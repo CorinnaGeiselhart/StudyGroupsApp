@@ -27,9 +27,9 @@ public class HomeScreen extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MyStudyGroups myStudyGroups = new MyStudyGroups();
-        NewStudyGroups newStudyGroups = new NewStudyGroups();
+        AllStudyGroups allStudyGroups = new AllStudyGroups();
         fragmentTransaction.add(R.id.myGroups_Host, myStudyGroups);
-        fragmentTransaction.add(R.id.newGroups_Host, newStudyGroups);
+        fragmentTransaction.add(R.id.newGroups_Host, allStudyGroups);
         fragmentTransaction.commit();
     }
 }

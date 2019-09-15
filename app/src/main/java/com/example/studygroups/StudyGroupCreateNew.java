@@ -131,7 +131,6 @@ public class StudyGroupCreateNew extends Fragment {
 
                     resetView();
                 }
-
             }
         });
     }

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,7 +40,7 @@ public class StudyGroupDetails extends Fragment {
     private Button signIn;
     private Button signOut;
 
-    private ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<String> participantsList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
     private StudyGroup studyGroup;
@@ -98,7 +99,7 @@ public class StudyGroupDetails extends Fragment {
     }
 
     private void initListView() {
-        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, list);
+        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, participantsList);
         participants.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -106,7 +107,7 @@ public class StudyGroupDetails extends Fragment {
     private void getParticipantNames() {
         //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
         for (String user: studyGroup.getParticipantsNames()){
-            list.add(user);
+            participantsList.add(user);
         }
     }
 
@@ -114,11 +115,15 @@ public class StudyGroupDetails extends Fragment {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                studyGroup.addNewUserId(user.getUid());
-                studyGroup.addNewUserName(user.getDisplayName());
-                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
-                list.add(user.getDisplayName());
-                adapter.notifyDataSetChanged();
+                if(!(studyGroup.getParticipantsIds().contains(user.getUid()))) {
+                    studyGroup.addNewUserId(user.getUid());
+                    studyGroup.addNewUserName(user.getDisplayName());
+                    db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds", studyGroup.getParticipantsIds(), "participantsNames", studyGroup.getParticipantsNames());
+                    participantsList.add(user.getDisplayName());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(),R.string.user_already_participant,Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -130,7 +135,7 @@ public class StudyGroupDetails extends Fragment {
                 studyGroup.removeUserId(user.getUid());
                 studyGroup.removeUserName(user.getDisplayName());
                 db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
-                list.remove(user.getDisplayName());
+                participantsList.remove(user.getDisplayName());
                 adapter.notifyDataSetChanged();
             }
         });

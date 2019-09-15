@@ -1,6 +1,6 @@
 package com.example.studygroups;
 
-public class NewStudyGroups extends ListViewFragment {
+public class AllStudyGroups extends ListViewFragment {
 
 
 

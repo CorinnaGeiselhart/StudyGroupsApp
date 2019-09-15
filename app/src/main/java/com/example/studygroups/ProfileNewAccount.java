@@ -53,7 +53,7 @@ public class ProfileNewAccount extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(usernameString!= null && ageString!= null) {
+                if(usernameString!= null && ageString!= null && picturePath!=null) {
                     setUserInformation();
                 } else {
                     Toast.makeText(ProfileNewAccount.this, R.string.toast_set_age_name,Toast.LENGTH_LONG).show();
