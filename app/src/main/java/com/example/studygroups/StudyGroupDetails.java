@@ -40,6 +40,7 @@ public class StudyGroupDetails extends Fragment {
     private Button signIn;
     private Button signOut;
 
+    private ArrayList<String> participantsList = new ArrayList<String>();
     private ArrayList<String> participantsList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
@@ -71,10 +72,33 @@ public class StudyGroupDetails extends Fragment {
         place = view.findViewById(R.id.textView_Place);
         subject = view.findViewById(R.id.textView_Subject);
         notes = view.findViewById(R.id.textView_Notes);
+    private void participateButton() {
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                studyGroup.addNewUserId(user.getUid());
+                studyGroup.addNewUserName(user.getDisplayName());
+                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
+                participantsList.add(user.getDisplayName());
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
 
         signIn = view.findViewById(R.id.button_SignIn);
         signOut = view.findViewById(R.id.button_SignOut);
         participants = view.findViewById(R.id.listView_Participants);
+    private void leaveButton() {
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                studyGroup.removeUserId(user.getUid());
+                studyGroup.removeUserName(user.getDisplayName());
+                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
+                participantsList.remove(user.getDisplayName());
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void setViews() {
@@ -96,6 +120,8 @@ public class StudyGroupDetails extends Fragment {
         getParticipantNames();
         Log.d("participate3", "aus Methode drausen" );
         initListView();
+
+
     }
 
     private void initListView() {
@@ -107,7 +133,7 @@ public class StudyGroupDetails extends Fragment {
     private void getParticipantNames() {
         //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
         for (String user: studyGroup.getParticipantsNames()){
-            participantsList.add(user);
+            list.add(user);
         }
     }
 
