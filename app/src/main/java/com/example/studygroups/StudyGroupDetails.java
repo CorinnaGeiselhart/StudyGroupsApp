@@ -39,6 +39,7 @@ public class StudyGroupDetails extends Fragment {
     private Button signIn;
     private Button signOut;
 
+
     private ArrayList<String> participantsList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
@@ -103,7 +104,7 @@ public class StudyGroupDetails extends Fragment {
 
     private void getParticipantNames() {
         //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
-        for (String user: studyGroup.getParticipantsNames()){
+        for (String user : studyGroup.getParticipantsNames()) {
             participantsList.add(user);
         }
     }
@@ -112,14 +113,14 @@ public class StudyGroupDetails extends Fragment {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(studyGroup.getParticipantsIds().contains(user.getUid()))) {
+                if (!(studyGroup.getParticipantsIds().contains(user.getUid()))) {
                     studyGroup.addNewUserId(user.getUid());
                     studyGroup.addNewUserName(user.getDisplayName());
                     db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds", studyGroup.getParticipantsIds(), "participantsNames", studyGroup.getParticipantsNames());
                     participantsList.add(user.getDisplayName());
                     adapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getActivity(),R.string.user_already_participant,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.user_already_participant, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -131,14 +132,14 @@ public class StudyGroupDetails extends Fragment {
             public void onClick(View v) {
                 studyGroup.removeUserId(user.getUid());
                 studyGroup.removeUserName(user.getDisplayName());
-                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
+                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds", studyGroup.getParticipantsIds(), "participantsNames", studyGroup.getParticipantsNames());
                 participantsList.remove(user.getDisplayName());
                 adapter.notifyDataSetChanged();
             }
         });
     }
 
-    private void setReminder(){
+    private void setReminder() {
         setReminderTime();
         Date reminderDate = stringToDate(studyGroup.getDate());
 
@@ -175,27 +176,26 @@ public class StudyGroupDetails extends Fragment {
     }
 
 
-    private void setReminderTime(){
+    private void setReminderTime() {
         String timeString = time.getText().toString();
         int actualMinute = getMinute(timeString);
         int actualHour = getHour(timeString);
 
-        if (actualMinute > 29){
-            reminderMinute = actualMinute-30;
+        if (actualMinute > 29) {
+            reminderMinute = actualMinute - 30;
             reminderHour = actualHour;
-        }
-        else {
-            reminderMinute = (60+(actualMinute-30));
-            reminderHour = actualMinute-1;
+        } else {
+            reminderMinute = (60 + (actualMinute - 30));
+            reminderHour = actualMinute - 1;
         }
     }
 
-    private int getHour(String timeString){
-        String hourString = timeString.substring(0,2);
+    private int getHour(String timeString) {
+        String hourString = timeString.substring(0, 2);
         return Integer.parseInt(hourString);
     }
 
-    private int getMinute(String timeString){
+    private int getMinute(String timeString) {
         String minuteString = timeString.substring(3);
         return Integer.parseInt(minuteString);
     }

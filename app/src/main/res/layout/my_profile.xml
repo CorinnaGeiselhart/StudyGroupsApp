@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView_img"
+        android:id="@+id/imageView_imgPicture"
         android:layout_width="169dp"
         android:layout_height="182dp"
         android:layout_gravity="left"
@@ -52,7 +52,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_hint_name"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_img" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_imgPicture" />
 
     <TextView
         android:id="@+id/textView_hint_age"
@@ -90,8 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textColor="?attr/hintcolor"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_img"
-        app:layout_constraintStart_toStartOf="@+id/imageView_img"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_imgPicture"
+        app:layout_constraintStart_toStartOf="@+id/imageView_imgPicture"
         app:layout_constraintTop_toBottomOf="@+id/editText_myProfile_age" />
 
     <Button

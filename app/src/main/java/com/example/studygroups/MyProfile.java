@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -30,15 +31,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class MyProfile extends Fragment {
 
-    private ImageView imgView;
+    private ImageView ProfilePictureSettings;
     private EditText name;
     private EditText age;
     private TextView mail;
@@ -57,22 +56,26 @@ public class MyProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.my_profile, container, false);
 
+        db = FirebaseFirestore.getInstance();
         initViews();
+        setViews();
         setListeners();
 
         return v;
     }
 
     private void initViews() {
-        imgView = v.findViewById(R.id.imageView_img);
+        ProfilePictureSettings = v.findViewById(R.id.imageView_imgPicture);
         name = v.findViewById(R.id.editText_myProfile_name);
         age = v.findViewById(R.id.editText_myProfile_age);
         mail = v.findViewById(R.id.textView_myProfile_mail);
         updateButton = v.findViewById(R.id.button_updateProfile);
+    }
 
-        if(user.getPhotoUrl()!= null) {
+    private void setViews() {
+        if (user.getPhotoUrl() != null) {
             String picturePath = user.getPhotoUrl().toString();
-            imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            ProfilePictureSettings.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
         name.setText(user.getDisplayName());
         mail.setText(user.getEmail());
@@ -84,13 +87,13 @@ public class MyProfile extends Fragment {
         });
     }
 
-    private void setListeners(){
-        imgView.setOnClickListener(new View.OnClickListener() {
+    private void setListeners() {
+        ProfilePictureSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, GET_FROM_GALLERY);
-                } else{
+                } else {
                     choosePicture();
                 }
             }
@@ -98,20 +101,29 @@ public class MyProfile extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateAge();
                 updateUser();
             }
         });
     }
 
-    private void updateUser(){
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+    private void updateUser() {
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(name.getText().toString().trim())
-                .setPhotoUri(Uri.parse(picturePath))
-                .build();
+        if (picturePath != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name.getText().toString().trim())
+                    .setPhotoUri(Uri.parse(picturePath))
+                    .build();
+            updateProfile(profileUpdates);
+        } else {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name.getText().toString().trim())
+                    .build();
+            updateProfile(profileUpdates);
+        }
+    }
 
+    private void updateProfile(UserProfileChangeRequest profileUpdates) {
         user.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -121,12 +133,14 @@ public class MyProfile extends Fragment {
                         }
                     }
                 });
+    }
 
-        db.collection(getString(R.string.database_accounts)).document(user.getUid()).update("age", age.getText().toString().trim());
+    private void updateAge() {
+        db.collection(getString(R.string.database_accounts)).document(user.getUid()).update("age", ageString);
         updateNavigationDrawerHeader();
     }
 
-    private void updateNavigationDrawerHeader(){
+    private void updateNavigationDrawerHeader() {
         TextView username = getActivity().findViewById(R.id.textView_NavBarUsername);
         username.setText(name.getText().toString().trim());
 
@@ -148,59 +162,49 @@ public class MyProfile extends Fragment {
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            picturePath= cursor.getString(columnIndex);
+            picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-            imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            ProfilePictureSettings.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
+
     //Entscheidet was bei den zwei Optionen der Permissionabfrage passiert
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case GET_FROM_GALLERY:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     choosePicture();
                 } else {
-                    Toast.makeText(getContext(), "Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden", Toast.LENGTH_LONG).show();                }
+                    Toast.makeText(getContext(), R.string.toast_no_Permission, Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }
 
     //der Intent um auf die Gallerie zuzugreifen und startet die Methode um Bild rauszusuchen
-    private void choosePicture(){
+    private void choosePicture() {
         Intent getPicture = new Intent(
                 Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(getPicture, GET_FROM_GALLERY);
     }
 
-    private void getUserAge(final OnDBComplete onDBComplete){
-        db = FirebaseFirestore.getInstance();
-        //Hier hol ich alle Documente aus einer Collection raus
-        db.collection("studygroups-Accounts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void getUserAge(final OnDBComplete onDBComplete) {
+        //DocumentSnapshot ageDocument = db.collection(getString(R.string.database_accounts)).document(currentUser.getUid()).get().getResult();
+        db.collection(getString(R.string.database_accounts)).document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
-                        db.collection("studygroups-Accounts").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        ageString = document.getString("age");
-                                        onDBComplete.onComplete();
-                                    }}}
-                        });
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ageString = document.getString("age");
                     }
+                    onDBComplete.onComplete();
                 }
             }
         });
     }
-
-
 }
