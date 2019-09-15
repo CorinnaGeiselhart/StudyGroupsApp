@@ -42,17 +42,13 @@ public class NavigationDrawer extends AppCompatActivity{
     private static final int DONT_ADD_TO_BACKSTACK = 0;
     private Themes theme;
     public static boolean isDarkmodeOn;
+    public static boolean isNotoficationPermissionJoinGiven;
+    public static boolean isNotoficationPermissionReminderGiven;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        String defaultValueColor = "STANDARD";
-        boolean defaultValueMode = false;
-        theme = Themes.parseStringToTheme(sharedPref.getString(getString(R.string.pref_color_key), defaultValueColor));
-        isDarkmodeOn = sharedPref.getBoolean(   getString(R.string.pref_mode_key), defaultValueMode);
-
+        readSharedPreference();
         setColorTheme();
 
         super.onCreate(savedInstanceState);
@@ -61,6 +57,17 @@ public class NavigationDrawer extends AppCompatActivity{
         fragmentManager = getSupportFragmentManager();
         createNavDrawer();
         addMainFragment();
+    }
+
+    private void readSharedPreference(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        String defaultValueColor = "STANDARD";
+        theme = Themes.parseStringToTheme(sharedPref.getString(getString(R.string.pref_color_key), defaultValueColor));
+        isDarkmodeOn = sharedPref.getBoolean(getString(R.string.pref_mode_key), false);
+
+        isNotoficationPermissionJoinGiven = sharedPref.getBoolean(getString(R.string.pref_joinPermission_key), true);
+        isNotoficationPermissionReminderGiven = sharedPref.getBoolean(getString(R.string.pref_reminderPermission_key), true);
     }
 
     private void setColorTheme(){
@@ -144,7 +151,7 @@ public class NavigationDrawer extends AppCompatActivity{
                         addFragment(new MyStudyGroups(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.find_groups_toolbar_item:
-                        addFragment(new FindGroups(), ADD_TO_BACKSTACK);
+                        addFragment(new FindGroupsFilter(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.create_groups_toolbar_item:
                         addFragment(new StudyGroupCreateNew(), ADD_TO_BACKSTACK);

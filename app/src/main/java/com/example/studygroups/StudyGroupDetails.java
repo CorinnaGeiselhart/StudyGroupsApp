@@ -1,6 +1,9 @@
 package com.example.studygroups;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class StudyGroupDetails extends Fragment {
@@ -39,6 +46,10 @@ public class StudyGroupDetails extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    private int reminderMinute;
+    private int reminderHour;
+
+    private boolean isUserParticipating = false;
 
 
     @Nullable
@@ -123,5 +134,67 @@ public class StudyGroupDetails extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void setReminder(){
+        setReminderTime();
+        Date reminderDate = stringToDate(studyGroup.getDate());
+
+        AlarmManager manager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent alarmIntent = new Intent(getActivity(), Reminder.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 3);
+        calendar.set(Calendar.MINUTE, 23);
+        calendar.set(Calendar.SECOND, 1);
+
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    /*private boolean parseStringToDate(){
+        boolean isExpired=false;
+        Date expiredDate = stringToDate(date.getText().toString());
+
+        if (new Date().after(expiredDate)) {
+            isExpired=true;
+        }
+
+        return isExpired;
+    }*/
+
+    private Date stringToDate(String dateString) {
+        ParsePosition pos = new ParsePosition(0);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat("EEE MMM d HH:mm:ss zz yyyy");
+        Date date = simpledateformat.parse(dateString, pos);
+        return date;
+    }
+
+
+    private void setReminderTime(){
+        String timeString = time.getText().toString();
+        int actualMinute = getMinute(timeString);
+        int actualHour = getHour(timeString);
+
+        if (actualMinute > 29){
+            reminderMinute = actualMinute-30;
+            reminderHour = actualHour;
+        }
+        else {
+            reminderMinute = (60+(actualMinute-30));
+            reminderHour = actualMinute-1;
+        }
+    }
+
+    private int getHour(String timeString){
+        String hourString = timeString.substring(0,2);
+        return Integer.parseInt(hourString);
+    }
+
+    private int getMinute(String timeString){
+        String minuteString = timeString.substring(3);
+        return Integer.parseInt(minuteString);
     }
 }

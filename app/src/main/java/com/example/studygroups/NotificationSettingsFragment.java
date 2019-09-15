@@ -1,8 +1,12 @@
 package com.example.studygroups;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +34,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class NotificationSettingsFragment extends Fragment {
 
@@ -40,9 +49,8 @@ public class NotificationSettingsFragment extends Fragment {
     public static String userAge;
     //END TEST
 
-    ListView listView;
-    PreferencesListAdapter adapter;
-    ArrayList<NotificationPermission> permissionList = new ArrayList<>();
+    private Switch switchJoin;
+    private Switch switchReminder;
 
     private final String CHANNEL_ID = "personal_notification";
     private final int NOTIFICATION_ID = 1;
@@ -56,11 +64,15 @@ public class NotificationSettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initViews();
-        fillList();
+        setListeners();
     }
 
     private void initViews(){
-        listView = getView().findViewById(R.id.listView_preferences);
+        switchJoin = getActivity().findViewById(R.id.switch_notificationpermissionJoin);
+        switchJoin.setChecked(NavigationDrawer.isNotoficationPermissionJoinGiven);
+
+        switchReminder = getActivity().findViewById(R.id.switch_notificationpermissionReminder);
+        switchReminder.setChecked(NavigationDrawer.isNotoficationPermissionReminderGiven);
 
         //TEST
         test = getView().findViewById(R.id.test_button);
@@ -68,43 +80,43 @@ public class NotificationSettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 notificate();
-                db = FirebaseFirestore.getInstance();
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Hier hol ich alle Documente aus einer Collection raus
-                db.collection("studygroups-Accounts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Um aus dem DocumentSnapshot die documentdaten rauszufiltern und in ein neues Objekt "StudyGroup" gepackt und der Liste hinzugefügt
-                                db.collection("studygroups-Accounts").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot document = task.getResult();
-                                            if (document.exists()) {
-                                                userAge = document.getString("age");
-                                                Toast.makeText(getActivity(), userAge, Toast.LENGTH_LONG).show();
-                                            }
-                                        }}
-                                });
-                            }
-                        }
-                    }
-                });
+                //remind();
             }
         });
         //END TEST
-
-        adapter = new PreferencesListAdapter(getView().getContext(),permissionList);
-        listView.setAdapter(adapter);
     }
 
-    private void fillList(){
-        permissionList.add(new NotificationPermission(getString(R.string.notification_group_name), getString(R.string.notification_group_explanation), true));
-        permissionList.add(new NotificationPermission(getString(R.string.notification_reminder_name), getString(R.string.notification_reminder_explanation), true));
-        adapter.notifyDataSetChanged();
+    private void setListeners(){
+        switchJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveJoinPermissionForRestart(switchJoin.isChecked());
+            }
+        });
+
+        switchReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveReminderPermissionForRestart(switchReminder.isChecked());
+            }
+        });
     }
+
+
+    private void saveJoinPermissionForRestart(boolean isPermissionGiven){
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(getString(R.string.pref_joinPermission_key), isPermissionGiven);
+        editor.commit();
+    }
+
+    private void saveReminderPermissionForRestart(boolean isPermissionGiven){
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(getString(R.string.pref_reminderPermission_key), isPermissionGiven);
+        editor.commit();
+    }
+
 
 
     //notification wird erstmal hier erstellt, solange die Eintritts-Methode noch nicht existiert
@@ -137,5 +149,25 @@ public class NotificationSettingsFragment extends Fragment {
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
+
+    private void remind(){
+        Calendar calendar = Calendar.getInstance();
+
+        Intent intent = new Intent(getActivity(), Reminder.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.YEAR, 2019);
+        calendar.set(Calendar.MONTH, 9);
+        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 4);
+        calendar.set(Calendar.MINUTE, 9);
+        calendar.set(Calendar.SECOND, 1);
+
+        AlarmManager alarmManager = (AlarmManager)this.getContext().getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        else alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
 
 }
