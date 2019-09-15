@@ -49,7 +49,7 @@ public class FindGroupsFilter extends Fragment {
                 getTargetFragment().onActivityResult(getTargetRequestCode(),REQUEST_CODE, data);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_Host, new FindGroups());
+                fragmentTransaction.replace(R.id.nav_Host, new FindGroupsFilter());
                 fragmentTransaction.commit();
             }
         });

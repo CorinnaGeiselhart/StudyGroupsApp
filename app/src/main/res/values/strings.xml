@@ -105,6 +105,8 @@
     </string-array>
     <string name="pref_color_key">ColorKey</string>
     <string name="pref_mode_key">ModeKey</string>
+    <string name="pref_joinPermission_key">JoinPermissionKey</string>
+    <string name="pref_reminderPermission_key">ReminderPermissionKey</string>
 
 
     <string name="update_button_text">Änderungen speichern</string>

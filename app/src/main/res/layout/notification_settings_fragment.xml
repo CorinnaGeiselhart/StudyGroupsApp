@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,13 +10,60 @@
         android:id="@+id/test_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listView_preferences"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="8dp">
+    <Switch
+        android:id="@+id/switch_notificationpermissionJoin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/notification_group_name"
+        android:textColor="?attr/textcolor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/test_button" />
 
-    </ListView>
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView_notificationexplanationJoin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/hintcolor"
+        android:text="@string/notification_group_explanation"
+        app:layout_constraintEnd_toEndOf="@+id/switch_notificationpermissionJoin"
+        app:layout_constraintStart_toStartOf="@+id/switch_notificationpermissionJoin"
+        app:layout_constraintTop_toBottomOf="@+id/switch_notificationpermissionJoin" />
+
+    <Switch
+        android:id="@+id/switch_notificationpermissionReminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="?attr/textcolor"
+        android:text="@string/notification_reminder_name"
+        app:layout_constraintEnd_toEndOf="@+id/textView_notificationexplanationJoin"
+        app:layout_constraintStart_toStartOf="@+id/textView_notificationexplanationJoin"
+        app:layout_constraintTop_toBottomOf="@+id/textView_notificationexplanationJoin" />
+
+    <TextView
+        android:id="@+id/textView_notificationexplanationReminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/hintcolor"
+        android:text="@string/notification_reminder_explanation"
+        app:layout_constraintEnd_toEndOf="@+id/switch_notificationpermissionReminder"
+        app:layout_constraintStart_toStartOf="@+id/switch_notificationpermissionReminder"
+        app:layout_constraintTop_toBottomOf="@+id/switch_notificationpermissionReminder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
