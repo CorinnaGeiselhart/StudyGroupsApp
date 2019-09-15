@@ -103,6 +103,7 @@ public class ProfileNewAccount extends AppCompatActivity {
         //Hier werden weitere Daten des Nutzers in einer collection gesammelt
         db = FirebaseFirestore.getInstance();
         userInformation.put("age", age.getText().toString().trim());
+        userInformation.put("username",username.getText().toString().trim());
         db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation);
 
     }

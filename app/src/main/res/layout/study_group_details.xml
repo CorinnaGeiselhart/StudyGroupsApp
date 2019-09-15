@@ -106,7 +106,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_SignOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_SignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_participants" />
 
     <Button
         android:id="@+id/button_SignOut"

@@ -8,11 +8,12 @@ public class StudyGroup implements Serializable {
 
 
     private String subject, date, time, place, notes, weekday, id;
-    private ArrayList<String> participants = new ArrayList<>();
+    private ArrayList<String> participantsIds = new ArrayList<>();
+    private ArrayList<String> participantsNames = new ArrayList<>();
 
     public StudyGroup(){}
 
-    public StudyGroup(String subject, String date, String weekday, String time, String place, String details, String id,String participant){
+    public StudyGroup(String subject, String date, String weekday, String time, String place, String details, String id,String participantId, String participantName){
         this.subject = subject;
         this.date = date;
         this.weekday = weekday;
@@ -20,7 +21,8 @@ public class StudyGroup implements Serializable {
         this.place = place;
         this.notes = details;
         this.id = id;
-        participants.add(participant);
+        participantsIds.add(participantId);
+        participantsNames.add(participantName);
     }
 
     public String getNotes() { return notes; }
@@ -43,8 +45,28 @@ public class StudyGroup implements Serializable {
 
     public String getId() {return id;}
 
-    public ArrayList<String> getParticipants() {
-        return participants;
+    public ArrayList<String> getParticipantsIds() {
+        return participantsIds;
+    }
+
+    public void addNewUserId(String userId){
+        participantsIds.add(userId);
+    }
+
+    public void removeUserId(String userId){
+        participantsIds.remove(userId);
+    }
+
+    public ArrayList<String> getParticipantsNames() {
+        return participantsNames;
+    }
+
+    public void addNewUserName(String userName){
+        participantsNames.add(userName);
+    }
+
+    public void removeUserName(String userName){
+        participantsNames.remove(userName);
     }
 
     public String getWeekday() {

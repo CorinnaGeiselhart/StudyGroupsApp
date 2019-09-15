@@ -27,10 +27,10 @@ public class MyStudyGroups extends ListViewFragment {
     @Override
     protected void specifyList(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentUser = user.getDisplayName();
+        String currentUser = user.getUid();
 
         for(StudyGroup studyGroup: allStudyGroups){
-            ArrayList<String> participants = studyGroup.getParticipants();
+            ArrayList<String> participants = studyGroup.getParticipantsIds();
             if(!participants.equals(null)){
                 for(String participant: participants){
 
