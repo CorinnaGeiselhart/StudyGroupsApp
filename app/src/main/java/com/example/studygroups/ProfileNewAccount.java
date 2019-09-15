@@ -39,8 +39,8 @@ public class ProfileNewAccount extends AppCompatActivity {
     private FirebaseFirestore db;
     private Map<String, String> userInformation = new HashMap<>();
 
-    private String usernameString = username.getText().toString().trim();
-    private String ageString =  age.getText().toString().trim();
+    //private String usernameString = username.getText().toString().trim();
+    //private String ageString =  age.getText().toString().trim();
 
     public static final int GET_FROM_GALLERY = 1;
 
@@ -53,7 +53,7 @@ public class ProfileNewAccount extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(usernameString!= null && ageString!= null && picturePath!=null) {
+                if(username.getText().toString().trim()!= null && age.getText().toString().trim()!= null && picturePath!=null) {
                     setUserInformation();
                 } else {
                     Toast.makeText(ProfileNewAccount.this, R.string.toast_set_age_name,Toast.LENGTH_LONG).show();
@@ -86,13 +86,13 @@ public class ProfileNewAccount extends AppCompatActivity {
 
         if (picturePath != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(usernameString)
+                    .setDisplayName(username.getText().toString().trim())
                     .setPhotoUri(Uri.parse(picturePath))
                     .build();
             updateProfile(user, profileUpdates);
         } else {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(usernameString)
+                    .setDisplayName(username.getText().toString().trim())
                     .build();
             updateProfile(user, profileUpdates);
         }
@@ -100,7 +100,7 @@ public class ProfileNewAccount extends AppCompatActivity {
 
         //Hier werden weitere Daten des Nutzers in einer collection gesammelt
         db = FirebaseFirestore.getInstance();
-        userInformation.put(getString(R.string.database_age),ageString);
+        userInformation.put(getString(R.string.database_age),age.getText().toString().trim());
         db.collection(getString(R.string.database_accounts)).document(user.getUid()).set(userInformation);
     }
 

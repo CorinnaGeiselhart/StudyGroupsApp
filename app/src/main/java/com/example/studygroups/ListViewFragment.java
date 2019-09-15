@@ -24,7 +24,6 @@ import java.util.List;
 
 abstract class ListViewFragment extends Fragment {
 
-    protected String TAG = "lifecycleTags";
     private FirebaseFirestore db;
     protected TextView header, textIfListIsEmpty;
     private ListView listView;
@@ -41,7 +40,6 @@ abstract class ListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_main_fragments, container, false);
 
-
         initViews();
         setText();
 
@@ -56,14 +54,10 @@ abstract class ListViewFragment extends Fragment {
         return view;
     }
 
-    protected void setView() {
-        if (listStudyGroups.isEmpty()) {
-            textIfListIsEmpty.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.INVISIBLE);
-        } else {
-            textIfListIsEmpty.setVisibility(View.INVISIBLE);
-            listView.setVisibility(View.VISIBLE);
-        }
+    private void initViews() {
+        header = view.findViewById(R.id.textView_Fragment);
+        textIfListIsEmpty = view.findViewById(R.id.textView_ListEmpty);
+        listView = view.findViewById(R.id.listView_Fragment);
     }
 
     private void setList() {
@@ -97,12 +91,16 @@ abstract class ListViewFragment extends Fragment {
         });
     }
 
-
-    private void initViews() {
-        header = view.findViewById(R.id.textView_Fragment);
-        textIfListIsEmpty = view.findViewById(R.id.textView_ListEmpty);
-        listView = view.findViewById(R.id.listView_Fragment);
+    protected void setView() {
+        if (listStudyGroups.isEmpty()) {
+            textIfListIsEmpty.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.INVISIBLE);
+        } else {
+            textIfListIsEmpty.setVisibility(View.INVISIBLE);
+            listView.setVisibility(View.VISIBLE);
+        }
     }
+
 
     private void loadDatabaseStudyGroups(final OnDBComplete onDBComplete) {
         allStudyGroups = new ArrayList<>();

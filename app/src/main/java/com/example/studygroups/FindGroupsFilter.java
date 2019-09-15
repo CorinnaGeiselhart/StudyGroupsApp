@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 
 public class FindGroupsFilter extends Fragment {
 
-    private CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
+    private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private CheckBox[] weekdays = new CheckBox[7];
     private Spinner modulePicker;
     private Button searchButton;
@@ -36,7 +35,7 @@ public class FindGroupsFilter extends Fragment {
     private boolean[] isWeekdaySelected = new boolean[7];
     private String subject;
     private FirebaseFirestore db;
-    private ArrayList<StudyGroup> wantedLerngroups = new ArrayList<>();
+    private ArrayList<StudyGroup> wantedStudyGroups = new ArrayList<>();
     private StudyGroupsListAdapter adapter;
 
     @Override
@@ -44,7 +43,6 @@ public class FindGroupsFilter extends Fragment {
         view = inflater.inflate(R.layout.filter_find_group, container, false);
         db = FirebaseFirestore.getInstance();
         findViews();
-        setListView();
         initButton();
         return view;
     }
@@ -70,34 +68,31 @@ public class FindGroupsFilter extends Fragment {
         resultFilterListView = view.findViewById(R.id.listView_ResultFilter);
     }
 
-    private void setListView() {
-        adapter = new StudyGroupsListAdapter(view.getContext(),wantedLerngroups);
-        resultFilterListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
     private void initButton() {
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wantedLerngroups = new ArrayList<>();
+                wantedStudyGroups = new ArrayList<>();
 
                 //check which checkbox was selected
+                setListView();
                 getSelectedWeekdays();
-
                 showDatabaseLerngroups(new OnDBComplete() {
                     @Override
                     public void onComplete() {
                         adapter.notifyDataSetChanged();
                     }
                 });
-
             }
         });
-
     }
 
+    private void setListView() {
+        adapter = new StudyGroupsListAdapter(view.getContext(), wantedStudyGroups);
+        resultFilterListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
     private void getSelectedWeekdays() {
         String[] keys = {getResources().getString(R.string.key_monday),
@@ -107,16 +102,8 @@ public class FindGroupsFilter extends Fragment {
                 getResources().getString(R.string.key_friday),
                 getResources().getString(R.string.key_saturday),
                 getResources().getString(R.string.key_sunday)};
-        for(int x = 0; x < weekdays.length; x++){
+        for (int x = 0; x < weekdays.length; x++) {
             checkStatus(weekdays[x], isWeekdaySelected[x]);
-        }
-    }
-
-    private void checkStatus(CheckBox checkBox,boolean isSelected){
-        if(checkBox.isChecked()){
-            isSelected = true;
-        }else if(!checkBox.isChecked()){
-            isSelected = false;
         }
     }
 
@@ -125,15 +112,21 @@ public class FindGroupsFilter extends Fragment {
         db.collection(subject).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document: task.getResult()){
-                        wantedLerngroups.add(document.toObject(StudyGroup.class));
-                        Log.d("Studygroup", "" + document.toObject(StudyGroup.class));
-                    onDBComplete.onComplete();
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        wantedStudyGroups.add(document.toObject(StudyGroup.class));
+                        onDBComplete.onComplete();
                     }
                 }
             }
         });
     }
 
+    private void checkStatus(CheckBox checkBox, boolean isSelected) {
+        if (checkBox.isChecked()) {
+            isSelected = true;
+        } else if (!checkBox.isChecked()) {
+            isSelected = false;
+        }
+    }
 }

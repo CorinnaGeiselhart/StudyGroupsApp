@@ -42,7 +42,7 @@ public class ProfileFirebase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-        checkLogin();
+        //checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         findViews();
@@ -117,7 +117,6 @@ public class ProfileFirebase extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     public void signOut(){

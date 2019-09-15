@@ -22,16 +22,16 @@ public class MyStudyGroups extends ListViewFragment {
     }
 
     @Override
-    protected void specifyList(){
+    protected void specifyList() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUser = user.getUid();
 
-        for(StudyGroup studyGroup: allStudyGroups){
+        for (StudyGroup studyGroup : allStudyGroups) {
             ArrayList<String> participants = studyGroup.getParticipantsIds();
-            if(!participants.equals(null)){
-                for(String participant: participants){
+            if (!participants.equals(null)) {
+                for (String participant : participants) {
 
-                    if(currentUser.equals(participant)){
+                    if (currentUser.equals(participant)) {
                         listStudyGroups.add(studyGroup);
                         break;
                     }
@@ -45,5 +45,4 @@ public class MyStudyGroups extends ListViewFragment {
         header.setText(R.string.text_my_study_groups);
         textIfListIsEmpty.setText(R.string.text_empty_my_study_groups_list);
     }
-
 }

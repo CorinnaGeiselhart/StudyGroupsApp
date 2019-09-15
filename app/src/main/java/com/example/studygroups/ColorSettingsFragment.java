@@ -13,7 +13,6 @@ import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-;
 import androidx.fragment.app.Fragment;
 
 import static com.example.studygroups.Themes.FIRE;
@@ -43,16 +42,15 @@ public class ColorSettingsFragment extends Fragment {
         setListeners();
     }
 
-    private void initViews(){
+    private void initViews() {
         darkSwitch = getActivity().findViewById(R.id.switch_SettingsDarkmode);
-        if(NavigationDrawer.isDarkmodeOn) {
+        if (NavigationDrawer.isDarkmodeOn) {
             darkSwitch.setChecked(true);
         }
-
         colorSpinner = getActivity().findViewById(R.id.spinner_SettingsColor);
     }
 
-    private void setListeners(){
+    private void setListeners() {
         darkSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,70 +67,66 @@ public class ColorSettingsFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
     }
 
     private void changeColorMode(boolean checked) {
-        if(checked){
-            isDarkmodeOn=true;
+        if (checked) {
+            isDarkmodeOn = true;
             //saveModeForRestart();
-        }
-        else {
-            isDarkmodeOn=false;
+        } else {
+            isDarkmodeOn = false;
             //saveModeForRestart();
         }
         saveModeForRestart();
-
     }
 
-
-    private void changeColorScheme(){
-        switch (colorSpinner.getSelectedItem().toString()){
+    private void changeColorScheme() {
+        switch (colorSpinner.getSelectedItem().toString()) {
             case "Faculty": {
-                theme=STANDARD;
+                theme = STANDARD;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Ice": {
-                theme=ICE;
+                theme = ICE;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Fire": {
-                theme=FIRE;
+                theme = FIRE;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Sun": {
-                theme=SUN;
+                theme = SUN;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
             case "Nature": {
-                theme=NATURE;
+                theme = NATURE;
                 saveColorForRestart();
                 restartApp();
                 break;
             }
-            default: {}
+            default: {
+            }
         }
     }
 
-    private void saveModeForRestart(){
+    private void saveModeForRestart() {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(getString(R.string.pref_mode_key), isDarkmodeOn);
         editor.commit();
     }
 
-    private void saveColorForRestart(){
+    private void saveColorForRestart() {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(getString(R.string.pref_color_key), theme.toString());
@@ -140,7 +134,7 @@ public class ColorSettingsFragment extends Fragment {
     }
 
     private void restartApp() {
-        Intent i = new Intent (getActivity(), NavigationDrawer.class);
+        Intent i = new Intent(getActivity(), NavigationDrawer.class);
         startActivity(i);
         getActivity().finish();
     }

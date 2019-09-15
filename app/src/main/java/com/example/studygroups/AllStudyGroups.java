@@ -2,18 +2,14 @@ package com.example.studygroups;
 
 public class AllStudyGroups extends ListViewFragment {
 
-
-
     @Override
     protected void replaceFragment() {
         fragmentTransaction.replace(R.id.layout_MainActivityFrame, details);
     }
 
     @Override
-    protected void specifyList(){
-
+    protected void specifyList() {
         listStudyGroups = allStudyGroups;
-
     }
 
     @Override

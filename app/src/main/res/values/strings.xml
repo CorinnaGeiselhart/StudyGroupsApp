@@ -130,7 +130,7 @@
     <string name="addPicture">Foto hinzufügen</string>
     <string name="next">Weiter</string>
     <string name="toast_no_Permission">Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden</string>
-    <string name="toast_set_age_name">Bitte trage deinen USernamen und dein Alter ein</string>
+    <string name="toast_set_age_name">Bitte trage deinen Usernamen,Alter und ein Profilbild ein</string>
 
     <!--strings: Database-->
     <string name="database_age">age</string>
