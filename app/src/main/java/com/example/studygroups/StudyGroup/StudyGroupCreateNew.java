@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.StudyGroup;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.studygroups.MainScreens.NavigationDrawer;
+import com.example.studygroups.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

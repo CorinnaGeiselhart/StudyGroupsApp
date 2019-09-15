@@ -1,5 +1,7 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
 
+import com.example.studygroups.R;
+import com.example.studygroups.StudyGroup.StudyGroup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.StudyGroup;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.studygroups.R;
+import com.example.studygroups.Reminder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;

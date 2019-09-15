@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
 
 import android.os.Bundle;
 
@@ -16,6 +16,10 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.studygroups.OnDBComplete;
+import com.example.studygroups.R;
+import com.example.studygroups.StudyGroup.StudyGroup;
+import com.example.studygroups.StudyGroupsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class FindGroupsFilter extends Fragment {
+public class FindGroups extends Fragment {
 
     private CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
     private CheckBox[] weekdays = new CheckBox[7];
@@ -37,7 +41,7 @@ public class FindGroupsFilter extends Fragment {
     private String subject;
     private FirebaseFirestore db;
     private ArrayList<StudyGroup> wantedLerngroups = new ArrayList<>();
-    private StudyGroupsListAdapter adapter;
+    private StudyGroupsAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class FindGroupsFilter extends Fragment {
     }
 
     private void setListView() {
-        adapter = new StudyGroupsListAdapter(view.getContext(),wantedLerngroups);
+        adapter = new StudyGroupsAdapter(view.getContext(),wantedLerngroups);
         resultFilterListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

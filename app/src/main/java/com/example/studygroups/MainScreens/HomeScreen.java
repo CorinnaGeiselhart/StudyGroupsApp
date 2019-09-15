@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.studygroups.R;
 
 
 public class HomeScreen extends Fragment {

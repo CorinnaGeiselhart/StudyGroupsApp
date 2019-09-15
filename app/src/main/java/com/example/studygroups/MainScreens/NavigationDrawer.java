@@ -1,6 +1,15 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
 
 import androidx.annotation.NonNull;
+
+import com.example.studygroups.MainScreens.FindGroups;
+import com.example.studygroups.MainScreens.HomeScreen;
+import com.example.studygroups.MainScreens.MyStudyGroups;
+import com.example.studygroups.Profile.MyProfile;
+import com.example.studygroups.R;
+import com.example.studygroups.Settings.MainSettings;
+import com.example.studygroups.Settings.Themes;
+import com.example.studygroups.StudyGroup.StudyGroupCreateNew;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -14,20 +23,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatDelegate;
 
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import static android.provider.MediaStore.Images.Media.getBitmap;
-import static com.example.studygroups.Themes.STANDARD;
 
 
 public class NavigationDrawer extends AppCompatActivity{
@@ -151,7 +153,7 @@ public class NavigationDrawer extends AppCompatActivity{
                         addFragment(new MyStudyGroups(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.find_groups_toolbar_item:
-                        addFragment(new FindGroupsFilter(), ADD_TO_BACKSTACK);
+                        addFragment(new FindGroups(), ADD_TO_BACKSTACK);
                         break;
                     case R.id.create_groups_toolbar_item:
                         addFragment(new StudyGroupCreateNew(), ADD_TO_BACKSTACK);
@@ -168,7 +170,7 @@ public class NavigationDrawer extends AppCompatActivity{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new Settings(), ADD_TO_BACKSTACK);
+                addFragment(new MainSettings(), ADD_TO_BACKSTACK);
                 drawerLayout.closeDrawers();
             }
         });

@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.Settings;
 
 public enum Themes {
     STANDARD, ICE, SUN, NATURE, FIRE;

@@ -1,11 +1,10 @@
-package com.example.studygroups;
+package com.example.studygroups.Settings;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -15,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.studygroups.Profile.ProfileFirebase;
+import com.example.studygroups.R;
 
-public class Settings extends Fragment {
+
+public class MainSettings extends Fragment {
 
     TextView colorView;
     TextView colorViewX;
@@ -90,9 +92,9 @@ public class Settings extends Fragment {
     private void openColorFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ColorSettingsFragment colorSettingsFragment = new ColorSettingsFragment();
+        ColorsSettings colorsSettings = new ColorsSettings();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_Host, colorSettingsFragment);
+        fragmentTransaction.replace(R.id.nav_Host, colorsSettings);
 
         fragmentTransaction.commit();
     }
@@ -100,9 +102,9 @@ public class Settings extends Fragment {
     private void openNotificationFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        NotificationSettingsFragment notificationSettingsFragment = new NotificationSettingsFragment();
+        NotificationSettings notificationSettings = new NotificationSettings();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.nav_Host, notificationSettingsFragment);
+        fragmentTransaction.replace(R.id.nav_Host, notificationSettings);
 
         fragmentTransaction.commit();
     }

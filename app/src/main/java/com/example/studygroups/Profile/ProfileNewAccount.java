@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.Profile;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.studygroups.MainScreens.NavigationDrawer;
+import com.example.studygroups.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

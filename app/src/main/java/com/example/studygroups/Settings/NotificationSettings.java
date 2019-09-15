@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.Settings;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -12,11 +12,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,23 +21,15 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.studygroups.MainScreens.NavigationDrawer;
+import com.example.studygroups.R;
+import com.example.studygroups.Reminder;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
-import static android.content.Context.ALARM_SERVICE;
-
-public class NotificationSettingsFragment extends Fragment {
+public class NotificationSettings extends Fragment {
 
     //TEST
     Button test;

@@ -1,4 +1,6 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
+
+import com.example.studygroups.R;
 
 public class AllStudyGroups extends ListViewFragment {
 
