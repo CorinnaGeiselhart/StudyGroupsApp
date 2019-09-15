@@ -122,7 +122,7 @@ public class MyProfile extends Fragment {
                     }
                 });
 
-        db.collection("studygroups-Accounts").document(user.getUid()).update("age", age.getText().toString().trim());
+        db.collection(getString(R.string.database_accounts)).document(user.getUid()).update("age", age.getText().toString().trim());
         updateNavigationDrawerHeader();
     }
 
