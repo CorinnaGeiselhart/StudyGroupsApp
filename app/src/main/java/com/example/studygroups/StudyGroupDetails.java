@@ -32,7 +32,7 @@ public class StudyGroupDetails extends Fragment {
     private Button signIn;
     private Button signOut;
 
-    private ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<String> participantsList = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
 
     private StudyGroup studyGroup;
@@ -60,7 +60,7 @@ public class StudyGroupDetails extends Fragment {
                 studyGroup.addNewUserId(user.getUid());
                 studyGroup.addNewUserName(user.getDisplayName());
                 db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
-                list.add(user.getDisplayName());
+                participantsList.add(user.getDisplayName());
                 adapter.notifyDataSetChanged();
             }
         });
@@ -73,7 +73,7 @@ public class StudyGroupDetails extends Fragment {
                 studyGroup.removeUserId(user.getUid());
                 studyGroup.removeUserName(user.getDisplayName());
                 db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
-                list.remove(user.getDisplayName());
+                participantsList.remove(user.getDisplayName());
                 adapter.notifyDataSetChanged();
             }
         });
@@ -103,7 +103,7 @@ public class StudyGroupDetails extends Fragment {
     }
 
     private void initListView() {
-        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, list);
+        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, participantsList);
         participants.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -111,7 +111,7 @@ public class StudyGroupDetails extends Fragment {
     private void getParticipantNames() {
         //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
         for (String user: studyGroup.getParticipantsNames()){
-            list.add(user);
+            participantsList.add(user);
         }
     }
 
