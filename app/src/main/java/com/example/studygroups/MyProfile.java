@@ -103,7 +103,6 @@ public class MyProfile extends Fragment {
         });
     }
 
-    //TODO: update verändern
     private void updateUser(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();

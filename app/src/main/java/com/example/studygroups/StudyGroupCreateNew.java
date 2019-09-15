@@ -65,6 +65,44 @@ public class StudyGroupCreateNew extends Fragment {
         createNewGroup();
     }
 
+    private void findViews(){
+        modulePicker = view.findViewById (R.id.spinner_Modul);
+        datePicker = view.findViewById (R.id.editText_Date);
+        timePicker = view.findViewById (R.id.editText_Time);
+        locationView = view.findViewById (R.id.editText_Location);
+        commentView = view.findViewById (R.id.editText_Notes);
+        createGroup = view.findViewById(R.id.button_CreateGroup);
+    }
+
+    private void initCalender() {
+        GregorianCalendar calender = new GregorianCalendar();
+        day = calender.get(Calendar.DAY_OF_MONTH);
+        month = calender.get(Calendar.MONTH);
+        year = calender.get(Calendar.YEAR);
+        min = calender.get(Calendar.MINUTE);
+        hour = calender.get(Calendar.HOUR_OF_DAY);
+    }
+
+    private void initDateView() {
+        datePicker.setFocusable(false);
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                createDatePickerDialog().show();
+            }
+        });
+    }
+
+    private void initTimeView() {
+        timePicker.setFocusable(false);
+        timePicker.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                createTimePickerDialog().show();
+            }
+        });
+    }
+
     private void createNewGroup() {
         createGroup.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -98,6 +136,11 @@ public class StudyGroupCreateNew extends Fragment {
         });
     }
 
+    public void addToDatabase(StudyGroup studyGroup){
+        db = FirebaseFirestore.getInstance();
+        db.collection(studyGroup.getSubject()).document(milliSeconds).set(studyGroup);
+    }
+
     private void startDetailsActivity(StudyGroup studyGroup) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -112,36 +155,12 @@ public class StudyGroupCreateNew extends Fragment {
         ft.commit();
     }
 
-    public void addToDatabase(StudyGroup studyGroup){
-        db = FirebaseFirestore.getInstance();
-        db.collection(studyGroup.getSubject()).document(milliSeconds).set(studyGroup);
-
-    }
     private void resetView() {
         modulePicker.setSelection(0);
         datePicker.setText("");
         timePicker.setText("");
         locationView.setText("");
         commentView.setText("");
-    }
-
-    private void findViews(){
-        modulePicker = view.findViewById (R.id.spinner_Modul);
-        datePicker = view.findViewById (R.id.editText_Date);
-        timePicker = view.findViewById (R.id.editText_Time);
-        locationView = view.findViewById (R.id.editText_Location);
-        commentView = view.findViewById (R.id.editText_Notes);
-        createGroup = view.findViewById(R.id.button_CreateGroup);
-    }
-
-    private void initTimeView() {
-        timePicker.setFocusable(false);
-        timePicker.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                createTimePickerDialog().show();
-            }
-        });
     }
 
     private TimePickerDialog createTimePickerDialog(){
@@ -155,15 +174,6 @@ public class StudyGroupCreateNew extends Fragment {
         return timePickerDialog;
     }
 
-    private void initDateView() {
-        datePicker.setFocusable(false);
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                createDatePickerDialog().show();
-            }
-        });
-    }
 
     private DatePickerDialog createDatePickerDialog(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
@@ -183,14 +193,5 @@ public class StudyGroupCreateNew extends Fragment {
 
 
         return datePickerDialog;
-    }
-
-    private void initCalender() {
-        GregorianCalendar calender = new GregorianCalendar();
-        day = calender.get(Calendar.DAY_OF_MONTH);
-        month = calender.get(Calendar.MONTH);
-        year = calender.get(Calendar.YEAR);
-        min = calender.get(Calendar.MINUTE);
-        hour = calender.get(Calendar.HOUR_OF_DAY);
     }
 }

@@ -53,6 +53,52 @@ public class StudyGroupDetails extends Fragment {
         return view;
     }
 
+    private void initViews() {
+        date = view.findViewById(R.id.textView_Date);
+        time = view.findViewById(R.id.textView_Time);
+        place = view.findViewById(R.id.textView_Place);
+        subject = view.findViewById(R.id.textView_Subject);
+        notes = view.findViewById(R.id.textView_Notes);
+
+        signIn = view.findViewById(R.id.button_SignIn);
+        signOut = view.findViewById(R.id.button_SignOut);
+        participants = view.findViewById(R.id.listView_Participants);
+    }
+
+    private void setViews() {
+        subject.setText(studyGroup.getSubject());
+
+        Context context = view.getContext();
+        String d = "<b>" + context.getString(R.string.date) + " " + "</b>" + studyGroup.getDate();
+        date.setText(Html.fromHtml(d));
+
+        String t = "<b>" + context.getString(R.string.time) + " " + "</b>" + studyGroup.getTime();
+        time.setText(Html.fromHtml(t));
+
+        String p = "<b>" + context.getString(R.string.place) + " " + "</b>" + studyGroup.getPlace();
+        place.setText(Html.fromHtml(p));
+
+        String n = "<b>" + context.getString(R.string.notes) + " " + "</b>" + "<br>" + studyGroup.getNotes() + "</br>";
+        notes.setText(Html.fromHtml(n));
+
+        getParticipantNames();
+        Log.d("participate3", "aus Methode drausen" );
+        initListView();
+    }
+
+    private void initListView() {
+        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, list);
+        participants.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void getParticipantNames() {
+        //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
+        for (String user: studyGroup.getParticipantsNames()){
+            list.add(user);
+        }
+    }
+
     private void participateButton() {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,54 +123,5 @@ public class StudyGroupDetails extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-    }
-
-    private void setViews() {
-        subject.setText(studyGroup.getSubject());
-
-        Context context = view.getContext();
-        String d = "<b>" + context.getString(R.string.date) + " " + "</b>" + studyGroup.getDate();
-        date.setText(Html.fromHtml(d));
-
-        String t = "<b>" + context.getString(R.string.time) + " " + "</b>" + studyGroup.getTime();
-        time.setText(Html.fromHtml(t));
-
-        String p = "<b>" + context.getString(R.string.place) + " " + "</b>" + studyGroup.getPlace();
-        place.setText(Html.fromHtml(p));
-
-        String n = "<b>" + context.getString(R.string.notes) + " " + "</b>" + "<br>" + studyGroup.getNotes() + "</br>";
-        notes.setText(Html.fromHtml(n));
-
-        getParticipantNames();
-        Log.d("participate3", "aus Methode drausen" );
-        initListView();
-
-
-    }
-
-    private void initListView() {
-        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, list);
-        participants.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-    private void getParticipantNames() {
-        //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
-        for (String user: studyGroup.getParticipantsNames()){
-            list.add(user);
-        }
-    }
-
-
-    private void initViews() {
-        date = view.findViewById(R.id.textView_Date);
-        time = view.findViewById(R.id.textView_Time);
-        place = view.findViewById(R.id.textView_Place);
-        subject = view.findViewById(R.id.textView_Subject);
-        notes = view.findViewById(R.id.textView_Notes);
-
-        signIn = view.findViewById(R.id.button_SignIn);
-        signOut = view.findViewById(R.id.button_SignOut);
-        participants = view.findViewById(R.id.listView_Participants);
     }
 }
