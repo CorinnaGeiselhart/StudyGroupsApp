@@ -1,39 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/findgroup_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/listView_StudyGroups"
+    <Spinner
+        android:id="@+id/spinner_Module"
+        style="@style/Platform.Widget.AppCompat.Spinner"
+        android:backgroundTint="?attr/primarycolor"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:entries="@array/modul_list"
+        android:popupBackground="?attr/buttoncolor"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Checkboxes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_Module"
+        app:layout_constraintStart_toStartOf="@+id/spinner_Module"
+        app:layout_constraintTop_toBottomOf="@id/spinner_Module">
+
+        <CheckBox
+            android:id="@+id/checkBox_Mo"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_monday"
+            android:textColor="?attr/textcolor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Tue"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_tuesday"
+            android:textColor="?attr/textcolor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Wed"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_wednesday"
+            android:textColor="?attr/textcolor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Thur"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_thursday"
+            android:textColor="?attr/textcolor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Fr"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_friday"
+            android:textColor="?attr/textcolor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Sat"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_saturday"
+            android:textColor="?attr/textcolor" />
+
+        <CheckBox
+            android:id="@+id/checkBox_Sun"
+            android:layout_width="38dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:button="@null"
+            android:drawableTop="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_horizontal"
+            android:text="@string/checkbox_sunday"
+            android:textColor="?attr/textcolor" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_Search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?attr/buttoncolor"
+        android:text="@string/button_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_Checkboxes" />
+
+    <ListView
+        android:id="@+id/listView_ResultFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-    </ListView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton_Filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/primarycolor"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_search_category_default" />
+        app:layout_constraintTop_toBottomOf="@+id/button_Search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

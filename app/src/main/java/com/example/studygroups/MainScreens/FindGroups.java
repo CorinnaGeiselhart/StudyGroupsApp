@@ -6,11 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -19,6 +21,7 @@ import android.widget.Spinner;
 import com.example.studygroups.OnDBComplete;
 import com.example.studygroups.R;
 import com.example.studygroups.StudyGroup.StudyGroup;
+import com.example.studygroups.StudyGroup.StudyGroupDetails;
 import com.example.studygroups.StudyGroupsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,10 +48,9 @@ public class FindGroups extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.filter_find_group, container, false);
+        view = inflater.inflate(R.layout.find_group, container, false);
         db = FirebaseFirestore.getInstance();
         findViews();
-        setListView();
         initButton();
         return view;
     }
@@ -78,6 +80,26 @@ public class FindGroups extends Fragment {
         adapter = new StudyGroupsAdapter(view.getContext(),wantedLerngroups);
         resultFilterListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        resultFilterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                Fragment details = new StudyGroupDetails();
+
+                //StudyGroup übergeben
+                Bundle bundle = new Bundle();
+                Log.d("HIlFE", "bundle");
+                bundle.putSerializable(getResources().getString(R.string.key_fragment_transaction), wantedLerngroups.get(position));
+                Log.d("HIlFE", "bundle1");
+                details.setArguments(bundle);
+                Log.d("HIlFE", "arguments");
+                fragmentTransaction.replace(R.id.nav_Host, details);
+                Log.d("HIlFE", "" + wantedLerngroups.get(position));
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                Log.d("HILFE", "commit");
+            }
+        });
     }
 
     private void initButton() {
@@ -85,14 +107,12 @@ public class FindGroups extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wantedLerngroups = new ArrayList<>();
-
-                //check which checkbox was selected
+                //get, which checkbox was selected
                 getSelectedWeekdays();
-
                 showDatabaseLerngroups(new OnDBComplete() {
                     @Override
                     public void onComplete() {
+                        setListView();
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -125,6 +145,7 @@ public class FindGroups extends Fragment {
     }
 
     private void showDatabaseLerngroups(final OnDBComplete onDBComplete) {
+        wantedLerngroups = new ArrayList<>();
         subject = modulePicker.getSelectedItem().toString();
         db.collection(subject).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
