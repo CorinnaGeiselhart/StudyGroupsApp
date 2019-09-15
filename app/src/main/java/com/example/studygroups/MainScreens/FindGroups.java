@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
 
 import android.os.Bundle;
 
@@ -15,6 +15,10 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.studygroups.OnDBComplete;
+import com.example.studygroups.R;
+import com.example.studygroups.StudyGroup.StudyGroup;
+import com.example.studygroups.StudyGroupsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,7 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class FindGroupsFilter extends Fragment {
+public class FindGroups extends Fragment {
 
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private CheckBox[] weekdays = new CheckBox[7];
@@ -93,6 +97,7 @@ public class FindGroupsFilter extends Fragment {
         resultFilterListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
 
     private void getSelectedWeekdays() {
         String[] keys = {getResources().getString(R.string.key_monday),

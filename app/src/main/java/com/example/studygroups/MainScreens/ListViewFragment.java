@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.MainScreens;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +12,11 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.studygroups.OnDBComplete;
+import com.example.studygroups.R;
+import com.example.studygroups.StudyGroup.StudyGroup;
+import com.example.studygroups.StudyGroup.StudyGroupDetails;
+import com.example.studygroups.StudyGroupsAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -29,7 +34,7 @@ abstract class ListViewFragment extends Fragment {
     private ListView listView;
     protected View view;
 
-    protected StudyGroupsListAdapter adapter;
+    protected StudyGroupsAdapter adapter;
     public ArrayList<StudyGroup> listStudyGroups = new ArrayList<>();
 
     public ArrayList<StudyGroup> allStudyGroups = new ArrayList<>();
@@ -64,7 +69,7 @@ abstract class ListViewFragment extends Fragment {
         //adapter
         listStudyGroups = new ArrayList<>();
         specifyList();
-        adapter = new StudyGroupsListAdapter(view.getContext(), listStudyGroups);
+        adapter = new StudyGroupsAdapter(view.getContext(), listStudyGroups);
 
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

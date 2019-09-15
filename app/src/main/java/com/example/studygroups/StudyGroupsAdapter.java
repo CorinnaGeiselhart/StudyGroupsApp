@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 
 import android.widget.TextView;
 
+import com.example.studygroups.StudyGroup.StudyGroup;
+
 import java.util.ArrayList;
 
-public class StudyGroupsListAdapter extends ArrayAdapter<StudyGroup> {
+public class StudyGroupsAdapter extends ArrayAdapter<StudyGroup> {
 
     private Context context;
     private ArrayList<StudyGroup> studyGroupsList;
@@ -21,7 +23,7 @@ public class StudyGroupsListAdapter extends ArrayAdapter<StudyGroup> {
 
 
 
-    public StudyGroupsListAdapter(Context context, ArrayList<StudyGroup> studyGroupsList){
+    public StudyGroupsAdapter(Context context, ArrayList<StudyGroup> studyGroupsList){
         super(context, R.layout.listitem_study_groups, studyGroupsList);
 
         this.context = context;

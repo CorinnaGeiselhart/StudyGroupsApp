@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.StudyGroup;
 
 import java.io.Serializable;
 import java.util.ArrayList;

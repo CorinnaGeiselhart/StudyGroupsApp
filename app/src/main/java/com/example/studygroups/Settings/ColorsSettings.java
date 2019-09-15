@@ -1,4 +1,4 @@
-package com.example.studygroups;
+package com.example.studygroups.Settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import static com.example.studygroups.Themes.FIRE;
-import static com.example.studygroups.Themes.ICE;
-import static com.example.studygroups.Themes.NATURE;
-import static com.example.studygroups.Themes.STANDARD;
-import static com.example.studygroups.Themes.SUN;
+import com.example.studygroups.MainScreens.NavigationDrawer;
+import com.example.studygroups.R;
 
-public class ColorSettingsFragment extends Fragment {
+import static com.example.studygroups.Settings.Themes.FIRE;
+import static com.example.studygroups.Settings.Themes.ICE;
+import static com.example.studygroups.Settings.Themes.NATURE;
+import static com.example.studygroups.Settings.Themes.STANDARD;
+import static com.example.studygroups.Settings.Themes.SUN;
+
+public class ColorsSettings extends Fragment {
 
     Switch darkSwitch;
     Spinner colorSpinner;
