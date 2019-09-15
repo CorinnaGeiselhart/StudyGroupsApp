@@ -51,7 +51,7 @@ public class NavigationDrawer extends AppCompatActivity{
         String defaultValueColor = "STANDARD";
         boolean defaultValueMode = false;
         theme = Themes.parseStringToTheme(sharedPref.getString(getString(R.string.pref_color_key), defaultValueColor));
-        isDarkmodeOn = sharedPref.getBoolean(getString(R.string.pref_mode_key), defaultValueMode);
+        isDarkmodeOn = sharedPref.getBoolean(   getString(R.string.pref_mode_key), defaultValueMode);
 
         setColorTheme();
 
@@ -127,7 +127,7 @@ public class NavigationDrawer extends AppCompatActivity{
 
     private void createDrawerListener() {
         createMenuItemListener();
-        createProfileListener();
+        createNavigationBarHeader();
         createSettingsListener();
     }
 
@@ -167,7 +167,7 @@ public class NavigationDrawer extends AppCompatActivity{
         });
     }
 
-    private void createProfileListener() {
+    private void createNavigationBarHeader() {
         NavigationView navigationView = findViewById(R.id.nav_View);
         View headerView = navigationView.getHeaderView(0);
         ImageView profile = headerView.findViewById(R.id.imageView_NavBarPPicture);
@@ -190,6 +190,7 @@ public class NavigationDrawer extends AppCompatActivity{
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
