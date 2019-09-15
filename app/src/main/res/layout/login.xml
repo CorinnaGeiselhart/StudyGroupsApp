@@ -16,13 +16,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText_Password"
         android:backgroundTint="?attr/primarycolor"
+        android:ems="10"
+        android:hint="@string/email_hint"
+        android:inputType="textPersonName"
         android:textColor="?attr/textcolor"
         android:textColorHint="?attr/hintcolor"
+        app:layout_constraintBottom_toTopOf="@+id/editText_Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -38,7 +38,7 @@
         android:layout_marginBottom="8dp"
         android:backgroundTint="?attr/primarycolor"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:textColor="?attr/textcolor"
         android:textColorHint="?attr/hintcolor"
@@ -48,7 +48,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/button_Login"
@@ -59,9 +60,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:hint="Login"
         android:background="?attr/buttoncolor"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:text="@string/login_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_Password" />

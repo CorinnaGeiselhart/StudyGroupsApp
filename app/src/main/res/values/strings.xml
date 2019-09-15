@@ -113,4 +113,27 @@
     <string name="name_hint">Name: </string>
     <string name="age_hint">Alter: </string>
 
+    <!--strings: Login-->
+    <string name="email_hint">E-mail </string>
+    <string name="password_hint">Password </string>
+    <string name="login_Button">Login </string>
+    <string name="toast_fill_Textentry">Please enter Email and Password</string>
+    <string name="toast_check_entry">Überprüfe deine E-mail und dein Password(mindestens 6 Zeichen)</string>
+    <string name="popup_title">Email existiert nicht</string>
+    <string name="popup_text">Diese E-mail kennen wir nicht. Überprüfen Sie ihre Eingabe oder legen Sie ein neues Profil an</string>
+    <string name="popup_rightButton">Registrieren</string>
+    <string name="popup_leftButton">Zurück</string>
+
+    <!--strings: Registrierung-->
+    <string name="username_hint">*Username</string>
+    <string name="ageRegistrierung_hint">*Alter</string>
+    <string name="addPicture">Foto hinzufügen</string>
+    <string name="next">Weiter</string>
+    <string name="toast_no_Permission">Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden</string>
+    <string name="toast_set_age_name">Bitte trage deinen USernamen und dein Alter ein</string>
+
+    <!--strings: Database-->
+    <string name="database_age">age</string>
+    <string name="database_accounts">studygroups-Accounts</string>
+
 </resources>

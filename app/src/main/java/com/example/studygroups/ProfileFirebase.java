@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +37,6 @@ public class ProfileFirebase extends AppCompatActivity {
 
     private Button login;
     Dialog myDialog;
-    private static final String TAG = "ProfileFirebaseLogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +52,7 @@ public class ProfileFirebase extends AppCompatActivity {
                 email = name.getText().toString().trim();
                 newPassword = password.getText().toString().trim();
                 if(email.isEmpty() || newPassword.isEmpty()) {
-                    Toast.makeText(ProfileFirebase.this,
-                            "Please enter Email and Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFirebase.this, R.string.toast_fill_Textentry, Toast.LENGTH_SHORT).show();
                 } else {
                     signIn();
                 }
@@ -87,7 +84,6 @@ public class ProfileFirebase extends AppCompatActivity {
     }
 
     private void createNewUser() {
-        Log.d(TAG, "createNewUser: creating user");
         mAuth.createUserWithEmailAndPassword(email, newPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -100,7 +96,7 @@ public class ProfileFirebase extends AppCompatActivity {
                             startActivity(createAcc);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(ProfileFirebase.this, "Überprüfe deine E-mail und dein Password(mindestens 6 Zeichen)",
+                            Toast.makeText(ProfileFirebase.this,R.string.toast_check_entry ,
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -133,15 +129,15 @@ public class ProfileFirebase extends AppCompatActivity {
     private void createPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setCancelable(true)
-                .setTitle("Email existiert nicht")
-                .setMessage("Diese E-mail kennen wir nicht. Überprüfen Sie ihre Eingabe oder legen Sie ein neues Profil an")
-                .setPositiveButton("Registrieren", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.popup_title)
+                .setMessage(R.string.popup_text)
+                .setPositiveButton(R.string.popup_rightButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createNewUser();
                     }
                 })
-                .setNegativeButton("Zurück", null);
+                .setNegativeButton(R.string.popup_leftButton, null);
         builder.create().show();
     }
 }

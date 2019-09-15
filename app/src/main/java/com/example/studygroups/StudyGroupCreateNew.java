@@ -85,7 +85,7 @@ public class StudyGroupCreateNew extends Fragment {
                     //Lerngruppeneintrag hinzufügen
                     milliSeconds = String.valueOf(System.currentTimeMillis());
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment,milliSeconds,user.getDisplayName());
+                    StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment,milliSeconds,user.getUid(),user.getDisplayName());
                     addToDatabase(studyGroup);
                     startDetailsActivity(studyGroup);
                     //zur Datenbank hinzufügen

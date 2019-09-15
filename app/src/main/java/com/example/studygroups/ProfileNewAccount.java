@@ -39,6 +39,9 @@ public class ProfileNewAccount extends AppCompatActivity {
     private FirebaseFirestore db;
     private Map<String, String> userInformation = new HashMap<>();
 
+    private String usernameString = username.getText().toString().trim();
+    private String ageString =  age.getText().toString().trim();
+
     public static final int GET_FROM_GALLERY = 1;
 
 
@@ -50,7 +53,11 @@ public class ProfileNewAccount extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                upDateUser();
+                if(usernameString!= null && ageString!= null) {
+                    setUserInformation();
+                } else {
+                    Toast.makeText(ProfileNewAccount.this, R.string.toast_set_age_name,Toast.LENGTH_LONG).show();
+                }
             }
         });
         //Permissionabfrage + Bild hinzufügen
@@ -66,14 +73,6 @@ public class ProfileNewAccount extends AppCompatActivity {
         });
     }
 
-    //der Intent um auf die Gallerie zuzugreifen und startet die Methode um Bild rauszusuchen
-    private void choosePicture() {
-        Intent getPicture = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(getPicture, GET_FROM_GALLERY);
-    }
-
     private void initViews() {
         next = findViewById(R.id.button_Next);
         username = findViewById(R.id.editText_Name);
@@ -82,14 +81,38 @@ public class ProfileNewAccount extends AppCompatActivity {
         profilePicture = findViewById(R.id.imageView_ProfilePicture);
     }
 
-    private void upDateUser() {
+    private void setUserInformation() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(username.getText().toString().trim())
-                .setPhotoUri(Uri.parse(picturePath))
-                .build();
+        if (picturePath != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(usernameString)
+                    .setPhotoUri(Uri.parse(picturePath))
+                    .build();
+            updateProfile(user, profileUpdates);
+        } else {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(usernameString)
+                    .build();
+            updateProfile(user, profileUpdates);
+        }
 
+
+        //Hier werden weitere Daten des Nutzers in einer collection gesammelt
+        db = FirebaseFirestore.getInstance();
+        userInformation.put(getString(R.string.database_age),ageString);
+        db.collection(getString(R.string.database_accounts)).document(user.getUid()).set(userInformation);
+    }
+
+    //der Intent um auf die Gallerie zuzugreifen und startet die Methode um Bild rauszusuchen
+    private void choosePicture() {
+        Intent getPicture = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(getPicture, GET_FROM_GALLERY);
+    }
+
+    private void updateProfile(FirebaseUser user, UserProfileChangeRequest profileUpdates){
         user.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -100,11 +123,6 @@ public class ProfileNewAccount extends AppCompatActivity {
                         }
                     }
                 });
-        //Hier werden weitere Daten des Nutzers in einer collection gesammelt
-        db = FirebaseFirestore.getInstance();
-        userInformation.put("age", age.getText().toString().trim());
-        db.collection("studygroups-Accounts").document(user.getUid()).set(userInformation);
-
     }
 
     //greift auf die Gallerie zu um ein Bild zu bekommen
@@ -137,7 +155,7 @@ public class ProfileNewAccount extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     choosePicture();
                 } else {
-                    Toast.makeText(this, "Ohne die Erlaubnis kann leider kein Bild hinzugefügt werden", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.toast_no_Permission, Toast.LENGTH_LONG).show();
                 }
                 break;
         }

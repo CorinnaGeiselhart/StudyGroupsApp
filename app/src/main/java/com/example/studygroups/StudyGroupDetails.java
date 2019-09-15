@@ -20,11 +20,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParsePosition;
@@ -46,7 +43,7 @@ public class StudyGroupDetails extends Fragment {
     private ArrayAdapter<String> adapter;
 
     private StudyGroup studyGroup;
-    private FirebaseFirestore db;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private int reminderMinute;
@@ -62,45 +59,33 @@ public class StudyGroupDetails extends Fragment {
         studyGroup = (StudyGroup) getArguments().getSerializable(getResources().getString(R.string.key_fragment_transaction));
         initViews();
         setViews();
-        setupSignInButton(new OnDBComplete() {
-            @Override
-            public void onComplete() {
-                Log.d("initView", "sollte Id's anzeigen");
-                adapter.notifyDataSetChanged();
-                setReminder();
-            }
-        });
-        setupSignOutButton(new OnDBComplete() {
-            @Override
-            public void onComplete() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-
+        participateButton();
+        leaveButton();
         return view;
     }
 
-    private void setupSignInButton(final OnDBComplete onDBComplete) {
+    private void participateButton() {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Teilnehmen
-                if (!list.contains(user.getDisplayName())) {
-                    list.add(user.getDisplayName());
-                    db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participants", list);
-                    onDBComplete.onComplete();
-                }
+                studyGroup.addNewUserId(user.getUid());
+                studyGroup.addNewUserName(user.getDisplayName());
+                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
+                list.add(user.getDisplayName());
+                adapter.notifyDataSetChanged();
             }
         });
     }
 
-    private void setupSignOutButton(final OnDBComplete onDBComplete) {
+    private void leaveButton() {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                studyGroup.removeUserId(user.getUid());
+                studyGroup.removeUserName(user.getDisplayName());
+                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participantsIds",studyGroup.getParticipantsIds(),"participantsNames",studyGroup.getParticipantsNames());
                 list.remove(user.getDisplayName());
-                db.collection(studyGroup.getSubject()).document(studyGroup.getId()).update("participants", list);
-                onDBComplete.onComplete();
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -121,12 +106,10 @@ public class StudyGroupDetails extends Fragment {
         String n = "<b>" + context.getString(R.string.notes) + " " + "</b>" + "<br>" + studyGroup.getNotes() + "</br>";
         notes.setText(Html.fromHtml(n));
 
-        getParticipants(new OnDBComplete() {
-            @Override
-            public void onComplete() {
-                initListView();
-            }
-        });
+        getParticipantNames();
+        Log.d("participate3", "aus Methode drausen" );
+        initListView();
+
 
     }
 
@@ -136,21 +119,11 @@ public class StudyGroupDetails extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void getParticipants(final OnDBComplete onDBComplete) {
-        //aus Datenbank Teilnehmer bekommen
-        db = FirebaseFirestore.getInstance();
-        db.collection(studyGroup.getSubject()).document(studyGroup.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        list = (ArrayList<String>) document.get("participants");
-                    }
-                    onDBComplete.onComplete();
-                }
-            }
-        });
+    private void getParticipantNames() {
+        //Teilnehmernamen aus der Objektliste mit Id's und Namen raus lesen
+        for (String user: studyGroup.getParticipantsNames()){
+            list.add(user);
+        }
     }
 
 

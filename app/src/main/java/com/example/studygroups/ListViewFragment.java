@@ -47,7 +47,6 @@ abstract class ListViewFragment extends Fragment {
         loadDatabaseStudyGroups(new OnDBComplete() {
             @Override
             public void onComplete() {
-                Log.d("Listeinträge", String.valueOf(allStudyGroups.size()));
                 setList();
                 setView();
                 adapter.notifyDataSetChanged();
@@ -71,7 +70,6 @@ abstract class ListViewFragment extends Fragment {
         specifyList();
         adapter = new StudyGroupsListAdapter(view.getContext(), listStudyGroups);
 
-        Log.d("adapter", "setList: adapter created");
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
