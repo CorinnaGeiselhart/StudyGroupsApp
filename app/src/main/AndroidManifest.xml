@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NavigationDrawer"></activity>
-        <activity android:name=".ProfileNewAccount">
+        <activity android:name=".ProfileNewAccount"
             android:label="@string/app_name"></activity>
 
         <receiver android:name=".Reminder"/>

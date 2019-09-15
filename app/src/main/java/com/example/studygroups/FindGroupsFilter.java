@@ -1,25 +1,23 @@
 package com.example.studygroups;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,20 +28,23 @@ public class FindGroupsFilter extends Fragment {
 
     private CheckBox monday, tuesday,wednesday,thursday, friday,saturday, sunday;
     private CheckBox[] weekdays = new CheckBox[7];
-    //String[] keys = new String[7];
     private Spinner modulePicker;
     private Button searchButton;
+    private ListView resultFilterListView;
     private View view;
+
+    private boolean[] isWeekdaySelected = new boolean[7];
     private String subject;
-    public static final int REQUEST_CODE = 1;
     private FirebaseFirestore db;
     private ArrayList<StudyGroup> wantedLerngroups = new ArrayList<>();
+    private StudyGroupsListAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.filter_find_group, container, false);
         db = FirebaseFirestore.getInstance();
         findViews();
+        setListView();
         initButton();
         return view;
     }
@@ -66,30 +67,39 @@ public class FindGroupsFilter extends Fragment {
 
         modulePicker = view.findViewById(R.id.spinner_Module);
         searchButton = view.findViewById(R.id.button_Search);
+        resultFilterListView = view.findViewById(R.id.listView_ResultFilter);
+    }
+
+    private void setListView() {
+        adapter = new StudyGroupsListAdapter(view.getContext(),wantedLerngroups);
+        resultFilterListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void initButton() {
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                wantedLerngroups = new ArrayList<>();
 
-                Intent data = new Intent();
                 //check which checkbox was selected
-                getData(data);
+                getSelectedWeekdays();
 
-                getTargetFragment().onActivityResult(getTargetRequestCode(),REQUEST_CODE, data);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_Host, new FindGroupsFilter());
-                fragmentTransaction.commit();
+                showDatabaseLerngroups(new OnDBComplete() {
+                    @Override
+                    public void onComplete() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
             }
         });
 
     }
 
-    private void getData(Intent i) {
 
-
+    private void getSelectedWeekdays() {
         String[] keys = {getResources().getString(R.string.key_monday),
                 getResources().getString(R.string.key_tuesday),
                 getResources().getString(R.string.key_wednesday),
@@ -98,11 +108,19 @@ public class FindGroupsFilter extends Fragment {
                 getResources().getString(R.string.key_saturday),
                 getResources().getString(R.string.key_sunday)};
         for(int x = 0; x < weekdays.length; x++){
-            checkStatus(weekdays[x], keys[x], i);
+            checkStatus(weekdays[x], isWeekdaySelected[x]);
         }
     }
 
-    private void showDatabaseLerngroups() {
+    private void checkStatus(CheckBox checkBox,boolean isSelected){
+        if(checkBox.isChecked()){
+            isSelected = true;
+        }else if(!checkBox.isChecked()){
+            isSelected = false;
+        }
+    }
+
+    private void showDatabaseLerngroups(final OnDBComplete onDBComplete) {
         subject = modulePicker.getSelectedItem().toString();
         db.collection(subject).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -110,19 +128,12 @@ public class FindGroupsFilter extends Fragment {
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot document: task.getResult()){
                         wantedLerngroups.add(document.toObject(StudyGroup.class));
+                        Log.d("Studygroup", "" + document.toObject(StudyGroup.class));
+                    onDBComplete.onComplete();
                     }
                 }
             }
         });
     }
-
-    private void checkStatus(CheckBox checkBox,String keyValue, Intent i){
-        if(checkBox.isChecked()){
-            i.putExtra(keyValue, keyValue);
-        }else if(!checkBox.isChecked()){
-            i.putExtra(keyValue, "");
-        }
-    }
-
 
 }

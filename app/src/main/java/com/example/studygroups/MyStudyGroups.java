@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 public class MyStudyGroups extends ListViewFragment {
 
-
-    private ArrayList<StudyGroup> myStudyGroups = new ArrayList<>();
-
     @Override
     protected void replaceFragment() {
         String tag = String.valueOf(view.getId()).trim();
@@ -18,7 +15,7 @@ public class MyStudyGroups extends ListViewFragment {
         if (tag.equals(String.valueOf(R.id.layout_ActivityMainFragments))) {
             fragmentTransaction.replace(R.id.nav_Host, details);
         }
-        //in MainActivit/Home Details aufrufen
+        //im HomeScreen Meine Lerngruppen Details aufrufen
         else {
             fragmentTransaction.replace(R.id.layout_MainActivityFrame, details);
         }
@@ -45,8 +42,8 @@ public class MyStudyGroups extends ListViewFragment {
 
     @Override
     protected void setText() {
-        textIfListIsEmpty.setText(R.string.text_empty_my_study_groups_list);
         header.setText(R.string.text_my_study_groups);
+        textIfListIsEmpty.setText(R.string.text_empty_my_study_groups_list);
     }
 
 }

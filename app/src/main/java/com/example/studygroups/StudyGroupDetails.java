@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class StudyGroupDetails extends Fragment {
     private int reminderMinute;
     private int reminderHour;
 
-    private boolean isUserParticipating = false;
 
 
     @Nullable
@@ -81,7 +79,7 @@ public class StudyGroupDetails extends Fragment {
         subject.setText(studyGroup.getSubject());
 
         Context context = view.getContext();
-        String d = "<b>" + context.getString(R.string.date) + " " + "</b>" + studyGroup.getDate();
+        String d = "<b>" + context.getString(R.string.date) + " " + "</b>" + studyGroup.getWeekday() +  ", " + studyGroup.getDate();
         date.setText(Html.fromHtml(d));
 
         String t = "<b>" + context.getString(R.string.time) + " " + "</b>" + studyGroup.getTime();
@@ -94,7 +92,6 @@ public class StudyGroupDetails extends Fragment {
         notes.setText(Html.fromHtml(n));
 
         getParticipantNames();
-        Log.d("participate3", "aus Methode drausen" );
         initListView();
     }
 

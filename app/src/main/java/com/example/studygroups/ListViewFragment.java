@@ -24,6 +24,7 @@ import java.util.List;
 
 abstract class ListViewFragment extends Fragment {
 
+    protected String TAG = "lifecycleTags";
     private FirebaseFirestore db;
     protected TextView header, textIfListIsEmpty;
     private ListView listView;
@@ -67,6 +68,7 @@ abstract class ListViewFragment extends Fragment {
 
     private void setList() {
         //adapter
+        listStudyGroups = new ArrayList<>();
         specifyList();
         adapter = new StudyGroupsListAdapter(view.getContext(), listStudyGroups);
 
@@ -103,6 +105,8 @@ abstract class ListViewFragment extends Fragment {
     }
 
     private void loadDatabaseStudyGroups(final OnDBComplete onDBComplete) {
+        allStudyGroups = new ArrayList<>();
+        Log.d("Database", "build");
         db = FirebaseFirestore.getInstance();
         List<Task<QuerySnapshot>> tasks = new ArrayList<>();
         String[] subjects = getResources().getStringArray(R.array.modul_list);

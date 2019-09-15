@@ -43,7 +43,7 @@ public class StudyGroupCreateNew extends Fragment {
     private FirebaseFirestore db;
 
     private int min, hour, day, month, year;
-    private String weekday;
+    private String weekday, dateAsString;
     private String milliSeconds;
 
 
@@ -123,10 +123,9 @@ public class StudyGroupCreateNew extends Fragment {
                     //Lerngruppeneintrag hinzufügen
                     milliSeconds = String.valueOf(System.currentTimeMillis());
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    StudyGroup studyGroup = new StudyGroup(subject, date, weekday, time, location, comment,milliSeconds,user.getUid(),user.getDisplayName());
+                    StudyGroup studyGroup = new StudyGroup(subject, dateAsString, weekday, time, location, comment,milliSeconds,user.getUid(),user.getDisplayName());
                     addToDatabase(studyGroup);
                     startDetailsActivity(studyGroup);
-                    //zur Datenbank hinzufügen
                     //würde eher die detail-ansicht der  neu erstellten gruppe aufrufen
 
                     resetView();
@@ -181,7 +180,7 @@ public class StudyGroupCreateNew extends Fragment {
                 GregorianCalendar date = new GregorianCalendar(year, month, dayOfMonth);
                 //get Date
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY);
-                String dateAsString = dateFormat.format(date.getTime());
+                dateAsString = dateFormat.format(date.getTime());
                 //get name of day
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE", Locale.GERMANY);
                 weekday = simpleDateFormat.format(date.getTime());
